@@ -1,11 +1,11 @@
 export class Tip {
-date: string;
+date: Date;
 amount: number;
 startTime: string;
 endTime: string;
 shiftCategory: string;
 
-constructor(date: string, amount: number, startTime: string, endTime: string, shiftCategory: string) {
+constructor(date: Date, amount: number, startTime: string, endTime: string, shiftCategory: string) {
 this.date = date;
 this.amount = amount;
 this.startTime = startTime;

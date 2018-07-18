@@ -1,3 +1,19 @@
-<p>
-  my-tips works!
-</p>
+<div class="container">
+  <div class="addTip">
+    <h2>Add tip</h2>
+    <app-add-tip></app-add-tip>
+  </div>
+ <img src="../../assets/line.jpg" alt="">
+  <div class="tips">
+    <div class="tip" *ngFor="let tip of tips">
+      <span>{{tip.date}}</span>
+      <span>{{tip.amount}}</span>
+      <span>{{tip.startTime}}</span>
+      <span>{{tip.endTime}}</span>
+      <span>{{tip.shiftCategory}}</span>
+      <div class="tipOptions">
+        <app-edit-tip></app-edit-tip>
+      </div>
+    </div>
+  </div>
+</div>

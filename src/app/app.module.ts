@@ -12,6 +12,7 @@ import { MyTipsComponent } from './menu/my-tips/my-tips.component';
 import { WaitersBookComponent } from './menu/waiters-book/waiters-book.component';
 import { StatisticsComponent } from './menu/statistics/statistics.component';
 import { AddTipComponent } from './menu/my-tips/add-tip/add-tip.component';
+import { EditTipComponent } from './menu/my-tips/edit-tip/edit-tip.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { AddTipComponent } from './menu/my-tips/add-tip/add-tip.component';
     MyTipsComponent,
     WaitersBookComponent,
     StatisticsComponent,
-    AddTipComponent
+    AddTipComponent,
+    EditTipComponent
   ],
   imports: [
     BrowserModule
