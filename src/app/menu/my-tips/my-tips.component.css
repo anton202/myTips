@@ -3,26 +3,44 @@
     margin-top: 30px;
 }
 
-.tips{
-    margin-top: 20px;
-}
-
-.tip{
- outline: none;
-  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
-  border: solid 0.5px #016270;
-  padding-left: 5px;
-  margin-bottom: 15px;
-}
-
 img{
     height: 20px;
     width: 100%;
 }
 
-.tipOptions{
-    display: none;
-}
+input {
+    outline: none;
+    border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+    border: solid 2px #016270;
+    font-family: 'Gaegu', cursive;
+    color:#016270;
+    padding-left: 5px;
+    height: 40px;
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 25px;
+    background-color: transparent;
+  }
 
+  select{
+    
+        outline: none;
+        border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+        border: solid 2px #016270;
+        font-family: 'Gaegu', cursive;
+        color:#016270;
+        padding-left: 5px;
+        height: 40px;
+        font-size: 18px;
+        text-align: center;
+        margin-bottom: 25px;
+        background-color: transparent;
+  }
+
+  input[type="submit"]{
+      display: block;
+      width: 100%;
+      
+  }
 }
 
