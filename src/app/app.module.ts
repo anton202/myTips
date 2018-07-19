@@ -13,6 +13,8 @@ import { WaitersBookComponent } from './menu/waiters-book/waiters-book.component
 import { StatisticsComponent } from './menu/statistics/statistics.component';
 import { EditTipComponent } from './menu/my-tips/edit-tip/edit-tip.component';
 import { NewTipComponent } from './menu/my-tips/new-tip/new-tip.component';
+import { AddTipComponent } from './menu/my-tips/add-tip/add-tip.component';
+
 
 
 @NgModule({
@@ -27,7 +29,9 @@ import { NewTipComponent } from './menu/my-tips/new-tip/new-tip.component';
     WaitersBookComponent,
     StatisticsComponent,
     EditTipComponent,
-    NewTipComponent
+    NewTipComponent,
+    AddTipComponent,
+   
   ],
   imports: [
     BrowserModule
