@@ -5,6 +5,15 @@
 
 h2{
     margin-top: 0;
+    display: inline-block
+}
+
+#menu{
+    margin-left: 48%;
+}
+
+a{
+    color:#016270;
 }
 
 img{
