@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-add-tip',
@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./add-tip.component.css']
 })
 export class AddTipComponent implements OnInit {
-
+  @Output() emDate = new EventEmitter<string>()
   constructor() { }
 
   ngOnInit() {
+  }
+
+  addTip(newTip){
+    this.emDate.emit(newTip)
   }
 
 }

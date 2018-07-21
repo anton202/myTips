@@ -1,6 +1,6 @@
 <div class="container">
-    <form action="">
-        <input type="date" placeholder="Date">
+    <form action="#">
+        <input type="date" placeholder="Date" #date>
         <input type="number" placeholder="Tips amount">
         <input type="time">
         <input type="time">
@@ -9,6 +9,6 @@
           <option value="middleShift">middle shift</option>
           <option value="eveningShift">evening shift</option>
         </select>
-        <input type="submit" value="Add tip">
+        <input type="submit" value="Add tip" (click)="addTip(date.value)">
     </form>
 </div>
