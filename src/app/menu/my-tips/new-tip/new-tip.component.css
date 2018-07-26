@@ -15,4 +15,23 @@
   margin-right: 20px;
 }
 
+.edit{
+  display: none;
+}
+
+button{
+  align-self:center;
+    background:transparent;
+    margin:0 1rem;
+    color:#016270;
+    font-size:16px;
+    letter-spacing:1px;
+    outline:none;
+    border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+    border:solid 2px #016270;
+    font-family: 'Gaegu', cursive;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 }

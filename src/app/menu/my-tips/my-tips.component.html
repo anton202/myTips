@@ -2,10 +2,10 @@
   <div class="addTip">
     <h2>Add tip</h2>
     <a href="#"><h2 id="menu">Menu</h2></a> 
-        <app-add-tip (emDate)="getDate($event)"></app-add-tip>
+        <app-add-tip></app-add-tip>
   </div>
  <img src="../../assets/line.jpg" alt="">
   <div>
-    <app-new-tip *ngFor="let newTip of tips" [tip]="newTip"></app-new-tip>
+    <app-new-tip *ngFor="let newTip of tips; let i = index" [tip]="newTip" [index]="i"></app-new-tip>
   </div>
 </div>

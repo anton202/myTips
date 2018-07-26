@@ -1,4 +1,5 @@
-import { Component, OnInit,EventEmitter, Output } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
+import { MyTipsService } from '../my-tips.service';
 
 @Component({
   selector: 'app-add-tip',
@@ -6,14 +7,14 @@ import { Component, OnInit,EventEmitter, Output } from '@angular/core';
   styleUrls: ['./add-tip.component.css']
 })
 export class AddTipComponent implements OnInit {
-  @Output() emDate = new EventEmitter<string>()
-  constructor() { }
+ 
+  constructor(private MyTipsService: MyTipsService) { }
 
   ngOnInit() {
   }
 
   addTip(newTip){
-    this.emDate.emit(newTip)
+    this.MyTipsService.addTip(newTip);
   }
 
 }

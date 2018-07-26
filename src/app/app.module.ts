@@ -11,9 +11,9 @@ import { MenuComponent } from './menu/menu.component';
 import { MyTipsComponent } from './menu/my-tips/my-tips.component';
 import { WaitersBookComponent } from './menu/waiters-book/waiters-book.component';
 import { StatisticsComponent } from './menu/statistics/statistics.component';
-import { EditTipComponent } from './menu/my-tips/edit-tip/edit-tip.component';
 import { NewTipComponent } from './menu/my-tips/new-tip/new-tip.component';
 import { AddTipComponent } from './menu/my-tips/add-tip/add-tip.component';
+import { EditTipDirective } from './directives/edit-tip.directive';
 
 
 
@@ -28,9 +28,9 @@ import { AddTipComponent } from './menu/my-tips/add-tip/add-tip.component';
     MyTipsComponent,
     WaitersBookComponent,
     StatisticsComponent,
-    EditTipComponent,
     NewTipComponent,
     AddTipComponent,
+    EditTipDirective,
    
   ],
   imports: [
