@@ -11,11 +11,11 @@ import { MyTipsService } from './my-tips.service';
 })
 export class MyTipsComponent implements OnInit {
   tips: Tip[] =  []
-  
+
   constructor(private MyTipsService: MyTipsService) { }
 
   ngOnInit() {
-    this.tips = this.MyTipsService.getTips()
+    this.tips = this.MyTipsService.getTips();
     this.MyTipsService.tipAdded.subscribe(tips =>{
       this.tips = tips;
     })

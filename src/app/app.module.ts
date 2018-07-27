@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -15,7 +15,14 @@ import { NewTipComponent } from './menu/my-tips/new-tip/new-tip.component';
 import { AddTipComponent } from './menu/my-tips/add-tip/add-tip.component';
 import { EditTipDirective } from './directives/edit-tip.directive';
 
-
+const appRoutes:Routes = [{path:'',component: HomeComponent},
+{path:'register', component:RegisterComponent},
+{path:'sign-in',component: SignInComponent},
+{path:'home', component: HomeComponent},
+{path:'menu', component: MenuComponent},
+{path:'my-tips', component: MyTipsComponent},
+{path:'statistics', component: StatisticsComponent},
+{path:'waiters-book', component: WaitersBookComponent}]
 
 @NgModule({
   declarations: [
@@ -34,7 +41,8 @@ import { EditTipDirective } from './directives/edit-tip.directive';
    
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [],
   bootstrap: [AppComponent]
