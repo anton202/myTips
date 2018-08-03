@@ -15,6 +15,7 @@ import { NewTipComponent } from './menu/my-tips/new-tip/new-tip.component';
 import { AddTipComponent } from './menu/my-tips/add-tip/add-tip.component';
 import { EditTipDirective } from './directives/edit-tip.directive';
 import { AppRoutingModule} from './app-routing.module';
+import {StickyModule} from 'ng2-sticky-kit';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { AppRoutingModule} from './app-routing.module';
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    StickyModule
   ],
   providers: [],
   bootstrap: [AppComponent]

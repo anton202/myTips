@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
 
 import { MyTipsService } from '../my-tips.service';
-import { Tip } from '../tip.model';
 import { NewTipService } from '../new-tip/new-tip.service';
 import { Subscription } from 'rxjs';
 import { NgForm } from '@angular/forms';
@@ -51,10 +50,9 @@ export class AddTipComponent implements OnInit, OnDestroy{
     }else if(this.state === 'edit'){
       this.MyTipsService.editTip(newTip,this.editIndex)
       this.state = 'add tip';
+      this.tipForm.reset();
     }
   }
-
-  
 
   ngOnDestroy(){
     this.stateSubscription.unsubscribe();
