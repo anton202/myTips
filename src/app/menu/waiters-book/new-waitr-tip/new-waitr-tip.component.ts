@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { WaitrsBookService } from '../waiters-book.service';
+import { WaitrTip } from '../waitr-tip.model';
 
 @Component({
   selector: 'app-new-waitr-tip',
@@ -6,8 +8,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./new-waitr-tip.component.css']
 })
 export class NewWaitrTipComponent implements OnInit {
-
-  constructor() { }
+  @Input() waitrData:WaitrTip;
+  
+  constructor(private waitrsBookService: WaitrsBookService) { }
 
   ngOnInit() {
   }
