@@ -38,6 +38,7 @@ export class WaitersBookComponent implements OnInit {
     data.date = this.todaysDate;
     data.totalTime = time.endTime - time.startTime;
     data.amount = data.totalTime * this.shekelsPerHour;
+    data.perHour = this.shekelsPerHour;
     this.totalTip = this.totalTip - data.amount;
     this.waitrsBookService.addTip(data);
     
