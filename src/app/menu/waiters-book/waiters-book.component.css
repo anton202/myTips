@@ -34,4 +34,10 @@
         display: none;
       }
 
+      .notEnoughTips{
+        border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+        border: solid 2px red;
+        color: red;
+      }
+
 }

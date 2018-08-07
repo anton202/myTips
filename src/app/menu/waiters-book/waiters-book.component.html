@@ -13,7 +13,8 @@
   <div class="submitPerWaitr" *ngIf="initialSubmit">
     <span>barMan tip: {{barmanTip}}&#x20AA;</span> --
     <span>Per Hour: {{shekelsPerHour}}&#x20AA;</span>
-    <p>total tip:{{totalTip}}&#x20AA;</p>
+    <p [ngClass]="{notEnoughTips:totalTip < 0}">total tip:{{totalTip}}&#x20AA;</p>
+      <p class="notEnoughTips" *ngIf="totalTip < 0">NOT ENOUGH TIP!!</p>
     <div>
       <form (ngSubmit)="addWaitrTip(fw.value)" #fw="ngForm">
         <select name="name" ngModel>
