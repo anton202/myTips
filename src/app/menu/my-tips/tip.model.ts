@@ -1,16 +1,20 @@
 export class Tip {
-date: Date;
+date: string;
 amount: number;
 startTime: string;
 endTime: string;
 shiftCategory: string;
+name?:string;
+totalTime?: number;
 
-constructor(date: Date, amount: number, startTime: string, endTime: string, shiftCategory: string) {
+constructor(date: string, amount: number, startTime: string, endTime: string, shiftCategory: string, name?:string,totalTime?:number) {
 this.date = date;
 this.amount = amount;
 this.startTime = startTime;
 this.endTime = endTime;
 this.shiftCategory = shiftCategory;
+this.name = name;
+this.totalTime = totalTime;
 }
 
 }

@@ -4,18 +4,18 @@ import { Subject } from 'rxjs';
 export class MyTipsService{
  tipAdded = new Subject<Tip[]>();
  tipDeleted = new Subject<Tip[]>();
- private tips: Tip[] = [new Tip(new Date(), 347, '12-00','16-00', 'morning shift'),
- new Tip(new Date(), 347, '12-00','16-00', 'morning shift'),
- new Tip(new Date(), 347, '12-00','16-00', 'morning shift'),
- new Tip(new Date(), 347, '12-00','16-00', 'morning shift'),
- new Tip(new Date(), 347, '12-00','16-00', 'morning shift'),
- new Tip(new Date(), 347, '12-00','16-00', 'morning shift'),
- new Tip(new Date(), 347, '12-00','16-00', 'morning shift'),
- new Tip(new Date(), 347, '12-00','16-00', 'morning shift'),
- new Tip(new Date(), 347, '12-00','16-00', 'morning shift'),
- new Tip(new Date(), 347, '12-00','16-00', 'morning shift'),
- new Tip(new Date(), 347, '12-00','16-00', 'morning shift'),
- new Tip(new Date(), 347, '12-00','16-00', 'morning shift'),];
+ private tips: Tip[] = [new Tip('7/8/2018', 347, '12-00','16-00', 'morning shift'),
+ new Tip('7/8/2018', 347, '12-00','16-00', 'morning shift'),
+ new Tip('7/8/2018', 347, '12-00','16-00', 'morning shift'),
+ new Tip('7/8/2018', 347, '12-00','16-00', 'morning shift'),
+ new Tip('7/8/2018', 347, '12-00','16-00', 'morning shift'),
+ new Tip('7/8/2018', 347, '12-00','16-00', 'morning shift'),
+ new Tip('7/8/2018', 347, '12-00','16-00', 'morning shift'),
+ new Tip('7/8/2018', 347, '12-00','16-00', 'morning shift'),
+ new Tip('7/8/2018', 347, '12-00','16-00', 'morning shift'),
+ new Tip('7/8/2018', 347, '12-00','16-00', 'morning shift'),
+ new Tip('7/8/2018', 347, '12-00','16-00', 'morning shift'),
+ new Tip('7/8/2018', 347, '12-00','16-00', 'morning shift'),];
  
  getTips(){
      return this.tips.slice();

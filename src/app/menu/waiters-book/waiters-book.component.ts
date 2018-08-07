@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+
 import { WaitrsBookService } from './waiters-book.service';
-import { WaitrTip } from './waitr-tip.model'
+import { Tip } from '../my-tips/tip.model';
+import { Time } from '../../shared/time.service';
 
 
 @Component({
@@ -15,7 +17,7 @@ export class WaitersBookComponent implements OnInit {
   barmanTip: number;
   initialSubmit: boolean = false;
   todaysDate:string = new Date().toLocaleDateString();
-  todaysTips: WaitrTip[] = [];
+  todaysTips: Tip[] = [];
 
   constructor(private waitrsBookService: WaitrsBookService) { }
 
@@ -32,14 +34,13 @@ export class WaitersBookComponent implements OnInit {
   }
 
   addWaitrTip(data){
-    const waitrTip = {
-      date: this.todaysDate,
-      name: data.waitrName,
-      hours: data.hours,
-      tips: this.shekelsPerHour * (+data.hours)
-    }
-    this.waitrsBookService.addTip(waitrTip);
-    this.totalTip = this.totalTip - waitrTip.tips;
+    const time = Time.calculateTime(data.startTime,data.endTime);
+    data.date = this.todaysDate;
+    data.totalTime = time.endTime - time.startTime;
+    data.amount = data.totalTime * this.shekelsPerHour;
+    this.totalTip = this.totalTip - data.amount;
+    this.waitrsBookService.addTip(data);
+    
   }
 
 

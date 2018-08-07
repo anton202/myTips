@@ -1,10 +1,10 @@
-import { WaitrTip } from './waitr-tip.model'
+import { Tip } from '../my-tips/tip.model';
 
 export class WaitrsBookService{
-    waitrsTips: WaitrTip[] = [];
+    waitrsTips: Tip[] = [];
 
 
-addTip(waitrTip:WaitrTip){
+addTip(waitrTip:Tip){
     this.waitrsTips.push(waitrTip);
     console.log(this.waitrsTips);
 }

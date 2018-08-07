@@ -30,6 +30,8 @@
         width: 100%;
       }
 
-      
+      .totalTipsHours{
+        display: none;
+      }
 
 }

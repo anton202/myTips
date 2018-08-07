@@ -17,6 +17,7 @@ import { EditTipDirective } from './directives/edit-tip.directive';
 import { AppRoutingModule} from './app-routing.module';
 import {StickyModule} from 'ng2-sticky-kit';
 import { NewWaitrTipComponent } from './menu/waiters-book/new-waitr-tip/new-waitr-tip.component';
+import { WaitrsBookDirective } from './directives/waitrs-book.directive';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { NewWaitrTipComponent } from './menu/waiters-book/new-waitr-tip/new-wait
     AddTipComponent,
     EditTipDirective,
     NewWaitrTipComponent,
+    WaitrsBookDirective
    
   ],
   imports: [

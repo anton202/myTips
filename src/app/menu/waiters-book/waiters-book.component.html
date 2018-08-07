@@ -1,23 +1,32 @@
 <div class="conatainer">
   <h2>Waitrs Book</h2>
   <p>{{todaysDate}}</p>
+  <div class="genralData" appMinimize>
   <form (ngSubmit)="calculatePerHour(f.value)" #f="ngForm">
     <input type="numer" placeholder="Total Tips" name="totalTips" ngModel required> 
     <input type="number" placeholder="Total Hours" name="totalHours" ngModel required>
     <input type="numbe" placeholder="BarMan Precntage" name="barmanPrecentage" ngModel required>
     <button type="submit" [disabled]="!f.valid">Submit</button>
   </form>
+  <button class="totalTipsHours">edit Total tips and hours</button>
+</div>
   <div class="submitPerWaitr" *ngIf="initialSubmit">
-    <span>barMan tip: {{barmanTip}}&#x20AA;</span>
+    <span>barMan tip: {{barmanTip}}&#x20AA;</span> --
     <span>Per Hour: {{shekelsPerHour}}&#x20AA;</span>
     <p>total tip:{{totalTip}}&#x20AA;</p>
     <div>
       <form (ngSubmit)="addWaitrTip(fw.value)" #fw="ngForm">
-        <select name="waitrName" ngModel>
+        <select name="name" ngModel>
           <option value="anton">Anton</option>
           <option value="oni">Oni</option>
         </select>
-        <input type="number" placeholder="Hours" name="hours" ngModel required>
+        <select name="shiftCategory" ngModel>
+          <option value="morningShift">morning shift</option>
+          <option value="middleShift">middle Shift</option>
+          <option value="evningShift">evning shift</option>
+        </select>
+        <input type="time" placeholder="Hours" name="startTime" ngModel required>
+        <input type="time" name="endTime" ngModel required>
         <button type="submit" [disabled]="!fw.valid">Submit</button>
       </form>
     </div>
