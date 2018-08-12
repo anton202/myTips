@@ -23,6 +23,12 @@ export class WaitersBookComponent implements OnInit {
 
   ngOnInit() {
     this.todaysTips = this.waitrsBookService.waitrsTips;
+    this.waitrsBookService.totalTipsChanged
+    .subscribe(
+      tip => {
+        this.totalTip += tip;
+      }
+    )
   }
 
   calculatePerHour(data){
@@ -30,7 +36,6 @@ export class WaitersBookComponent implements OnInit {
    this.shekelsPerHour = Math.round((+data.totalTips - this.barmanTip) / +data.totalHours);
    this.totalTip = +data.totalTips - this.barmanTip;
    this.initialSubmit = true;
-    
   }
 
   addWaitrTip(data){

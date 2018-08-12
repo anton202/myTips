@@ -1,6 +1,6 @@
 <div class="conatainer">
   <h2>Waitrs Book</h2>
-  <p>{{todaysDate}}</p>
+  <p>{{todaysDate | date:'d/M/y'}}</p>
   <div class="genralData" appMinimize>
   <form (ngSubmit)="calculatePerHour(f.value)" #f="ngForm">
     <input type="numer" placeholder="Total Tips" name="totalTips" ngModel required> 
@@ -33,6 +33,6 @@
     </div>
   </div>
   <div class="waitrTip">
-    <app-new-waitr-tip *ngFor="let waitrTip of todaysTips" [waitrData]="waitrTip"></app-new-waitr-tip>
+    <app-new-waitr-tip *ngFor="let waitrTip of todaysTips; let i = index" [waitrData]="waitrTip" [index]="i"></app-new-waitr-tip>
   </div>
 </div>

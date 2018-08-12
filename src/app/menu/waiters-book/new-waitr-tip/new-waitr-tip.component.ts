@@ -9,10 +9,14 @@ import { WaitrTip } from '../waitr-tip.model';
 })
 export class NewWaitrTipComponent implements OnInit {
   @Input() waitrData:WaitrTip;
+  @Input() index: number;
   
   constructor(private waitrsBookService: WaitrsBookService) { }
 
   ngOnInit() {
   }
 
+  onDelete(){
+    this.waitrsBookService.deleteTip(this.index);
+  }
 }
