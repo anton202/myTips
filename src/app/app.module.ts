@@ -4,8 +4,8 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
-import { RegisterComponent } from './register/register.component';
-import { SignInComponent } from './sign-in/sign-in.component';
+import { RegisterComponent } from './auth/register/register.component';
+import { SignInComponent } from './auth/sign-in/sign-in.component';
 import { HeaderComponent } from './header/header.component';
 import { MenuComponent } from './menu/menu.component';
 import { MyTipsComponent } from './menu/my-tips/my-tips.component';
@@ -18,6 +18,8 @@ import { AppRoutingModule} from './app-routing.module';
 import {StickyModule} from 'ng2-sticky-kit';
 import { NewWaitrTipComponent } from './menu/waiters-book/new-waitr-tip/new-waitr-tip.component';
 import { WaitrsBookDirective } from './directives/waitrs-book.directive';
+import { MyTipsStatisticsComponent } from './menu/statistics/my-tips-statistics/my-tips-statistics.component';
+import { WaitrsBookStatisticsComponent } from './menu/statistics/waitrs-book-statistics/waitrs-book-statistics.component';
 
 
 @NgModule({
@@ -35,7 +37,9 @@ import { WaitrsBookDirective } from './directives/waitrs-book.directive';
     AddTipComponent,
     EditTipDirective,
     NewWaitrTipComponent,
-    WaitrsBookDirective
+    WaitrsBookDirective,
+    MyTipsStatisticsComponent,
+    WaitrsBookStatisticsComponent
    
   ],
   imports: [
