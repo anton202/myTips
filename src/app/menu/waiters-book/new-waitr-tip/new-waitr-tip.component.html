@@ -2,5 +2,5 @@
   <div>{{waitrData.name}} - {{waitrData.totalTime}}Hours - {{waitrData.amount}}&#x20AA; 
     <div class="close" (click)="onDelete()">&times;</div>
   </div>
-  <div>{{waitrData.date}} - {{waitrData.startTime}} - {{waitrData.endTime}} - {{waitrData.perHour}}&#x20AA;</div>
+  <div>{{waitrData.date | date:'d/M/y'}} - {{waitrData.startTime}} - {{waitrData.endTime}} - {{waitrData.perHour}}&#x20AA;</div>
 </div>

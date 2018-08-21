@@ -10,7 +10,7 @@ import { HeaderComponent } from './header/header.component';
 import { MenuComponent } from './menu/menu.component';
 import { MyTipsComponent } from './menu/my-tips/my-tips.component';
 import { WaitersBookComponent } from './menu/waiters-book/waiters-book.component';
-import { StatisticsComponent } from './menu/statistics/statistics.component';
+
 import { NewTipComponent } from './menu/my-tips/new-tip/new-tip.component';
 import { AddTipComponent } from './menu/my-tips/add-tip/add-tip.component';
 import { EditTipDirective } from './directives/edit-tip.directive';
@@ -18,9 +18,7 @@ import { AppRoutingModule} from './app-routing.module';
 import {StickyModule} from 'ng2-sticky-kit';
 import { NewWaitrTipComponent } from './menu/waiters-book/new-waitr-tip/new-waitr-tip.component';
 import { WaitrsBookDirective } from './directives/waitrs-book.directive';
-import { MyTipsStatisticsComponent } from './menu/statistics/my-tips-statistics/my-tips-statistics.component';
-import { WaitrsBookStatisticsComponent } from './menu/statistics/waitrs-book-statistics/waitrs-book-statistics.component';
-
+import { StatisticsModule } from './menu/statistics/statistics.module';
 
 @NgModule({
   declarations: [
@@ -32,21 +30,18 @@ import { WaitrsBookStatisticsComponent } from './menu/statistics/waitrs-book-sta
     MenuComponent,
     MyTipsComponent,
     WaitersBookComponent,
-    StatisticsComponent,
     NewTipComponent,
     AddTipComponent,
     EditTipDirective,
     NewWaitrTipComponent,
     WaitrsBookDirective,
-    MyTipsStatisticsComponent,
-    WaitrsBookStatisticsComponent
-   
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    StickyModule
+    StickyModule,
+    StatisticsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
