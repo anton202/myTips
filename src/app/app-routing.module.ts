@@ -16,7 +16,6 @@ const appRoutes:Routes = [{path:'',component: HomeComponent},
 {path:'my-tips', component: MyTipsComponent},
 {path:'waiters-book', component: WaitersBookComponent},
 {path:'statistics', loadChildren:'./menu/statistics/statistics.module#StatisticsModule'}
-
 ]
 
 

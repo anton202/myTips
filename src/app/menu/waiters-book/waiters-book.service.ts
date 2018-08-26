@@ -8,7 +8,6 @@ export class WaitrsBookService {
 
     addTip(waitrTip: Tip) {
         this.waitrsTips.push(waitrTip);
-        console.log(this.waitrsTips);
     }
 
     deleteTip(id: number) {

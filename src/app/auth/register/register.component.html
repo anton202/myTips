@@ -1,9 +1,9 @@
 <div class="main">
   <h2>Register:</h2>
-  <form action="">
-    <input type="email"  placeholder="E-mail">
-    <input type="password" placeholder="Password">
-    <input type="password" placeholder="Repeat password">
-    <button type="submit">Create Account</button>
+  <form (ngSubmit)="onSignUp(f)" #f="ngForm">
+    <input type="text" name="userName" placeholder="Name" required ngModel>
+    <p *ngIf="userAlreadyExist">this user name already exist, please choose a diffrent username.</p>
+    <input type="password" name="password" placeholder="Password" required ngModel>
+    <button [disabled]="!f.valid" type="submit">Create Account</button>
   </form>
 </div>
