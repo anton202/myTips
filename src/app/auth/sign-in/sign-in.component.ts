@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Http } from '@angular/http';
 
 @Component({
   selector: 'app-sign-in',
@@ -9,14 +10,16 @@ import { Router } from '@angular/router';
 })
 export class SignInComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private http:Http) { }
 
   ngOnInit() {
   }
 
   onSignIn(form:NgForm){
-    if(form){
-      this.router.navigate(['/menu']);
-    }
+    this.http.post('http://localhost:8000/api/user/login',form.value)
+      .subscribe(
+        response => console.log(response),
+        error => console.log(error)
+      )
   }
 }
