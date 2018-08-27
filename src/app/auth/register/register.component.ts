@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import {HttpClient } from '@angular/common/http';
+import {Http } from '@angular/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -9,22 +10,29 @@ import {HttpClient } from '@angular/common/http';
 })
 export class RegisterComponent implements OnInit {
   userAlreadyExist:boolean = false;
-
-  constructor(private http: HttpClient) { }
+  userCreated :boolean = false
+  constructor(private http: Http, private router:Router) { }
 
   ngOnInit() {
   }
 
   onSignUp(form: NgForm){
-    console.log(form.value);
-    this.http.post('http://localhost:8000/api/user/sign-up',form.value)
-    .subscribe(res => {
-      console.log(res);
-      this.userAlreadyExist = false;
-    },err=>{
-      this.userAlreadyExist = true;
-    })
-
+    this.http.post('http://localhost:8000/api/user/signUp',form.value)
+    .subscribe(
+      (res) => { 
+        this.userAlreadyExist = false;
+        this.userCreated = true;
+        setTimeout(() => {
+          this.router.navigate(['/menu']);
+        }, 1000);
+        
+      },
+      (error)=> {
+        this.userAlreadyExist = true;
+        this.userCreated = false;
+       
+      }
+  )
   }
 
 }

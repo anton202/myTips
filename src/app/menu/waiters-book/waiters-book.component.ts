@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { WaitrsBookService } from './waiters-book.service';
 import { Tip } from '../my-tips/tip.model';
 import { Time } from '../../shared/time.service';
+import { Subscription } from 'rxjs/Subscription';
 
 
 @Component({
@@ -11,19 +12,20 @@ import { Time } from '../../shared/time.service';
   styleUrls: ['./waiters-book.component.css'],
   providers:[WaitrsBookService]
 })
-export class WaitersBookComponent implements OnInit {
+export class WaitersBookComponent implements OnInit,OnDestroy {
   totalTip:number;
   shekelsPerHour: number;
   barmanTip: number;
   initialSubmit: boolean = false;
   todaysDate:string = new Date().toLocaleDateString();
   todaysTips: Tip[] = [];
+  subscription: Subscription;
 
   constructor(private waitrsBookService: WaitrsBookService) { }
 
   ngOnInit() {
     this.todaysTips = this.waitrsBookService.waitrsTips;
-    this.waitrsBookService.totalTipsChanged
+    this.subscription = this.waitrsBookService.totalTipsChanged
     .subscribe(
       tip => {
         this.totalTip += tip;
@@ -49,5 +51,8 @@ export class WaitersBookComponent implements OnInit {
     
   }
 
+  ngOnDestroy(){
+    this.subscription.unsubscribe();
+  }
 
 }
