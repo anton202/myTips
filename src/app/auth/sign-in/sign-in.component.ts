@@ -9,7 +9,7 @@ import { Auth } from '../auth.service';
   styleUrls: ['./sign-in.component.css']
 })
 export class SignInComponent implements OnInit {
-
+  errorMessage
   constructor(private router: Router, private auth: Auth) { }
 
   ngOnInit() {
@@ -17,12 +17,14 @@ export class SignInComponent implements OnInit {
 
   onSignIn(form:NgForm){
    this.auth.login(form.value)
-      .subscribe(
-        response => {
-          console.log(response.token)
-          this.auth.token = response.token;
-        },
-        error => console.log(error)
-      )
+   .subscribe(
+    response =>{ 
+      console.log(response.token)
+      this.auth.token = response.token
+      this.router.navigate(['/menu']) 
+    },
+    error => this.errorMessage = error.error.message
+  )
   }
+
 }

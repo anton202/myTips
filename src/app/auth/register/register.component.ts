@@ -20,17 +20,20 @@ export class RegisterComponent implements OnInit {
     this.auth.register(form.value)
     .subscribe(
       (res) => { 
-        this.userAlreadyExist = false;
         this.userCreated = true;
+        console.log(res);
+        if(this.userAlreadyExist){
+          this.userAlreadyExist = false;
+        }
+        console.log(this.userCreated)
         setTimeout(() => {
-          this.router.navigate(['/menu']);
-        }, 1000);
+          this.router.navigate(['/sign-in']);
+        }, 1500);
         
       },
-      (error)=> {
+      error => {
+        console.log(error)
         this.userAlreadyExist = true;
-        this.userCreated = false;
-       
       }
   )
   }

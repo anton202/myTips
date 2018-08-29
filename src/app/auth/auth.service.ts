@@ -12,6 +12,8 @@ token:string;
     }
 
     login(data){
-        return this.http.post<{token:string}>('http://localhost:8000/api/user/login',data);    
-    }
+       return this.http.post<{token:string}>('http://localhost:8000/api/user/login',data)
+      
+  }    
+    
 }
