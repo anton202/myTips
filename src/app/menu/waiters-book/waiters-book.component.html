@@ -1,5 +1,6 @@
 <div class="conatainer">
   <h2>Waitrs Book</h2>
+  <a routerLink="/menu"><h2 style="margin-left:100px" id="menu">Menu</h2></a> 
   <p>{{todaysDate | date:'d/M/y'}}</p>
   <div class="genralData" appMinimize>
   <form (ngSubmit)="calculatePerHour(f.value)" #f="ngForm">

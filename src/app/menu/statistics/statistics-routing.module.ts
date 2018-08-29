@@ -12,8 +12,6 @@ const statisticsRoutes:Routes = [
     {path:'waitrs-book-log/:year/:month',component: WaitrsBookLogComponent}
 ]
     
-
-
 @NgModule({
     imports: [
         RouterModule.forChild(statisticsRoutes)

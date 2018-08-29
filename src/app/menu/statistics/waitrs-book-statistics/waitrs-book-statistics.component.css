@@ -35,4 +35,13 @@
         widows: 70%;
         margin: auto;
     }
+
+    h1 {
+        display: inline-block;
+    }
+
+    h2 {
+        display: inline-block;
+        margin-left: 40px;
+    }
 }

@@ -9,13 +9,13 @@ import { MyTipsComponent } from './menu/my-tips/my-tips.component';
 import { WaitersBookComponent } from './menu/waiters-book/waiters-book.component';
 
 const appRoutes:Routes = [{path:'',component: HomeComponent},
+{path:'statistics', loadChildren:'./menu/statistics/statistics.module#StatisticsModule'},
 {path:'register', component:RegisterComponent},
 {path:'sign-in',component: SignInComponent},
 {path:'home', component: HomeComponent},
 {path:'menu', component: MenuComponent},
 {path:'my-tips', component: MyTipsComponent},
 {path:'waiters-book', component: WaitersBookComponent},
-{path:'statistics', loadChildren:'./menu/statistics/statistics.module#StatisticsModule'}
 ]
 
 
