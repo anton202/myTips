@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Http } from '@angular/http';
+import { Auth } from '../auth.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -10,15 +10,18 @@ import { Http } from '@angular/http';
 })
 export class SignInComponent implements OnInit {
 
-  constructor(private router: Router, private http:Http) { }
+  constructor(private router: Router, private auth: Auth) { }
 
   ngOnInit() {
   }
 
   onSignIn(form:NgForm){
-    this.http.post('http://localhost:8000/api/user/login',form.value)
+   this.auth.login(form.value)
       .subscribe(
-        response => console.log(response),
+        response => {
+          console.log(response.token)
+          this.auth.token = response.token;
+        },
         error => console.log(error)
       )
   }

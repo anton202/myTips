@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpModule} from '@angular/http'
+import { HttpClientModule,HTTP_INTERCEPTORS} from '@angular/common/http'
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -20,6 +20,8 @@ import {StickyModule} from 'ng2-sticky-kit';
 import { NewWaitrTipComponent } from './menu/waiters-book/new-waitr-tip/new-waitr-tip.component';
 import { WaitrsBookDirective } from './directives/waitrs-book.directive';
 import { StatisticsModule } from './menu/statistics/statistics.module';
+import { Auth } from './auth/auth.service';
+import { AuthInterceptor } from './auth.interceptor'; 
 
 @NgModule({
   declarations: [
@@ -39,13 +41,13 @@ import { StatisticsModule } from './menu/statistics/statistics.module';
   ],
   imports: [
     BrowserModule,
-    HttpModule,
+    HttpClientModule,
     FormsModule,
     AppRoutingModule,
     StickyModule,
     StatisticsModule
   ],
-  providers: [],
+  providers: [Auth,{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
