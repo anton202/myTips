@@ -1,28 +1,27 @@
 import { Tip } from './tip.model';
 import { Subject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 export class MyTipsService{
  tipAdded = new Subject<Tip[]>();
  tipDeleted = new Subject<Tip[]>();
- private tips: Tip[] = [new Tip('7/8/2018', 347, '12-00','16-00', 'morning shift'),
- new Tip('7/8/2018', 347, '12-00','16-00', 'morning shift'),
- new Tip('7/8/2018', 347, '12-00','16-00', 'morning shift'),
- new Tip('7/8/2018', 347, '12-00','16-00', 'morning shift'),
- new Tip('7/8/2018', 347, '12-00','16-00', 'morning shift'),
- new Tip('7/8/2018', 347, '12-00','16-00', 'morning shift'),
- new Tip('7/8/2018', 347, '12-00','16-00', 'morning shift'),
- new Tip('7/8/2018', 347, '12-00','16-00', 'morning shift'),
- new Tip('7/8/2018', 347, '12-00','16-00', 'morning shift'),
- new Tip('7/8/2018', 347, '12-00','16-00', 'morning shift'),
- new Tip('7/8/2018', 347, '12-00','16-00', 'morning shift'),
- new Tip('7/8/2018', 347, '12-00','16-00', 'morning shift'),];
+ private tips: Tip[] = [];
  
+constructor(private http: HttpClient){}
+
  getTips(){
      return this.tips.slice();
  }
 
   addTip(newTip){
       this.tips.unshift(new Tip(newTip.date, newTip.tip, newTip.startTime, newTip.endTime, newTip.shift))
+      this.http.post('http://localhost:8000/api/myTips/addTip',newTip)
+      .subscribe(
+          response => console.log(response),
+          error => console.log(error)
+        )
       this.tipAdded.next(this.tips.slice());
   }
 

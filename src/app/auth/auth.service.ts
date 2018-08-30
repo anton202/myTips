@@ -3,7 +3,7 @@ import { HttpClient } from "@angular/common/http";
 
 @Injectable()
 export class Auth{
-token:string;
+
 
     constructor(private http: HttpClient){}
 

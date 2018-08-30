@@ -20,7 +20,6 @@ export class SignInComponent implements OnInit {
    .subscribe(
     response =>{ 
       console.log(response.token)
-      this.auth.token = response.token
       localStorage.setItem('token',response.token)
       this.router.navigate(['/menu']) 
     },
