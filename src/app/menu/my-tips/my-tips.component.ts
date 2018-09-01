@@ -17,15 +17,15 @@ export class MyTipsComponent implements OnInit, OnDestroy {
   addTipSubscription: Subscription;
   delteTipSubscription: Subscription;
 
-  constructor(private MyTipsService: MyTipsService) { }
+  constructor(private myTipsService: MyTipsService) { }
 
   ngOnInit() {
-    this.tips = this.MyTipsService.getTips();
-    this.addTipSubscription = this.MyTipsService.tipAdded.subscribe(tips =>{
+   this.myTipsService.fetchTips();
+    this.addTipSubscription = this.myTipsService.tipAdded.subscribe(tips =>{
       this.tips = tips;
     })
 
-    this.delteTipSubscription = this.MyTipsService.tipDeleted.subscribe(tips => {
+    this.delteTipSubscription = this.myTipsService.tipDeleted.subscribe(tips => {
       this.tips = tips;
     })
   }

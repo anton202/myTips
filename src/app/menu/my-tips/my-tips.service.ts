@@ -11,12 +11,22 @@ export class MyTipsService{
  
 constructor(private http: HttpClient){}
 
- getTips(){
-     return this.tips.slice();
+ fetchTips(){
+     this.http.get<{tips}>('http://localhost:8000/api/myTips/getMyTips')
+        .subscribe(
+            response=> {
+                response.tips.forEach(tip => {
+                    this.tips.unshift(new Tip(tip.date, tip.amount,tip.startTime, tip.endTime, tip.shiftCategory ))
+                })
+                this.tipAdded.next(this.tips.slice())
+            },
+            error => console.log(error)
+        )
+      
  }
 
   addTip(newTip){
-      this.tips.unshift(new Tip(newTip.date, newTip.tip, newTip.startTime, newTip.endTime, newTip.shift))
+      this.tips.unshift(new Tip(newTip.date, newTip.yearMonth, newTip.amount, newTip.startTime, newTip.endTime, newTip.shiftCategory))
       this.http.post('http://localhost:8000/api/myTips/addTip',newTip)
       .subscribe(
           response => console.log(response),

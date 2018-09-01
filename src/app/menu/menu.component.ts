@@ -15,6 +15,7 @@ export class MenuComponent implements OnInit {
 
   logOut(){
     localStorage.removeItem('token');
+    localStorage.removeItem('userName');
     this.router.navigate(['/home']);
   }
 

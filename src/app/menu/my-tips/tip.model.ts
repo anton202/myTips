@@ -1,5 +1,6 @@
 export class Tip {
     date: string;
+    yearMonth: string;
     amount: number;
     startTime: string;
     endTime: string;
@@ -9,7 +10,8 @@ export class Tip {
     perHour?: number;
 
     constructor(
-        date: string, amount: number,
+        date: string, 
+        amount: number,
         startTime: string,
         endTime: string,
         shiftCategory: string,

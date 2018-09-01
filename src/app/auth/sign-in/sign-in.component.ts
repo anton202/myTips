@@ -21,6 +21,7 @@ export class SignInComponent implements OnInit {
     response =>{ 
       console.log(response.token)
       localStorage.setItem('token',response.token)
+      localStorage.setItem('userName',form.value.userName)
       this.router.navigate(['/menu']) 
     },
     error => this.errorMessage = error.error.message

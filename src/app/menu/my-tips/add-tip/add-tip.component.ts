@@ -26,6 +26,7 @@ export class AddTipComponent implements OnInit, OnDestroy{
   ) { }
 
   ngOnInit() {
+    
    this.stateSubscription = this.addTipService.formState.subscribe(state =>{
       this.state = state;
     }) 
@@ -45,6 +46,8 @@ export class AddTipComponent implements OnInit, OnDestroy{
 
   addTip(newTip){
     if(this.state === 'add tip'){
+      newTip.yearMonth = this.setYearMonth();
+      newTip.userName = localStorage.getItem('userName');
     this.MyTipsService.addTip(newTip);
      this.tipForm.reset();
     }else if(this.state === 'edit'){
@@ -52,6 +55,12 @@ export class AddTipComponent implements OnInit, OnDestroy{
       this.state = 'add tip';
       this.tipForm.reset();
     }
+  }
+
+  setYearMonth(){
+    const date = new Date();
+    const yearMonth = date.getFullYear() + '-' + '0' + (date.getMonth() + 1);
+    return yearMonth.toString();
   }
 
   ngOnDestroy(){

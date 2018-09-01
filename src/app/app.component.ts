@@ -16,6 +16,7 @@ export class AppComponent implements OnInit {
 
     if(!token){
       console.log(token)
+      localStorage.removeItem('userName')
       return;
     }
     this.http.get('http://localhost:8000/api/user/isTokenValid')
@@ -26,6 +27,7 @@ export class AppComponent implements OnInit {
         console.log(error)
         this.router.navigate(['/sign-in'])
         localStorage.removeItem('token');
+        localStorage.removeItem('userName');
       }
     )
 

@@ -1,10 +1,10 @@
 <div class="container">
     <form (ngSubmit)="addTip(f.value)" #f="ngForm">
         <input type="date" name="date" placeholder="Date" ngModel required>
-        <input type="number" name="tip" placeholder="Tips amount" ngModel required>
+        <input type="number" name="amount" placeholder="Tips amount" ngModel required>
         <input type="time" name="startTime" ngModel required>
         <input type="time" name="endTime" ngModel required>
-        <select name="shiftType" name="shift" ngModel required>
+        <select name="shiftType" name="shiftCategory" ngModel required>
           <option value="morningShift">morning shift</option>
           <option value="middleShift">middle shift</option>
           <option value="eveningShift">evening shift</option>

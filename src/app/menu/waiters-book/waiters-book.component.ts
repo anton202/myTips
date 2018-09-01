@@ -47,6 +47,7 @@ export class WaitersBookComponent implements OnInit,OnDestroy {
     data.amount = data.totalTime * this.shekelsPerHour;
     data.perHour = this.shekelsPerHour;
     this.totalTip = this.totalTip - data.amount;
+    console.log(data);
     this.waitrsBookService.addTip(data);
     
   }
