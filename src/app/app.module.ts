@@ -16,7 +16,7 @@ import { NewTipComponent } from './menu/my-tips/new-tip/new-tip.component';
 import { AddTipComponent } from './menu/my-tips/add-tip/add-tip.component';
 import { EditTipDirective } from './directives/edit-tip.directive';
 import { AppRoutingModule} from './app-routing.module';
-import {StickyModule} from 'ng2-sticky-kit';
+import { StickyModule } from 'ng2-sticky-kit';
 import { NewWaitrTipComponent } from './menu/waiters-book/new-waitr-tip/new-waitr-tip.component';
 import { WaitrsBookDirective } from './directives/waitrs-book.directive';
 import { StatisticsModule } from './menu/statistics/statistics.module';

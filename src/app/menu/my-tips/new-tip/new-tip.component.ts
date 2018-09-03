@@ -22,6 +22,7 @@ constructor(
   ) { }
 
   ngOnInit() {
+    console.log(this.tip)
     this.editData = {
       tip: this.tip,
       index: this.index
@@ -35,5 +36,6 @@ constructor(
   editTip(){
     this.addTipService.formState.next('edit');
     this.newTipService.editData.next(this.editData);
+    console.log(this.editData)
   }
 }

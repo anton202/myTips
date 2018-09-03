@@ -26,17 +26,19 @@ constructor(private http: HttpClient){}
  }
 
   addTip(newTip){
-      this.tips.unshift(new Tip(newTip.date, newTip.yearMonth, newTip.amount, newTip.startTime, newTip.endTime, newTip.shiftCategory))
+      console.log(newTip);
+      this.tips.unshift(new Tip(newTip.date, newTip.amount, newTip.startTime, newTip.endTime, newTip.shiftCategory, newTip.userName, newTip.yearMonth,))
       this.http.post('http://localhost:8000/api/myTips/addTip',newTip)
       .subscribe(
           response => console.log(response),
           error => console.log(error)
         )
+        console.log(this.tips);
       this.tipAdded.next(this.tips.slice());
   }
 
   editTip(editedTip,index){
-    this.tips.splice(index,1,new Tip(editedTip.date, editedTip.tip, editedTip.startTime, editedTip.endTime, editedTip.shift))
+    this.tips.splice(index,1,new Tip(editedTip.date, editedTip.amount, editedTip.startTime, editedTip.endTime, editedTip.shift))
     this.tipAdded.next(this.tips.slice());
   }
 

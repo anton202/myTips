@@ -1,11 +1,11 @@
 <div class="container">
-  <div class="addTip" sticky>
+  <div class="addTip" >
     <h2>Add tip</h2>
     <a routerLink="/menu"><h2 id="menu">Menu</h2></a> 
         <app-add-tip></app-add-tip>
         <img src="../../assets/line.jpg" alt="">
   </div>
   <div class="newTip"> 
-    <app-new-tip *ngFor="let newTip of tips; let i = index" [tip]="newTip" [index]="i"></app-new-tip>
+       <app-new-tip *ngFor="let newTip of tips; let i = index" [tip]="newTip" [index]="i"></app-new-tip>
   </div>
 </div>

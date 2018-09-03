@@ -35,10 +35,10 @@ export class AddTipComponent implements OnInit, OnDestroy{
       this.editIndex = editData.index;
       this.tipForm.setValue({
         date: editData.tip.date,
-        tip: editData.tip.amount,
+        amount: editData.tip.amount,
         startTime: editData.tip.startTime,
         endTime: editData.tip.endTime,
-        shift: editData.tip.shiftCategory
+        shiftCategory: editData.tip.shiftCategory
       })
     })
 

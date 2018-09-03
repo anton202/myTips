@@ -1,6 +1,5 @@
 export class Tip {
     date: string;
-    yearMonth: string;
     amount: number;
     startTime: string;
     endTime: string;
@@ -8,6 +7,7 @@ export class Tip {
     name?: string;
     totalTime?: number;
     perHour?: number;
+    yearMonth: string;
 
     constructor(
         date: string, 
@@ -15,9 +15,10 @@ export class Tip {
         startTime: string,
         endTime: string,
         shiftCategory: string,
+        yearMonth?: string,
         name?: string,
         totalTime?: number,
-        perHour?: number
+        perHour?: number,
     ) {
         this.date = date;
         this.amount = amount;
@@ -27,6 +28,7 @@ export class Tip {
         this.name = name;
         this.totalTime = totalTime;
         this.perHour = perHour;
+        this.yearMonth = yearMonth;
     }
 
 }
