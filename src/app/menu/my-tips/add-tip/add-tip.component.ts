@@ -15,6 +15,8 @@ export class AddTipComponent implements OnInit, OnDestroy{
  state: string = 'add tip';
  stateSubscription: Subscription;
  editDataSubscription: Subscription;
+ serverErrorSubscription: Subscription;
+ serverErrorMessage: string;
  editIndex: number;
  serverTipId;
 
@@ -44,6 +46,8 @@ export class AddTipComponent implements OnInit, OnDestroy{
       })
     })
 
+    this.serverErrorSubscription = this.MyTipsService.serverError.subscribe(message => this.serverErrorMessage = message )
+
   }
 
   addTip(newTip){
@@ -69,5 +73,6 @@ export class AddTipComponent implements OnInit, OnDestroy{
 
   ngOnDestroy(){
     this.stateSubscription.unsubscribe();
+    this.serverErrorSubscription.unsubscribe();
   }
 }

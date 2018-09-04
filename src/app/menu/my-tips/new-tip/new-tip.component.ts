@@ -19,7 +19,7 @@ constructor(
   private MyTipsService: MyTipsService, 
   private newTipService: NewTipService,
   private addTipService: AddTipService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.editData = {

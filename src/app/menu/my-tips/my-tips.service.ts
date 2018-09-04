@@ -7,6 +7,7 @@ import { Injectable } from '@angular/core';
 export class MyTipsService{
  tipAdded = new Subject<Tip[]>();
  tipDeleted = new Subject<Tip[]>();
+ serverError = new Subject<string>();
  private tips: Tip[] = [];
  
 constructor(private http: HttpClient){}
@@ -30,15 +31,14 @@ constructor(private http: HttpClient){}
                      ))
                 })
                 this.tipAdded.next(this.tips.slice())
-                console.log(this.tips)
+               
             },
-            error => console.log(error)
+            error => this.serverError.next(error.message)
         )
       
  }
 
   addTip(newTip){
-      console.log(newTip);
       this.tips.unshift(new Tip(
           newTip.id,
           newTip.date,
@@ -53,18 +53,16 @@ constructor(private http: HttpClient){}
         ))
       this.http.post('http://localhost:8000/api/myTips/addTip',newTip)
       .subscribe(
-          response => console.log(response),
-          error => console.log(error)
+          response => {},
+          error => this.serverError.next(error.message)
         )
-        console.log(this.tips);
+        
       this.tipAdded.next(this.tips.slice());
   }
 
   editTip(editedTip,index){
-      console.log(editedTip)
       this.http.put('http://localhost:8000/api/myTips/editTip',{editedTip})
       .subscribe(response =>{
-          console.log(response)
         this.tips.splice(index,1,new Tip(
              editedTip.id,
              editedTip.date,
@@ -79,7 +77,7 @@ constructor(private http: HttpClient){}
             ))
         this.tipAdded.next(this.tips.slice());
       },
-      error => {console.log(error)}
+      error => this.serverError.next(error.message)
     )
     
   }
@@ -87,10 +85,11 @@ constructor(private http: HttpClient){}
   deleteTip(id,serverTipId){
       this.http.delete('http://localhost:8000/api/myTips/deleteTip/'+serverTipId)
       .subscribe(response => {
-          console.log(response);
           this.tips.splice(id,1);
           this.tipDeleted.next(this.tips.slice());
-      })
+      },
+    error => this.serverError.next(error.message)
+)
     
   }
 }

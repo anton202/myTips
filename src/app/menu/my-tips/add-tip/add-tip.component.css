@@ -47,7 +47,10 @@
         width: 35%;
     }
 
-    
+    .errorMessage{
+        color: red;
+        font-size: 20px;
+    }
 
     }
     
