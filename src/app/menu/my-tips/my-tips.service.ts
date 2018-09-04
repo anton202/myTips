@@ -84,8 +84,13 @@ constructor(private http: HttpClient){}
     
   }
 
-  deleteTip(id){
-     this.tips.splice(id,1);
-      this.tipDeleted.next(this.tips.slice());
+  deleteTip(id,serverTipId){
+      this.http.delete('http://localhost:8000/api/myTips/deleteTip/'+serverTipId)
+      .subscribe(response => {
+          console.log(response);
+          this.tips.splice(id,1);
+          this.tipDeleted.next(this.tips.slice());
+      })
+    
   }
 }

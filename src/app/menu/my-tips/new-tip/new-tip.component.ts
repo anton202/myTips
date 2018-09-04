@@ -29,7 +29,7 @@ constructor(
   }
 
   deleteTip(){
-    this.MyTipsService.deleteTip(this.index);
+    this.MyTipsService.deleteTip(this.index,this.editData.tip.id);
   }
 
   editTip(){
