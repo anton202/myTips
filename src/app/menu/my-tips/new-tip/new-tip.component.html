@@ -1,11 +1,14 @@
 <div class="container" appEditTip>
   <div class="topData">
       <span>{{tip.date | date:'d/M/y'}}</span>
-      <span id="tip">{{tip.amount}}&#x20AA;</span>
+      <span id="tip">{{tip.amount}}&#x20AA;</span>- 
+      <span>{{tip.perHour}}&#x20AA;</span>
+
   </div>
   <div class="bottomData"> 
     <span>{{tip.startTime}} - </span>
-    <span>{{tip.endTime}}</span>
+    <span>{{tip.endTime}} -</span> 
+    <span>{{tip.totalTime}}</span>
     <span>{{tip.shiftCategory}}</span>
   </div>  
 <div class="edit">

@@ -22,7 +22,6 @@ constructor(
   ) { }
 
   ngOnInit() {
-    console.log(this.tip)
     this.editData = {
       tip: this.tip,
       index: this.index
