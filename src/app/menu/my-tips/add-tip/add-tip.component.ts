@@ -16,6 +16,7 @@ export class AddTipComponent implements OnInit, OnDestroy{
  stateSubscription: Subscription;
  editDataSubscription: Subscription;
  editIndex: number;
+ serverTipId;
 
  @ViewChild('f') tipForm: NgForm;
 
@@ -32,6 +33,7 @@ export class AddTipComponent implements OnInit, OnDestroy{
     }) 
 
     this.editDataSubscription = this.newTipService.editData.subscribe(editData =>{
+      this.serverTipId = editData.tip.id;
       this.editIndex = editData.index;
       this.tipForm.setValue({
         date: editData.tip.date,
@@ -45,7 +47,7 @@ export class AddTipComponent implements OnInit, OnDestroy{
   }
 
   addTip(newTip){
-    
+    newTip.id = null;
     newTip.yearMonth = this.addTipService.setYearMonth();
     newTip.userName = localStorage.getItem('userName');
     const totalHour = this.addTipService.calculatePerHour(newTip.startTime, newTip.endTime, newTip.amount);
@@ -56,6 +58,7 @@ export class AddTipComponent implements OnInit, OnDestroy{
     this.MyTipsService.addTip(newTip);
      this.tipForm.reset();
     }else if(this.state === 'edit'){
+      newTip.id = this.serverTipId
       this.MyTipsService.editTip(newTip,this.editIndex)
       this.state = 'add tip';
       this.tipForm.reset();

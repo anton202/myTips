@@ -33,6 +33,7 @@ constructor(
   }
 
   editTip(){
+    console.log(this.editData)
     this.addTipService.formState.next('edit');
     this.newTipService.editData.next(this.editData);
     console.log(this.editData)

@@ -17,6 +17,7 @@ constructor(private http: HttpClient){}
             response =>{
                 response.tips.forEach(tip => {
                     this.tips.unshift(new Tip(
+                        tip._id,
                         tip.date, 
                         tip.amount,
                         tip.startTime, 
@@ -39,6 +40,7 @@ constructor(private http: HttpClient){}
   addTip(newTip){
       console.log(newTip);
       this.tips.unshift(new Tip(
+          newTip.id,
           newTip.date,
           newTip.amount,
           newTip.startTime, 
@@ -59,8 +61,27 @@ constructor(private http: HttpClient){}
   }
 
   editTip(editedTip,index){
-    this.tips.splice(index,1,new Tip(editedTip.date, editedTip.amount, editedTip.startTime, editedTip.endTime, editedTip.shift))
-    this.tipAdded.next(this.tips.slice());
+      console.log(editedTip)
+      this.http.put('http://localhost:8000/api/myTips/editTip',{editedTip})
+      .subscribe(response =>{
+          console.log(response)
+        this.tips.splice(index,1,new Tip(
+             editedTip.id,
+             editedTip.date,
+             editedTip.amount,
+             editedTip.startTime,
+             editedTip.endTime,
+             editedTip.shiftCategory,
+             editedTip.userName,
+             editedTip.yearMonth,
+             editedTip.totalHours,
+             editedTip.perHour
+            ))
+        this.tipAdded.next(this.tips.slice());
+      },
+      error => {console.log(error)}
+    )
+    
   }
 
   deleteTip(id){
