@@ -1,7 +1,7 @@
 <div class="conatainer">
   <h2>Waitrs Book</h2>
   <a routerLink="/menu"><h2 style="margin-left:100px" id="menu">Menu</h2></a> 
-  <p>{{todaysDate | date:'d/M/y'}}</p>
+  <p class="date">{{todaysDate | date:'d/M/y'}}</p>
   <div class="genralData" appMinimize>
   <form (ngSubmit)="calculatePerHour(f.value)" #f="ngForm">
     <input type="numer" placeholder="Total Tips" name="totalTips" ngModel required> 
@@ -33,7 +33,9 @@
       </form>
     </div>
   </div>
+  <img src="../../assets/line.jpg" alt="">
+  <h2 style="margin-top:0">Today's Tips</h2>
   <div class="waitrTip">
-    <app-new-waitr-tip *ngFor="let waitrTip of todaysTips; let i = index" [waitrData]="waitrTip" [index]="i"></app-new-waitr-tip>
-  </div>
+      <app-new-waitr-tip *ngFor="let waitrTip of todaysTips; let i = index" [waitrData]="waitrTip" [index]="i"></app-new-waitr-tip>
+    </div>
 </div>

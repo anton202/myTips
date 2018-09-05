@@ -9,7 +9,7 @@ export class AddTipService{
         return yearMonth.toString();
       }
 
-    calculatePerHour(startTime, endTime, totalTip){
+    calculateTotalHours(startTime, endTime){
         const startHour = startTime.split(':')[0];
         const startMin = startTime.split(':')[1];
         const endHour = endTime.split(':')[0];

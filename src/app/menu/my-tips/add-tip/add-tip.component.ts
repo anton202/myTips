@@ -54,7 +54,7 @@ export class AddTipComponent implements OnInit, OnDestroy{
     newTip.id = null;
     newTip.yearMonth = this.addTipService.setYearMonth();
     newTip.userName = localStorage.getItem('userName');
-    const totalHour = this.addTipService.calculatePerHour(newTip.startTime, newTip.endTime, newTip.amount);
+    const totalHour = this.addTipService.calculateTotalHours(newTip.startTime, newTip.endTime);
     newTip.perHour = Math.floor(newTip.amount / totalHour);
     newTip.totalHours = totalHour
 

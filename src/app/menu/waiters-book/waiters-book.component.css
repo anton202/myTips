@@ -44,4 +44,14 @@
         display: inline-block;
       }
 
+      .date {
+        margin-top: 0;
+      }
+
+
+    img{
+      height: 20px;
+      width: 100%;
+  }
+
 }
