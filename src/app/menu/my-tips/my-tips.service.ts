@@ -49,7 +49,8 @@ constructor(private http: HttpClient){}
           newTip.userName, 
           newTip.yearMonth,
           newTip.totalHours, 
-          newTip.perHour
+          newTip.perHour,
+          
         ))
       this.http.post('http://localhost:8000/api/myTips/addTip',newTip)
       .subscribe(

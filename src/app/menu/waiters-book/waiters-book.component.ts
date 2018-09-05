@@ -61,6 +61,7 @@ export class WaitersBookComponent implements OnInit,OnDestroy {
     data.amount = data.totalTime * this.shekelsPerHour;
     data.perHour = this.shekelsPerHour;
     data.waitrsBook = true
+    data.yearMonth = this.addTipService.setYearMonth();
     this.totalTip = this.totalTip - data.amount;
     this.waitrTipForm.reset()
     console.log(data);
@@ -74,6 +75,7 @@ export class WaitersBookComponent implements OnInit,OnDestroy {
     data.totalTime = totalHours;
     data.perHour = null;
     data.waitrsBook = true
+    data.yearMonth = this.addTipService.setYearMonth();
     this.totalTip = this.totalTip - this.barmanTip;
     this.barManTip = false;
     this.waitrTipForm.reset();

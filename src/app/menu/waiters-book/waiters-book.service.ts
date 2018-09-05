@@ -19,7 +19,7 @@ export class WaitrsBookService {
                 waitrTip.startTime,
                 waitrTip.endTime,
                 waitrTip.shiftCategory,
-                null,
+                waitrTip.yearMonth,
                 waitrTip.name,
                 waitrTip.totalTime,
                 waitrTip.perHour,
