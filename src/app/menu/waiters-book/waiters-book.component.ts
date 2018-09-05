@@ -28,13 +28,27 @@ export class WaitersBookComponent implements OnInit,OnDestroy {
   constructor(private waitrsBookService: WaitrsBookService, private addTipService: AddTipService)  {}
 
   ngOnInit() {
-    this.todaysTips = this.waitrsBookService.waitrsTips;
+   // this.todaysTips = this.waitrsBookService.waitrsTips;
+    this.waitrsBookService.getTips().subscribe(tips => {
+      console.log(tips)
+      tips.tips.forEach(tip => {
+        this.todaysTips.push(tip);
+      });
+      console.log(this.todaysTips)
+    })
     this.subscription = this.waitrsBookService.totalTipsChanged
     .subscribe(
       tip => {
         this.totalTip += tip;
       }
     )
+  }
+
+  calculatePerHour(data){
+   this.barmanTip = Math.round((+data.barmanPrecentage / 100) * +data.totalTips);
+   this.shekelsPerHour = Math.round((+data.totalTips - this.barmanTip) / +data.totalHours);
+   this.totalTip = +data.totalTips;
+   this.initialSubmit = true;
   }
 
   addWaitrTip(data){
@@ -46,6 +60,7 @@ export class WaitersBookComponent implements OnInit,OnDestroy {
     data.totalTime = totalHours;
     data.amount = data.totalTime * this.shekelsPerHour;
     data.perHour = this.shekelsPerHour;
+    data.waitrsBook = true
     this.totalTip = this.totalTip - data.amount;
     this.waitrTipForm.reset()
     console.log(data);
@@ -58,6 +73,7 @@ export class WaitersBookComponent implements OnInit,OnDestroy {
     data.date = this.todaysDate;
     data.totalTime = totalHours;
     data.perHour = null;
+    data.waitrsBook = true
     this.totalTip = this.totalTip - this.barmanTip;
     this.barManTip = false;
     this.waitrTipForm.reset();

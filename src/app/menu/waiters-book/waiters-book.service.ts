@@ -9,19 +9,26 @@ export class WaitrsBookService {
     constructor(private http: HttpClient){}
 
     addTip(waitrTip: Tip) {
-        this.waitrsTips.push(new Tip(
-            null,
-            waitrTip.date,
-            waitrTip.amount,
-            waitrTip.startTime,
-            waitrTip.endTime,
-            waitrTip.shiftCategory,
-            null,
-            waitrTip.name,
-            waitrTip.totalTime,
-            waitrTip.perHour,
-            true
-        ));
+        this.http.post('http://localhost:8000/api/waitrsBook/addTip',waitrTip)
+        .subscribe(response =>{
+            console.log(response);
+            this.waitrsTips.push(new Tip(
+                null,
+                waitrTip.date,
+                waitrTip.amount,
+                waitrTip.startTime,
+                waitrTip.endTime,
+                waitrTip.shiftCategory,
+                null,
+                waitrTip.name,
+                waitrTip.totalTime,
+                waitrTip.perHour,
+                waitrTip.waitrsBook
+            ));
+        },
+        error => {console.log(error)}
+    )
+        
         console.log(this.waitrsTips);
     }
 
@@ -31,4 +38,7 @@ export class WaitrsBookService {
         
     }
 
+    getTips(){
+        return this.http.get<{tips}>('http://localhost:8000/api/waitrsBook/getTodaysTips/'+ new Date().toLocaleDateString());
+    }
 }
