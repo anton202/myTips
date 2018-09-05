@@ -37,13 +37,6 @@ export class WaitersBookComponent implements OnInit,OnDestroy {
     )
   }
 
-  calculatePerHour(data){
-   this.barmanTip = Math.round((+data.barmanPrecentage / 100) * +data.totalTips);
-   this.shekelsPerHour = Math.round((+data.totalTips - this.barmanTip) / +data.totalHours);
-   this.totalTip = +data.totalTips;
-   this.initialSubmit = true;
-  }
-
   addWaitrTip(data){
     if(this.barManTip){
      return this.addBarManTip(data);

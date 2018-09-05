@@ -1,10 +1,12 @@
 import { Tip } from '../my-tips/tip.model';
 import { Subject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 export class WaitrsBookService {
     waitrsTips: Tip[] = [];
     totalTipsChanged = new Subject<number>();
 
+    constructor(private http: HttpClient){}
 
     addTip(waitrTip: Tip) {
         this.waitrsTips.push(new Tip(
@@ -17,7 +19,8 @@ export class WaitrsBookService {
             null,
             waitrTip.name,
             waitrTip.totalTime,
-            waitrTip.perHour
+            waitrTip.perHour,
+            true
         ));
         console.log(this.waitrsTips);
     }

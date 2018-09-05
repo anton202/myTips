@@ -9,6 +9,7 @@ export class Tip {
     totalTime?: number;
     perHour?: number;
     yearMonth: string;
+    waitrsBook?: boolean
 
     constructor(
         id: string,
@@ -21,6 +22,7 @@ export class Tip {
         name?: string,
         totalTime?: number,
         perHour?: number,
+        waitrsBook?: boolean
     ) {
         this.id = id;
         this.date = date;
@@ -32,6 +34,7 @@ export class Tip {
         this.totalTime = totalTime;
         this.perHour = perHour;
         this.yearMonth = yearMonth;
+        this.waitrsBook = waitrsBook;
     }
 
 }
