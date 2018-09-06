@@ -66,4 +66,10 @@ export class WaitrsBookService {
             this.tipsFetched.next(this.waitrsTips);
           })
     }
+
+
+    getWorkersNames(){
+        return this.http.get('http://localhost:8000/api/waitrsBook/getNames')
+    }
+
 }

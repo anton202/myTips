@@ -20,8 +20,7 @@
       <p>First submit BarMan Tip</p>
       <form (ngSubmit)="addWaitrTip(fw.value)" #fw="ngForm">
         <select name="name" ngModel>
-          <option value="anton">Anton</option>
-          <option value="oni">Oni</option>
+            <option [value]="name" *ngFor="let name of workersNames">{{name}}</option>
         </select>
         <select name="shiftCategory" ngModel>
           <option value="morningShift">morning shift</option>

@@ -22,13 +22,17 @@ export class WaitersBookComponent implements OnInit,OnDestroy {
   todaysTips: Tip[] = [];
   subscription: Subscription;
   barManTip: boolean = true;
+  workersNames;
   @ViewChild('fw') waitrTipForm: NgForm
   
 
   constructor(private waitrsBookService: WaitrsBookService, private addTipService: AddTipService)  {}
 
   ngOnInit() {
-   // this.todaysTips = this.waitrsBookService.waitrsTips;
+    this.waitrsBookService.getWorkersNames()
+    .subscribe(workersNames =>{
+     this.workersNames = workersNames;
+    })
     this.waitrsBookService.getTips();
     this.waitrsBookService.tipsFetched.subscribe(tips => this.todaysTips = tips);
     this.subscription = this.waitrsBookService.totalTipsChanged
