@@ -21,7 +21,8 @@ import { NewWaitrTipComponent } from './menu/waiters-book/new-waitr-tip/new-wait
 import { WaitrsBookDirective } from './directives/waitrs-book.directive';
 import { StatisticsModule } from './menu/statistics/statistics.module';
 import { Auth } from './auth/auth.service';
-import { AuthInterceptor } from './auth.interceptor'; 
+import { AuthInterceptor } from './auth.interceptor';
+import { SettingsComponent } from './menu/settings/settings.component'; 
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { AuthInterceptor } from './auth.interceptor';
     EditTipDirective,
     NewWaitrTipComponent,
     WaitrsBookDirective,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,

@@ -69,7 +69,7 @@ export class WaitrsBookService {
 
 
     getWorkersNames(){
-        return this.http.get('http://localhost:8000/api/waitrsBook/getNames')
+        return this.http.get('http://localhost:8000/api/user/getNames')
     }
 
 }

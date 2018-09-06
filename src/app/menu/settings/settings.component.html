@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="deleteUser">
+   
+   <form (ngSubmit)="deleteWorker(f.value)" #f="ngForm">
+    Delete Worker:
+    <select name="workers" ngModel >
+      <option [value]="name" *ngFor="let name of workersNames">{{name}}</option>
+    </select>
+    <button type="submit">Delete</button>
+  </form>
+  </div>
+  {{errorMessage}}
+</div>
