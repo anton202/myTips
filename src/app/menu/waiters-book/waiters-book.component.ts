@@ -29,13 +29,8 @@ export class WaitersBookComponent implements OnInit,OnDestroy {
 
   ngOnInit() {
    // this.todaysTips = this.waitrsBookService.waitrsTips;
-    this.waitrsBookService.getTips().subscribe(tips => {
-      console.log(tips)
-      tips.tips.forEach(tip => {
-        this.todaysTips.push(tip);
-      });
-      console.log(this.todaysTips)
-    })
+    this.waitrsBookService.getTips();
+    this.waitrsBookService.tipsFetched.subscribe(tips => this.todaysTips = tips);
     this.subscription = this.waitrsBookService.totalTipsChanged
     .subscribe(
       tip => {
