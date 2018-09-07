@@ -21,8 +21,11 @@ export class WaitersBookComponent implements OnInit,OnDestroy {
   todaysDate:string = new Date().toLocaleDateString();
   todaysTips: Tip[] = [];
   subscription: Subscription;
+  tipsFetchedSubscription: Subscription;
   barManTip: boolean = true;
   workersNames;
+  errorMessageSub: Subscription; 
+  errorMessaage: string;
   @ViewChild('fw') waitrTipForm: NgForm
   
 
@@ -32,9 +35,11 @@ export class WaitersBookComponent implements OnInit,OnDestroy {
     this.waitrsBookService.getWorkersNames()
     .subscribe(workersNames =>{
      this.workersNames = workersNames;
-    })
+    },
+    error => this.errorMessaage = error.message)
     this.waitrsBookService.getTips();
-    this.waitrsBookService.tipsFetched.subscribe(tips => this.todaysTips = tips);
+    this.errorMessageSub = this.waitrsBookService.errorMessage.subscribe(error => this.errorMessaage = error)
+    this.tipsFetchedSubscription = this.waitrsBookService.tipsFetched.subscribe(tips => this.todaysTips = tips);
     this.subscription = this.waitrsBookService.totalTipsChanged
     .subscribe(
       tip => {
@@ -63,7 +68,6 @@ export class WaitersBookComponent implements OnInit,OnDestroy {
     data.yearMonth = this.addTipService.setYearMonth();
     this.totalTip = this.totalTip - data.amount;
     this.waitrTipForm.reset()
-    console.log(data);
     this.waitrsBookService.addTip(data);
   }
 
@@ -84,6 +88,7 @@ export class WaitersBookComponent implements OnInit,OnDestroy {
 
   ngOnDestroy(){
     this.subscription.unsubscribe();
+    this.tipsFetchedSubscription.unsubscribe();
   }
 
 }

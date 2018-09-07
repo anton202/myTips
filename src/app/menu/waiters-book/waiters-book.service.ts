@@ -6,6 +6,7 @@ export class WaitrsBookService {
     waitrsTips: Tip[] = [];
     totalTipsChanged = new Subject<number>();
     tipsFetched = new Subject<Tip[]>();
+    errorMessage = new Subject<string>();
 
     constructor(private http: HttpClient){}
 
@@ -27,7 +28,7 @@ export class WaitrsBookService {
             ));
             this.tipsFetched.next(this.waitrsTips);
         },
-        error => {console.log(error)}
+        error => {this.errorMessage.next(error.message)}
     )
         
         console.log(this.waitrsTips);
@@ -40,7 +41,7 @@ export class WaitrsBookService {
             this.totalTipsChanged.next(this.waitrsTips[id].amount);
             this.waitrsTips.splice(id, 1);
         },
-        error => console.log(error)
+        error => this.errorMessage.next(error.message)
     )
     }
 
@@ -64,7 +65,8 @@ export class WaitrsBookService {
               ));
             });
             this.tipsFetched.next(this.waitrsTips);
-          })
+          },
+        error => this.errorMessage.next(error.message))
     }
 
 
