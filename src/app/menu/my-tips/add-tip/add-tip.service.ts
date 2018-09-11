@@ -5,7 +5,7 @@ export class AddTipService{
 
     setYearMonth(){
         const date = new Date();
-        const yearMonth = date.getFullYear() + '-' + '0' + (date.getMonth() + 1);
+        const yearMonth = date.getFullYear()+'-'+date.getMonth();
         return yearMonth.toString();
       }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-waitrs-book-statistics',
@@ -10,11 +11,28 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class WaitrsBookStatisticsComponent implements OnInit {
 waitrsBook: boolean = false;
 state: string;
+totalTipThisMonth;
+monthlyPerHourAvg
 
-  constructor(private router: Router, private route: ActivatedRoute) { }
+  constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient) { }
 
   ngOnInit() {
    this.state = this.route.snapshot.params.state;
+   console.log(this.state)
+   if(this.state === 'myTips'){
+   this.http.get<{totalTipsThisMonth,monthlyPerHourAvg}>('http://localhost:8000/api/stats/myStats/'+localStorage.getItem('userName'))
+   .subscribe(stats =>{
+    this.totalTipThisMonth = stats.totalTipsThisMonth;
+    this.monthlyPerHourAvg = stats.monthlyPerHourAvg;
+   })
+  }
+  else{
+    this.http.get<{totalTipsThisMonth,monthlyPerHourAvg}>('http://localhost:8000/api/stats/waitrsBookStats')
+    .subscribe(stats =>{
+      this.totalTipThisMonth = stats.totalTipsThisMonth;
+      this.monthlyPerHourAvg = stats.monthlyPerHourAvg;
+    })
+  }
   }
 
   onWaitrsBook(){
@@ -30,7 +48,7 @@ state: string;
   onSubmit(form: NgForm){
     const month = form.value.month;
     const year = form.value.year;
-    this.router.navigate(['waitrs-book-log/'+year + '/' + month]);
+    this.router.navigate(['waitrs-book-log/'+this.state+'/'+year + '-' + month]);
     }
 
 }

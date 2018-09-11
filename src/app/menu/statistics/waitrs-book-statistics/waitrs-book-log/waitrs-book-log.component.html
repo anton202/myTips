@@ -1,13 +1,15 @@
 <div class="container">
     <h2 routerLink="/menu">menu</h2>
-  <div class="dayLog">
-    <p>12/8/2018</p>
-    <span>per Hour</span> - <span>totalTips</span> - 
-    <span>barmantip</span> - 
+    <div class="stats">
+      <span>Total Tips: {{totalTips}}&#x20AA;</span> - <span>perHour Avg: {{perHourAvg}}&#x20AA;</span>
+    </div>
+  <div class="dayLog" *ngFor="let tip of tips">
+    <p>{{tip.date | date:'d/M/y'}}</p>
+    <span>{{tip.name}}</span> - <span>{{tip.amount}}&#x20AA;</span> - 
+    <span>{{tip.perHour}}&#x20AA;</span> - 
     <div>
-      <span>waitrs name</span> - <span>startTime</span> -
-      <span>endTime</span> - <span>totalTime</span> -
-      <span>totalTip</span>
+      <span>{{tip.startTime}}</span> - <span>{{tip.endTime}}</span> -
+      <span>{{tip.totalTime}} hours</span> - <span>{{tip.shiftCategory}}</span> 
     </div>
   </div>
 </div>

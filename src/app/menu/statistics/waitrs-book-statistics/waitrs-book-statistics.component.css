@@ -44,4 +44,25 @@
         display: inline-block;
         margin-left: 40px;
     }
+
+    p{
+        font-size: 20px;
+    }
+
+    .money {
+        font-size: 25px;
+    }
+
+    #year{
+          width: 40%;
+          background:transparent;
+          color:#016270;
+          letter-spacing:1px;
+          outline:none;
+          border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+          border:solid 2px #016270;
+          font-family: 'Gaegu', cursive;
+          font-weight: bold;
+    }
+
 }

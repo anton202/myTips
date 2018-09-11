@@ -9,7 +9,7 @@ const statisticsRoutes:Routes = [
     {path:'', component: StatisticsComponent},
     {path:'waitrs-book-statistics', component: WaitrsBookStatisticsComponent},
     {path:'waitrs-book-statistics/:state', component: WaitrsBookStatisticsComponent},
-    {path:'waitrs-book-log/:year/:month',component: WaitrsBookLogComponent}
+    {path:'waitrs-book-log/:state/:yearMonth',component: WaitrsBookLogComponent}
 ]
     
 @NgModule({
