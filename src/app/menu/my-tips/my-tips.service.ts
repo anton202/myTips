@@ -3,6 +3,8 @@ import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+import { environment } from '../../../environments/environment';
+
 @Injectable()
 export class MyTipsService{
  tipAdded = new Subject<Tip[]>();
@@ -13,7 +15,7 @@ export class MyTipsService{
 constructor(private http: HttpClient){}
 
  fetchTips(){
-     this.http.get<{tips}>('http://localhost:8000/api/myTips/getMyTips')
+     this.http.get<{tips}>(environment.apiUrl+'/myTips/getMyTips')
         .subscribe(
             response =>{
                 response.tips.forEach(tip => {
@@ -52,7 +54,7 @@ constructor(private http: HttpClient){}
           newTip.perHour,
           
         ))
-      this.http.post('http://localhost:8000/api/myTips/addTip',newTip)
+      this.http.post(environment.apiUrl+'/myTips/addTip',newTip)
       .subscribe(
           response => {},
           error => this.serverError.next(error.message)
@@ -62,7 +64,7 @@ constructor(private http: HttpClient){}
   }
 
   editTip(editedTip,index){
-      this.http.put('http://localhost:8000/api/myTips/editTip',{editedTip})
+      this.http.put(environment.apiUrl+'/myTips/editTip',{editedTip})
       .subscribe(response =>{
         this.tips.splice(index,1,new Tip(
              editedTip.id,
@@ -84,7 +86,7 @@ constructor(private http: HttpClient){}
   }
 
   deleteTip(id,serverTipId){
-      this.http.delete('http://localhost:8000/api/myTips/deleteTip/'+serverTipId)
+      this.http.delete(environment.apiUrl+'/myTips/deleteTip/'+serverTipId)
       .subscribe(response => {
           this.tips.splice(id,1);
           this.tipDeleted.next(this.tips.slice());

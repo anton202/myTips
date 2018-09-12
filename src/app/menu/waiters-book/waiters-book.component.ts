@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 import { WaitrsBookService } from './waiters-book.service';
 import { Tip } from '../my-tips/tip.model';
 import { AddTipService } from '../my-tips/add-tip/add-tip.service';
 import { Subscription } from 'rxjs/Subscription';
-import { NgForm } from '@angular/forms';
 
 
 @Component({
@@ -56,7 +56,7 @@ export class WaitersBookComponent implements OnInit,OnDestroy {
   }
 
   addWaitrTip(data){
-    console.log(data)
+   
     if(this.barManTip){
      return this.addBarManTip(data);
     }

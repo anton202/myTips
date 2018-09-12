@@ -2,6 +2,8 @@ import { Tip } from '../my-tips/tip.model';
 import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
+import { environment } from '../../../environments/environment';
+
 export class WaitrsBookService {
     waitrsTips: Tip[] = [];
     totalTipsChanged = new Subject<number>();
@@ -11,7 +13,7 @@ export class WaitrsBookService {
     constructor(private http: HttpClient){}
 
     addTip(waitrTip: Tip) {
-        this.http.post('http://localhost:8000/api/waitrsBook/addTip',waitrTip)
+        this.http.post(environment.apiUrl+'/waitrsBook/addTip',waitrTip)
         .subscribe((tip:{tip}) =>{
             this.waitrsTips.push(new Tip(
                   tip.tip._id,
@@ -31,13 +33,13 @@ export class WaitrsBookService {
         error => {this.errorMessage.next(error.message)}
     )
         
-        console.log(this.waitrsTips);
+        
     }
 
     deleteTip(id: number) {
-        this.http.delete('http://localhost:8000/api/waitrsBook/deleteTip/'+this.waitrsTips[id].id)
+        this.http.delete(environment.apiUrl+'/waitrsBook/deleteTip/'+this.waitrsTips[id].id)
         .subscribe(response => {
-            console.log(response)
+           
             this.totalTipsChanged.next(this.waitrsTips[id].amount);
             this.waitrsTips.splice(id, 1);
         },
@@ -46,9 +48,9 @@ export class WaitrsBookService {
     }
 
     getTips(){
-         this.http.get<{tips}>('http://localhost:8000/api/waitrsBook/getTodaysTips/'+ new Date().toLocaleDateString())
+         this.http.get<{tips}>(environment.apiUrl+'/waitrsBook/getTodaysTips/'+ new Date().toLocaleDateString())
         .subscribe(tips => {
-            console.log(tips)
+            
             tips.tips.forEach(tip => {
               this.waitrsTips.push(new Tip(
                   tip._id,
@@ -71,7 +73,7 @@ export class WaitrsBookService {
 
 
     getWorkersNames(){
-        return this.http.get('http://localhost:8000/api/user/getNames')
+        return this.http.get(environment.apiUrl+'/user/getNames')
     }
 
 }

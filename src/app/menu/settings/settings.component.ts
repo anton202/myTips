@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { error } from 'util';
+
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-settings',
@@ -18,7 +19,7 @@ errorMessage;
   }
 
   deleteWorker(workerName){
-    this.http.delete('http://localhost:8000/api/user/deleteUser/'+workerName.workers)
+    this.http.delete(environment.apiUrl+'/user/deleteUser/'+workerName.workers)
     .subscribe(response =>{
       this.getNames()
     },
@@ -26,7 +27,7 @@ errorMessage;
   }
 
 getNames(){
-  this.http.get('http://localhost:8000/api/user/getNames')
+  this.http.get(environment.apiUrl+'/user/getNames')
   .subscribe(names =>{
     this.workersNames = names;
   })

@@ -21,18 +21,16 @@ export class RegisterComponent implements OnInit {
     .subscribe(
       (res) => { 
         this.userCreated = true;
-        console.log(res);
         if(this.userAlreadyExist){
           this.userAlreadyExist = false;
         }
-        console.log(this.userCreated)
+        
         setTimeout(() => {
           this.router.navigate(['/sign-in']);
         }, 1500);
         
       },
       error => {
-        console.log(error)
         this.userAlreadyExist = true;
       }
   )

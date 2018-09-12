@@ -3,6 +3,8 @@ import { NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
+import { environment } from '../../../../environments/environment';
+
 @Component({
   selector: 'app-waitrs-book-statistics',
   templateUrl: './waitrs-book-statistics.component.html',
@@ -18,16 +20,16 @@ monthlyPerHourAvg
 
   ngOnInit() {
    this.state = this.route.snapshot.params.state;
-   console.log(this.state)
+   
    if(this.state === 'myTips'){
-   this.http.get<{totalTipsThisMonth,monthlyPerHourAvg}>('http://localhost:8000/api/stats/myStats/'+localStorage.getItem('userName'))
+   this.http.get<{totalTipsThisMonth,monthlyPerHourAvg}>(environment.apiUrl+'/stats/myStats/'+localStorage.getItem('userName'))
    .subscribe(stats =>{
     this.totalTipThisMonth = stats.totalTipsThisMonth;
     this.monthlyPerHourAvg = stats.monthlyPerHourAvg;
    })
   }
   else{
-    this.http.get<{totalTipsThisMonth,monthlyPerHourAvg}>('http://localhost:8000/api/stats/waitrsBookStats')
+    this.http.get<{totalTipsThisMonth,monthlyPerHourAvg}>(environment.apiUrl+'/stats/waitrsBookStats')
     .subscribe(stats =>{
       this.totalTipThisMonth = stats.totalTipsThisMonth;
       this.monthlyPerHourAvg = stats.monthlyPerHourAvg;

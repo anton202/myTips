@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
+
 import { Tip } from '../../../my-tips/tip.model';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-waitrs-book-log',
@@ -17,9 +19,8 @@ perHourAvg;
   ngOnInit() {
     const yearMonth = this.route.snapshot.params.yearMonth;
     const state = this.route.snapshot.params.state;
-    this.http.get<{tips,totalTipsThisMonth,monthlyPerHourAvg}>('http://localhost:8000/api/stats/mylog/'+state+'/'+yearMonth)
+    this.http.get<{tips,totalTipsThisMonth,monthlyPerHourAvg}>(environment.apiUrl+'/stats/mylog/'+state+'/'+yearMonth)
     .subscribe(log =>{
-      console.log(log)
       this.totalTips = log.totalTipsThisMonth;
       this.perHourAvg = log.monthlyPerHourAvg;
       log.tips.forEach(tip => {
