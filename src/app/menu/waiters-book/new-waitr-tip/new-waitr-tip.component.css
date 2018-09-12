@@ -11,3 +11,23 @@
   .container{
     margin-bottom: 25px;
   }
+
+  .time{
+    display: inline-block;
+  }
+
+  .earnings{
+    display: inline-block;
+    width: 100%;
+  }
+
+  @media screen and (min-width: 320px) and (max-width: 480px){
+    .time{
+      display: block
+    }
+
+    .earnings{
+      display: block;
+    }
+
+  }

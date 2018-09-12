@@ -1,3 +1,40 @@
+
+.container{
+  outline: none;
+  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+  border: solid 0.5px #016270;
+  padding-left: 5px;
+  margin-bottom: 15px;
+}
+
+.topData{
+  display: inline-block
+}
+
+.bottomData{
+  display: inline-block;
+}
+
+.edit{
+  display: none;
+}
+
+button{
+  align-self:center;
+    background:transparent;
+    margin:0 1rem;
+    color:#016270;
+    font-size:16px;
+    letter-spacing:1px;
+    outline:none;
+    border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+    border:solid 2px #016270;
+    font-family: 'Gaegu', cursive;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 @media screen and (min-width: 320px) and (max-width: 480px){
 .container{
   outline: none;
@@ -34,4 +71,13 @@ button{
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
+.topData{
+  display: block;
+}
+
+.bottomData{
+  display: inline-block;
+}
+
 }

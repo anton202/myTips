@@ -6,7 +6,7 @@ import { Auth } from '../auth.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['../sign-in/sign-in.component.css']
 })
 export class RegisterComponent implements OnInit {
   userAlreadyExist:boolean = false;

@@ -1,6 +1,6 @@
-<div class="conatainer">
+<div class="container">
   <h2>Waitrs Book</h2>
-  <a routerLink="/menu"><h2 style="margin-left:100px" id="menu">Menu</h2></a> 
+  <a routerLink="/menu"><h2  id="menu">Menu</h2></a> 
   <p class="date">{{todaysDate | date:'d/M/y'}}</p>
   <p>{{errorMessaage}}</p>
   <div class="genralData" appMinimize>
@@ -15,10 +15,10 @@
   <div class="submitPerWaitr" *ngIf="initialSubmit">
     <span>barMan tip: {{barmanTip}}&#x20AA;</span> --
     <span>Per Hour: {{shekelsPerHour}}&#x20AA;</span>
-    <p [ngClass]="{notEnoughTips:totalTip < 0}">total tip:{{totalTip}}&#x20AA;</p>
+    <p id="totalTip" [ngClass]="{notEnoughTips:totalTip < 0}">total tip:{{totalTip}}&#x20AA;</p>
       <p class="notEnoughTips" *ngIf="totalTip < 0">NOT ENOUGH TIP!!</p>
     <div>
-      <p>First submit BarMan Tip</p>
+      <p style="color:red">First submit BarMan Tip</p>
       <form (ngSubmit)="addWaitrTip(fw.value)" #fw="ngForm">
         <select name="name" ngModel>
             <option [value]="name" *ngFor="let name of workersNames">{{name}}</option>
@@ -28,8 +28,11 @@
           <option value="middleShift">middle Shift</option>
           <option value="evningShift">evning shift</option>
         </select>
-        <input type="time" placeholder="Hours" name="startTime" ngModel required>
-        <input type="time" name="endTime" ngModel required>
+        <div><label for="startTime">Start Time</label> <label id="endTimeLabel" for="endTime">End Time</label></div>
+        
+        <input type="time" id="startTime" placeholder="Hours" name="startTime" ngModel required>
+        
+        <input type="time" id="endTime" name="endTime" ngModel required>
         <button type="submit" [disabled]="!fw.valid">Submit</button>
       </form>
     </div>
