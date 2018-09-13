@@ -48,7 +48,7 @@ export class WaitrsBookService {
     }
 
     getTips(){
-         this.http.get<{tips}>(environment.apiUrl+'/waitrsBook/getTodaysTips/'+ new Date().toLocaleDateString())
+         this.http.get<{tips}>(environment.apiUrl+'/waitrsBook/getTodaysTips')
         .subscribe(tips => {
             
             tips.tips.forEach(tip => {
