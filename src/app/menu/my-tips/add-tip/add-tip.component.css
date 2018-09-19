@@ -56,11 +56,11 @@ select{
 }
 
 #endTime{
-    margin-left: 7rem;
+    margin-left: 14rem;
 }
 
 #shiftType{
-    margin-left: 8rem;
+    margin-left: 15rem;
 }
 
 
@@ -119,11 +119,11 @@ select{
     }
 
     #endTime{
-        margin-left: 0.5rem;
+        margin-left: 2rem;
     }
 
     #shiftType{
-        margin-left: 1.2rem;
+        margin-left: 2.5rem;
     }
 
     }
