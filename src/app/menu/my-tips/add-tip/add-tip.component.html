@@ -1,7 +1,9 @@
 <div class="container">
     <form (ngSubmit)="addTip(f.value)" #f="ngForm">
+        <div><span>Date:</span></div>
         <input type="date" name="date" placeholder="Date" ngModel required>
         <input type="number" name="amount" placeholder="Tips amount" ngModel required>
+        <div><span>Start Time:</span> <span id="endTime">End Time:</span><span id="shiftType">Shift Type:</span></div>
         <input type="time" name="startTime"  ngModel required >
         <input type="time" name="endTime" ngModel required>
         <select name="shiftType" name="shiftCategory" ngModel required>
