@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy, ViewChild} from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 import { MyTipsService } from '../my-tips.service';
 import { NewTipService } from '../new-tip/new-tip.service';
-import { Subscription } from 'rxjs';
-import { NgForm } from '@angular/forms';
 import { AddTipService } from './add-tip.service';
 
 @Component({
