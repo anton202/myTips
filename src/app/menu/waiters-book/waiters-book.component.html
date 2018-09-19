@@ -7,7 +7,7 @@
   <form (ngSubmit)="calculatePerHour(f.value)" #f="ngForm">
     <input type="numer" placeholder="Total Tips" name="totalTips" ngModel required> 
     <input type="number" placeholder="Total Hours" name="totalHours" ngModel required>
-    <input type="numbe" placeholder="BarMan Precntage" name="barmanPrecentage" ngModel required>
+    <input type="number" placeholder="BarMan Precntage" name="barmanPrecentage" ngModel required>
     <button type="submit" [disabled]="!f.valid">Submit</button>
   </form>
   <button class="totalTipsHours">edit Total tips and hours</button>
