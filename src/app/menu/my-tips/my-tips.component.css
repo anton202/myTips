@@ -17,7 +17,7 @@ h2{
 }
 
 .newTip{
-    height: 30%;
+    height: 40%;
     overflow-y: scroll;
     position: fixed;
     padding-bottom: 20px;
@@ -36,7 +36,7 @@ h2{
 }
 
 .newTip{
-    height: 40%;
+    height: 30%;
     overflow-y: scroll;
     position: fixed;
     padding-bottom: 20px;
