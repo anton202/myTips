@@ -5,7 +5,7 @@
   <p>{{errorMessaage}}</p>
   <div class="genralData" appMinimize>
   <form (ngSubmit)="calculatePerHour(f.value)" #f="ngForm">
-    <input type="numer" placeholder="Total Tips" name="totalTips" ngModel required> 
+    <input type="number" placeholder="Total Tips" name="totalTips" ngModel required> 
     <input type="number" placeholder="Total Hours" name="totalHours" ngModel required>
     <input type="number" placeholder="BarMan Precntage" name="barmanPrecentage" ngModel required>
     <button type="submit" [disabled]="!f.valid">Submit</button>
