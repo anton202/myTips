@@ -2,8 +2,8 @@
     <form (ngSubmit)="addTip(f.value)" #f="ngForm">
         <input type="date" name="date" placeholder="Date" ngModel required>
         <input type="number" name="amount" placeholder="Tips amount" ngModel required>
-        <input type="time" name="startTime" pattern="[0-9][0-9]:[1,3,4][0,5]" ngModel required >
-        <input type="time" name="endTime"  pattern="[0-9][0-9]:[1,3,4][0,5]" ngModel required>
+        <input type="time" name="startTime"  ngModel required >
+        <input type="time" name="endTime" ngModel required>
         <select name="shiftType" name="shiftCategory" ngModel required>
           <option value="morningShift">morning shift</option>
           <option value="middleShift">middle shift</option>
