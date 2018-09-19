@@ -28,11 +28,11 @@
           <option value="middleShift">middle Shift</option>
           <option value="evningShift">evning shift</option>
         </select>
-        <div><label for="startTime">Start Time</label> <label id="endTimeLabel" for="endTime">End Time</label></div>
-        
-        <input type="time" id="startTime" placeholder="Hours" name="startTime" ngModel required>
-        
-        <input type="time" id="endTime" name="endTime" ngModel required>
+        <div>
+          <label for="startTime">Start Time</label> <label id="endTimeLabel" for="endTime">End Time</label>
+        </div>
+        <input type="time" id="startTime" placeholder="Hours" name="startTime" pattern="[0-9][0-9]:[1,3,4][0,5]" ngModel required>
+        <input type="time" id="endTime" name="endTime" pattern="[0-9][0-9]:[1,3,4][0,5]" ngModel required>
         <button type="submit" [disabled]="!fw.valid">Submit</button>
       </form>
     </div>

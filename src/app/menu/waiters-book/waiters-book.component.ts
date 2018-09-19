@@ -61,7 +61,6 @@ export class WaitersBookComponent implements OnInit,OnDestroy {
      return this.addBarManTip(data);
     }
     const totalHours = this.addTipService.calculateTotalHours(data.startTime,data.endTime);
-    data.date = this.todaysDate;
     data.totalTime = totalHours;
     data.amount = data.totalTime * this.shekelsPerHour;
     data.perHour = this.shekelsPerHour;
@@ -76,7 +75,6 @@ export class WaitersBookComponent implements OnInit,OnDestroy {
   addBarManTip(data){
     const totalHours = this.addTipService.calculateTotalHours(data.startTime,data.endTime);
     data.amount = this.barmanTip;
-    data.date = this.todaysDate;
     data.totalTime = totalHours;
     data.perHour = null;
     data.waitrsBook = true
