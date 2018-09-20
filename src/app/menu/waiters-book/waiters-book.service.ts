@@ -30,7 +30,7 @@ export class WaitrsBookService {
             ));
             this.tipsFetched.next(this.waitrsTips);
         },
-        error => {this.errorMessage.next(error.message)}
+        error => {this.errorMessage.next(error.error.message)}
     )
         
         
@@ -43,7 +43,7 @@ export class WaitrsBookService {
             this.totalTipsChanged.next(this.waitrsTips[id].amount);
             this.waitrsTips.splice(id, 1);
         },
-        error => this.errorMessage.next(error.message)
+        error => this.errorMessage.next(error.error.message)
     )
     }
 
@@ -68,7 +68,8 @@ export class WaitrsBookService {
             });
             this.tipsFetched.next(this.waitrsTips);
           },
-        error => this.errorMessage.next(error.message))
+        error => this.errorMessage.next(error.error.message)
+        )
     }
 
 

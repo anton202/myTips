@@ -23,7 +23,7 @@ errorMessage;
     .subscribe(response =>{
       this.getNames()
     },
-  error => this.errorMessage = error.message)
+  error => this.errorMessage = error.error.message)
   }
 
 getNames(){

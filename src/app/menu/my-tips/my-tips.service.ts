@@ -35,7 +35,7 @@ constructor(private http: HttpClient){}
                 this.tipAdded.next(this.tips.slice())
                
             },
-            error => this.serverError.next(error.message)
+            error => this.serverError.next(error.error.message)
         )
       
  }
@@ -57,7 +57,7 @@ constructor(private http: HttpClient){}
       this.http.post(environment.apiUrl+'/myTips/addTip',newTip)
       .subscribe(
           response => {},
-          error => this.serverError.next(error.message)
+          error => this.serverError.next(error.error.message)
         )
         
       this.tipAdded.next(this.tips.slice());
@@ -80,7 +80,7 @@ constructor(private http: HttpClient){}
             ))
         this.tipAdded.next(this.tips.slice());
       },
-      error => this.serverError.next(error.message)
+      error => this.serverError.next(error.error.message)
     )
     
   }
@@ -91,7 +91,7 @@ constructor(private http: HttpClient){}
           this.tips.splice(id,1);
           this.tipDeleted.next(this.tips.slice());
       },
-    error => this.serverError.next(error.message)
+    error => this.serverError.next(error.error.message)
 )
     
   }
