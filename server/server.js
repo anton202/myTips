@@ -9,7 +9,7 @@ const myTips = require('./routes/myTips');
 const waitrsBook = require('./routes/waitrsBook')
 const stats = require('./routes/stats');
 
-app.use(express.static(path.join('/root/myTips/dist')));
+app.use(express.static(path.join('../client/dist')));
 app.use(bodyParser.json());
 
   mongoose.connect('mongodb://localhost/myTips',{useNewUrlParser:true});
@@ -22,7 +22,7 @@ app.use('/api/waitrsBook',waitrsBook);
 app.use('/api/stats',stats);
 
 app.get('*', (req, res) => {
-    return res.sendFile(path.join('/root/myTips/dist','/index.html'));
+    return res.sendFile(path.join('../client/dist','/index.html'));
   });
 
 app.listen(8083,console.log('server listning on port 8000'))
