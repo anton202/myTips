@@ -14,6 +14,7 @@ import { Subscription } from 'rxjs/Subscription';
   providers:[WaitrsBookService, AddTipService]
 })
 export class WaitersBookComponent implements OnInit,OnDestroy {
+  waitrsStack = [];
   totalTip:number;
   shekelsPerHour: number;
   barmanTip: number;
@@ -26,7 +27,7 @@ export class WaitersBookComponent implements OnInit,OnDestroy {
   workersNames;
   errorMessageSub: Subscription; 
   errorMessaage: string;
-  @ViewChild('fw') waitrTipForm: NgForm
+  @ViewChild('f') waitrDataForm: NgForm
   
 
   constructor(private waitrsBookService: WaitrsBookService, private addTipService: AddTipService)  {}
@@ -48,11 +49,22 @@ export class WaitersBookComponent implements OnInit,OnDestroy {
     )
   }
 
-  calculatePerHour(data){
-   this.barmanTip = Math.round((+data.barmanPrecentage / 100) * +data.totalTips);
-   this.shekelsPerHour = Math.round((+data.totalTips - this.barmanTip) / +data.totalHours);
-   this.totalTip = +data.totalTips;
-   this.initialSubmit = true;
+  addWaitr(waitrData){
+    const startTime = waitrData.startTime.split(':');
+    const endTime = waitrData.endTime.split(':');
+
+    const start = new Date();
+    const end = new Date();
+
+    start.setHours(parseInt(startTime[0], 10), parseInt(startTime[1], 10));
+    end.setHours(parseInt(endTime[0], 10), parseInt(endTime[1], 10));
+    
+    waitrData.totalTime = ((end.getTime() - start.getTime()) / (1000 * 60 * 60)).toFixed(2); //(2) 
+    this.waitrsStack.push(waitrData)
+
+    this.waitrDataForm.reset()
+    console.log(this.waitrsStack)
+   
   }
 
   addWaitrTip(data){
@@ -68,7 +80,7 @@ export class WaitersBookComponent implements OnInit,OnDestroy {
     data.yearMonth = this.addTipService.setYearMonth();
     
     this.totalTip = this.totalTip - data.amount;
-    this.waitrTipForm.reset()
+    //this.waitrTipForm.reset()
     this.waitrsBookService.addTip(data);
   }
 
@@ -81,7 +93,7 @@ export class WaitersBookComponent implements OnInit,OnDestroy {
     data.yearMonth = this.addTipService.setYearMonth();
     this.totalTip = this.totalTip - this.barmanTip;
     this.barManTip = false;
-    this.waitrTipForm.reset();
+    //this.waitrTipForm.reset();
     this.waitrsBookService.addTip(data);
   }
 

@@ -1,28 +1,57 @@
 <div class="container">
   <p class="date">{{todaysDate | date:'d/M/y'}}</p>
   <p>{{errorMessaage}}</p>
-  <div class="genralData" appMinimize>
-    <form (ngSubmit)="calculatePerHour(f.value)" #f="ngForm">
-      <label for="totalTip">Total Tip:</label>
-      <input style="width:98%" type="number" name="totalTip" id="totalTip" ngModel required>
+  <div class="waitrForm">
+    <label for="totalTip">Total Tip:</label>
+    <input style="width:98%" type="number" name="totalTip" id="totalTip" ngModel>
+
+    <form (ngSubmit)="addWaitr(f.value)" #f="ngForm">
       <label for="waitrNamae">Waitr Name:</label>
-      <select id="waitrName" style="display:block;width:100%" name="name" ngModel>
+      <select id="waitrName" style="display:block;width:100%" name="waitrName" ngModel required>
         <option [value]="name" *ngFor="let name of workersNames">{{name}}</option>
       </select>
       <div class="lables">
-          <label for="startTime">Start Time:</label>
-          <label id="endTimeLable" for="endTime">End Time:</label>
+        <label for="startTime">Start Time:</label>
+        <label id="endTimeLable" for="endTime">End Time:</label>
       </div>
-      
+
       <input id="startTime" type="time" name="startTime" ngModel required>
       <input id="endTime" type="time" name="endTime" ngModel required>
+
       <button type="submit" [disabled]="!f.valid">Submit Waitr</button>
       <button type="button">Calculate Tips</button>
     </form>
   </div>
-  
-  
-</div>
+
+  <div *ngIf="waitrsStack.length > 0" class="calculatedTips">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Start</th>
+          <th>End</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let waitr of waitrsStack">
+          <td>{{waitr.waitrName}} </td>
+        <td>{{waitr.startTime}}</td>
+        <td>{{waitr.endTime}}</td>
+        <td>{{waitr.totalTime}}</td>
+      </tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+
+<!-- 
+<span>Nmae</span> <span>Start</span> <span>End</span> <span>Total</span>
+    <div class="waitrWithTip" *ngFor="let waitr of waitrsStack">
+      <span>{{waitr.waitrName}}</span> <span>{{waitr.startTime}}</span>
+      <span>{{waitr.endTime}}</span> <span>{{waitr.totalTime}}</span> -->
+
 
 <!-- 
 <div class="submitPerWaitr" *ngIf="initialSubmit">
@@ -50,7 +79,7 @@
   </div> -->
 
 
-  <!-- <img src="../../assets/line.jpg" alt="">
+<!-- <img src="../../assets/line.jpg" alt="">
   <h2 style="margin-top:0">Today's Tips</h2>
   <div class="waitrTip">
     <app-new-waitr-tip *ngFor="let waitrTip of todaysTips; let i = index" [waitrData]="waitrTip" [index]="i"></app-new-waitr-tip>
