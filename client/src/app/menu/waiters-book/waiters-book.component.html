@@ -2,35 +2,36 @@
   <p class="date">{{todaysDate | date:'d/M/y'}}</p>
   <p>{{errorMessaage}}</p>
   <div class="waitrForm">
-    <label for="totalTip">Total Tip:</label>
+    <label for="totalTip">סה&#34;כ מזומן</label>
     <input style="width:98%" type="number" name="totalTip" id="totalTip" ngModel>
 
     <form (ngSubmit)="addWaitr(f.value)" #f="ngForm">
-      <label for="waitrNamae">Waitr Name:</label>
+      <label for="waitrNamae">שם מלצר</label>
       <select id="waitrName" style="display:block;width:100%" name="waitrName" ngModel required>
         <option [value]="name" *ngFor="let name of workersNames">{{name}}</option>
       </select>
       <div class="lables">
-        <label for="startTime">Start Time:</label>
-        <label id="endTimeLable" for="endTime">End Time:</label>
+        <label for="startTime">עד שעה</label>
+        <label id="endTimeLable" for="endTime">משעה</label>
       </div>
 
       <input id="startTime" type="time" name="startTime" ngModel required>
       <input id="endTime" type="time" name="endTime" ngModel required>
 
-      <button type="submit" [disabled]="!f.valid">Submit Waitr</button>
-      <button type="button">Calculate Tips</button>
+      <button type="submit" [disabled]="!f.valid">הוסף</button>
+      <button type="button">חשב טיפים</button>
     </form>
   </div>
 
   <div *ngIf="waitrsStack.length > 0" class="calculatedTips">
-    <table>
+    <table dir="rtl">
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Start</th>
-          <th>End</th>
-          <th>Total</th>
+          <th>שם</th>
+          <th>התחלה</th>
+          <th>סיום</th>
+          <th>סה&#34;כ שעות</th>
+          <th>טיפים</th>
         </tr>
       </thead>
       <tbody>

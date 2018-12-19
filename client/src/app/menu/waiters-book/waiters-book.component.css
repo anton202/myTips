@@ -1,6 +1,7 @@
 .container {
   width: 70%;
   margin: auto;
+  text-align: right;
 }
 
 img{
@@ -135,11 +136,28 @@ form {
   }
 
   #endTimeLable{
-    margin-left: 80px;
+    margin-right: 120px;
   }
 
   #totalTip{
     display: block;
   }
+
+table{
+  text-align: center;
+  position: absolute;
+  right: 0;
+  border-spacing: 5px;
+  border-collapse: collapse;
+}
+
+thead th{
+ /* border: solid 2px #016270;*/
+
+}
+
+td,th{
+  padding-left: 20px;
+}
 
 }
