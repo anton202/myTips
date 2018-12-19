@@ -3,7 +3,7 @@
   <p>{{errorMessaage}}</p>
   <div class="waitrForm">
     <label for="totalTip">סה&#34;כ מזומן</label>
-    <input style="width:98%" type="number" name="totalTip" id="totalTip" ngModel>
+    <input style="width:98%" type="number" name="totalTip" id="totalTip" #totalTip ngModel>
 
     <form (ngSubmit)="addWaitr(f.value)" #f="ngForm">
       <label for="waitrNamae">שם מלצר</label>
@@ -11,20 +11,21 @@
         <option [value]="name" *ngFor="let name of workersNames">{{name}}</option>
       </select>
       <div class="lables">
-        <label for="startTime">עד שעה</label>
-        <label id="endTimeLable" for="endTime">משעה</label>
+        <label for="startTime">משעה</label>
+        <label id="endTimeLable" for="endTime">עד שעה</label>
       </div>
 
-      <input id="startTime" type="time" name="startTime" ngModel required>
       <input id="endTime" type="time" name="endTime" ngModel required>
+      <input id="startTime" type="time" name="startTime" ngModel required>
 
-      <button type="submit" [disabled]="!f.valid">הוסף</button>
-      <button type="button">חשב טיפים</button>
+      <button type="submit" [disabled]="!f.valid">הוסף מלצר</button>
+      <button type="button" (click)="calculateTips(totalTip.value)">חשב טיפים</button>
     </form>
   </div>
 
   <div *ngIf="waitrsStack.length > 0" class="calculatedTips">
-    <table dir="rtl">
+   <div class="tips">
+    <table class="tipsTable" dir="rtl">
       <thead>
         <tr>
           <th>שם</th>
@@ -40,9 +41,31 @@
         <td>{{waitr.startTime}}</td>
         <td>{{waitr.endTime}}</td>
         <td>{{waitr.totalTime}}</td>
+        <td>{{waitr.totalTip}}</td>
       </tr>
       </tbody>
     </table>
+  </div>
+    <div class="sum" >
+        <table dir="rtl">
+          <thead>
+            <tr>
+              <th>סה&#34;	כ שעות</th>
+              <th>סה&#34;	כ מזומן</th>
+              <th>סה&#34;	כ לשעה</th>
+              <th>הפרשה ברמן</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{totalTime}}</td>
+              <td>{{totalTip.value - barManTip}}</td>
+              <td>{{tipPerHour}}</td>
+              <td>{{barManTip > 0?barManTip:""}}</td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
     </div>
   </div>
 

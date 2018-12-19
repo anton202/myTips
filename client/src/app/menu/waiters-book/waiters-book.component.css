@@ -145,9 +145,8 @@ form {
 
 table{
   text-align: center;
-  position: absolute;
-  right: 0;
-  border-spacing: 5px;
+  /*position: absolute;
+  right: 0;*/
   border-collapse: collapse;
 }
 
@@ -156,8 +155,12 @@ thead th{
 
 }
 
-td,th{
+.tipsTable > td,th{
   padding-left: 20px;
+}
+
+.sum{
+  margin-top: 25px;
 }
 
 }

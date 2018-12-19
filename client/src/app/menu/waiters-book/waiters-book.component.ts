@@ -15,7 +15,11 @@ import { Subscription } from 'rxjs/Subscription';
 })
 export class WaitersBookComponent implements OnInit,OnDestroy {
   waitrsStack = [];
-  totalTip:number;
+  totalTips;
+  totalTime;
+  tipPerHour
+  barManTip = 0;
+
   shekelsPerHour: number;
   barmanTip: number;
   initialSubmit: boolean = false;
@@ -23,7 +27,7 @@ export class WaitersBookComponent implements OnInit,OnDestroy {
   todaysTips: Tip[] = [];
   subscription: Subscription;
   tipsFetchedSubscription: Subscription;
-  barManTip: boolean = true;
+  //barManTip: boolean = true;
   workersNames;
   errorMessageSub: Subscription; 
   errorMessaage: string;
@@ -41,12 +45,12 @@ export class WaitersBookComponent implements OnInit,OnDestroy {
     this.waitrsBookService.getTips();
     this.errorMessageSub = this.waitrsBookService.errorMessage.subscribe(error => this.errorMessaage = error)
     this.tipsFetchedSubscription = this.waitrsBookService.tipsFetched.subscribe(tips => this.todaysTips = tips);
-    this.subscription = this.waitrsBookService.totalTipsChanged
-    .subscribe(
-      tip => {
-        this.totalTip += tip;
-      }
-    )
+    // this.subscription = this.waitrsBookService.totalTipsChanged
+    // .subscribe(
+    //   tip => {
+    //     this.totalTip += tip;
+    //   }
+    // )
   }
 
   addWaitr(waitrData){
@@ -64,38 +68,68 @@ export class WaitersBookComponent implements OnInit,OnDestroy {
 
     this.waitrDataForm.reset()
     console.log(this.waitrsStack)
-   
   }
 
-  addWaitrTip(data){
-   
-    if(this.barManTip){
-     return this.addBarManTip(data);
+  calculateTips(totalTip){
+    let totalTime = 0;
+    let tipPerHour = 0;
+    let barManTip = 0;
+
+    for (let i = 0; i < this.waitrsStack.length; i++) {
+        totalTime += Number(this.waitrsStack[i].totalTime);
     }
-    const totalHours = this.addTipService.calculateTotalHours(data.startTime,data.endTime);
-    data.totalTime = totalHours;
-    data.amount = data.totalTime * this.shekelsPerHour;
-    data.perHour = this.shekelsPerHour;
-    data.waitrsBook = true
-    data.yearMonth = this.addTipService.setYearMonth();
+
+    barManTip = totalTip * 0.1; // 10% to barman
+    totalTip -= barManTip;
+    tipPerHour = Number((totalTip / totalTime).toFixed(2)); 
     
-    this.totalTip = this.totalTip - data.amount;
-    //this.waitrTipForm.reset()
-    this.waitrsBookService.addTip(data);
+    for (let i = 0; i < this.waitrsStack.length; i++ ){
+        if(totalTip - this.waitrsStack[i].totalTime * tipPerHour < 0){
+            throw console.log('error not enogh tip');
+        }
+
+        this.waitrsStack[i].totalTip = Math.floor(this.waitrsStack[i].totalTime * tipPerHour);
+        totalTip -= this.waitrsStack[i].totalTip;
+    }
+
+    this.totalTips = totalTip;
+    this.totalTime = totalTime;
+    this.tipPerHour = tipPerHour;
+    this.barManTip = barManTip;
+
+    console.log(totalTime + '\n' + tipPerHour + '\n' + barManTip + '\n' + totalTip)
   }
 
-  addBarManTip(data){
-    const totalHours = this.addTipService.calculateTotalHours(data.startTime,data.endTime);
-    data.amount = this.barmanTip;
-    data.totalTime = totalHours;
-    data.perHour = null;
-    data.waitrsBook = true
-    data.yearMonth = this.addTipService.setYearMonth();
-    this.totalTip = this.totalTip - this.barmanTip;
-    this.barManTip = false;
-    //this.waitrTipForm.reset();
-    this.waitrsBookService.addTip(data);
-  }
+
+  // addWaitrTip(data){
+   
+  //   if(this.barManTip){
+  //    return this.addBarManTip(data);
+  //   }
+  //   const totalHours = this.addTipService.calculateTotalHours(data.startTime,data.endTime);
+  //   data.totalTime = totalHours;
+  //   data.amount = data.totalTime * this.shekelsPerHour;
+  //   data.perHour = this.shekelsPerHour;
+  //   data.waitrsBook = true
+  //   data.yearMonth = this.addTipService.setYearMonth();
+    
+  //   this.totalTip = this.totalTip - data.amount;
+  //   //this.waitrTipForm.reset()
+  //   this.waitrsBookService.addTip(data);
+  // }
+
+  // addBarManTip(data){
+  //   const totalHours = this.addTipService.calculateTotalHours(data.startTime,data.endTime);
+  //   data.amount = this.barmanTip;
+  //   data.totalTime = totalHours;
+  //   data.perHour = null;
+  //   data.waitrsBook = true
+  //   data.yearMonth = this.addTipService.setYearMonth();
+  //   this.totalTip = this.totalTip - this.barmanTip;
+  //   this.barManTip = false;
+  //   //this.waitrTipForm.reset();
+  //   this.waitrsBookService.addTip(data);
+  // }
 
 
   ngOnDestroy(){
