@@ -12,29 +12,17 @@ export class WaitrsBookService {
 
     constructor(private http: HttpClient){}
 
-    addTip(waitrTip: Tip) {
-        this.http.post(environment.apiUrl+'/waitrsBook/addTip',waitrTip)
-        .subscribe((tip:{tip}) =>{
-            this.waitrsTips.push(new Tip(
-                  tip.tip._id,
-                  tip.tip.date,
-                  tip.tip.amount,
-                  tip.tip.startTime,
-                  tip.tip.endTime,
-                  tip.tip.shiftCategory,
-                  tip.tip.yearMonth,
-                  tip.tip.name,
-                  tip.tip.totalTime,
-                  tip.tip.perHour,
-                  tip.tip.waitrsBook
-            ));
-            this.tipsFetched.next(this.waitrsTips);
-        },
-        error => {this.errorMessage.next(error.error.message)}
-    )
+    sendWaitrsDataToServer(waitrsStack) {
+        this.http.post(environment.apiUrl+'/waitrsBook/saveWaitrsTips',waitrsStack)
+        .subscribe()
+            //this.tipsFetched.next(this.waitrsTips);
         
         
     }
+    
+        
+        
+    
 
     deleteTip(id: number) {
         this.http.delete(environment.apiUrl+'/waitrsBook/deleteTip/'+this.waitrsTips[id].id)

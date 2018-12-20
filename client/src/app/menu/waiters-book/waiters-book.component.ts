@@ -41,8 +41,9 @@ export class WaitersBookComponent implements OnInit,OnDestroy {
     .subscribe(workersNames =>{
      this.workersNames = workersNames;
     },
-    error => this.errorMessaage = error.message)
-    this.waitrsBookService.getTips();
+    error => this.errorMessaage = error.message
+    )
+    //this.waitrsBookService.getTips();
     this.errorMessageSub = this.waitrsBookService.errorMessage.subscribe(error => this.errorMessaage = error)
     this.tipsFetchedSubscription = this.waitrsBookService.tipsFetched.subscribe(tips => this.todaysTips = tips);
     // this.subscription = this.waitrsBookService.totalTipsChanged
@@ -70,11 +71,16 @@ export class WaitersBookComponent implements OnInit,OnDestroy {
     console.log(this.waitrsStack)
   }
 
+  deleteWaitr(index){
+    this.waitrsStack.splice(index,1);
+  }
+
   calculateTips(totalTip){
     let totalTime = 0;
     let tipPerHour = 0;
     let barManTip = 0;
 
+    //calculate total time worked by waitrs
     for (let i = 0; i < this.waitrsStack.length; i++) {
         totalTime += Number(this.waitrsStack[i].totalTime);
     }
@@ -83,20 +89,27 @@ export class WaitersBookComponent implements OnInit,OnDestroy {
     totalTip -= barManTip;
     tipPerHour = Number((totalTip / totalTime).toFixed(2)); 
     
+    //add properties to each waitr inside waitrsStack
     for (let i = 0; i < this.waitrsStack.length; i++ ){
         if(totalTip - this.waitrsStack[i].totalTime * tipPerHour < 0){
             throw console.log('error not enogh tip');
         }
-
+        //add to waitr totalTip property, perHour property and month property
         this.waitrsStack[i].totalTip = Math.floor(this.waitrsStack[i].totalTime * tipPerHour);
+        this.waitrsStack[i].perHour = tipPerHour;
+        this.waitrsStack[i].yearMonth = this.addTipService.setYearMonth();
+        this.waitrsStack[i].waitrsBook = true;
+        
         totalTip -= this.waitrsStack[i].totalTip;
     }
 
+    //initializing properties to show in html file
     this.totalTips = totalTip;
     this.totalTime = totalTime;
     this.tipPerHour = tipPerHour;
     this.barManTip = barManTip;
 
+    this.waitrsBookService.sendWaitrsDataToServer(this.waitrsStack)
     console.log(totalTime + '\n' + tipPerHour + '\n' + barManTip + '\n' + totalTip)
   }
 

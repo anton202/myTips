@@ -7,7 +7,7 @@
 
     <form (ngSubmit)="addWaitr(f.value)" #f="ngForm">
       <label for="waitrNamae">שם מלצר</label>
-      <select id="waitrName" style="display:block;width:100%" name="waitrName" ngModel required>
+      <select id="waitrName" style="display:block;width:100%" name="name" ngModel required>
         <option [value]="name" *ngFor="let name of workersNames">{{name}}</option>
       </select>
       <div class="lables">
@@ -36,8 +36,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let waitr of waitrsStack">
-          <td>{{waitr.waitrName}} </td>
+        <tr *ngFor="let waitr of waitrsStack; let i = index" (click)="deleteWaitr(i)">
+          <td>{{waitr.name}} </td>
         <td>{{waitr.startTime}}</td>
         <td>{{waitr.endTime}}</td>
         <td>{{waitr.totalTime}}</td>
