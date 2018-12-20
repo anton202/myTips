@@ -150,11 +150,6 @@ table{
   border-collapse: collapse;
 }
 
-thead th{
- /* border: solid 2px #016270;*/
-
-}
-
 .tipsTable > td,th{
   padding-left: 20px;
 }
@@ -163,4 +158,10 @@ thead th{
   margin-top: 25px;
 }
 
+.loader{
+  height: 100px;
+  width: 100px;
+  display: block;
+  margin: auto;
+}
 }

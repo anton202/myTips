@@ -14,14 +14,10 @@ export class WaitrsBookService {
 
     sendWaitrsDataToServer(waitrsStack) {
         this.http.post(environment.apiUrl+'/waitrsBook/saveWaitrsTips',waitrsStack)
-        .subscribe()
-            //this.tipsFetched.next(this.waitrsTips);
-        
-        
+        .subscribe(()=>{},error =>{
+            this.errorMessage.next(error.error.message)
+        })
     }
-    
-        
-        
     
 
     deleteTip(id: number) {

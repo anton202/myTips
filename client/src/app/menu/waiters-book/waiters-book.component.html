@@ -23,7 +23,11 @@
     </form>
   </div>
 
-  <div *ngIf="waitrsStack.length > 0" class="calculatedTips">
+  <div class="loader" *ngIf="loadGif">
+    <img class="loader" src="../../../assets/loading2.gif" alt="loading.gif">
+  </div>
+
+  <div *ngIf="waitrsStack.length > 0 && !loadGif" class="calculatedTips">
    <div class="tips">
     <table class="tipsTable" dir="rtl">
       <thead>

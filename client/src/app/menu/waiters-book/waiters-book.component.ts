@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
+import { environment } from '../../../environments/environment';
 import { WaitrsBookService } from './waiters-book.service';
-import { Tip } from '../my-tips/tip.model';
 import { AddTipService } from '../my-tips/add-tip/add-tip.service';
 import { Subscription } from 'rxjs/Subscription';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -18,23 +19,16 @@ export class WaitersBookComponent implements OnInit,OnDestroy {
   totalTips;
   totalTime;
   tipPerHour
-  barManTip = 0;
-
-  shekelsPerHour: number;
-  barmanTip: number;
-  initialSubmit: boolean = false;
-  todaysDate:string = new Date().toLocaleDateString();
-  todaysTips: Tip[] = [];
-  subscription: Subscription;
-  tipsFetchedSubscription: Subscription;
-  //barManTip: boolean = true;
+  barManTip = 0;  
   workersNames;
+  todaysDate:string = new Date().toLocaleDateString();
   errorMessageSub: Subscription; 
   errorMessaage: string;
+  loadGif = false
   @ViewChild('f') waitrDataForm: NgForm
   
 
-  constructor(private waitrsBookService: WaitrsBookService, private addTipService: AddTipService)  {}
+  constructor(private waitrsBookService: WaitrsBookService, private addTipService: AddTipService, private http: HttpClient){}
 
   ngOnInit() {
     this.waitrsBookService.getWorkersNames()
@@ -43,15 +37,8 @@ export class WaitersBookComponent implements OnInit,OnDestroy {
     },
     error => this.errorMessaage = error.message
     )
-    //this.waitrsBookService.getTips();
     this.errorMessageSub = this.waitrsBookService.errorMessage.subscribe(error => this.errorMessaage = error)
-    this.tipsFetchedSubscription = this.waitrsBookService.tipsFetched.subscribe(tips => this.todaysTips = tips);
-    // this.subscription = this.waitrsBookService.totalTipsChanged
-    // .subscribe(
-    //   tip => {
-    //     this.totalTip += tip;
-    //   }
-    // )
+    
   }
 
   addWaitr(waitrData){
@@ -64,11 +51,10 @@ export class WaitersBookComponent implements OnInit,OnDestroy {
     start.setHours(parseInt(startTime[0], 10), parseInt(startTime[1], 10));
     end.setHours(parseInt(endTime[0], 10), parseInt(endTime[1], 10));
     
-    waitrData.totalTime = ((end.getTime() - start.getTime()) / (1000 * 60 * 60)).toFixed(2); //(2) 
+    waitrData.totalTime = ((end.getTime() - start.getTime()) / (1000 * 60 * 60)).toFixed(2); 
     this.waitrsStack.push(waitrData)
 
     this.waitrDataForm.reset()
-    console.log(this.waitrsStack)
   }
 
   deleteWaitr(index){
@@ -76,6 +62,8 @@ export class WaitersBookComponent implements OnInit,OnDestroy {
   }
 
   calculateTips(totalTip){
+    this.loadGif = true;
+
     let totalTime = 0;
     let tipPerHour = 0;
     let barManTip = 0;
@@ -91,7 +79,7 @@ export class WaitersBookComponent implements OnInit,OnDestroy {
     
     //add properties to each waitr inside waitrsStack
     for (let i = 0; i < this.waitrsStack.length; i++ ){
-        if(totalTip - this.waitrsStack[i].totalTime * tipPerHour < 0){
+        if(this.waitrsStack.length > 1 && totalTip - this.waitrsStack[i].totalTime * tipPerHour < 0){
             throw console.log('error not enogh tip');
         }
         //add to waitr totalTip property, perHour property and month property
@@ -109,45 +97,22 @@ export class WaitersBookComponent implements OnInit,OnDestroy {
     this.tipPerHour = tipPerHour;
     this.barManTip = barManTip;
 
-    this.waitrsBookService.sendWaitrsDataToServer(this.waitrsStack)
-    console.log(totalTime + '\n' + tipPerHour + '\n' + barManTip + '\n' + totalTip)
+    // send all tips to server
+    //this.waitrsBookService.sendWaitrsDataToServer(this.waitrsStack)
+    this.http.post(environment.apiUrl+'/waitrsBook/saveWaitrsTips',this.waitrsStack)
+        .subscribe(()=>{
+          setTimeout(()=>{this.loadGif = false
+          },3000)
+        },error =>{
+            this.errorMessaage = error.error.message
+        })
+    
   }
 
 
-  // addWaitrTip(data){
-   
-  //   if(this.barManTip){
-  //    return this.addBarManTip(data);
-  //   }
-  //   const totalHours = this.addTipService.calculateTotalHours(data.startTime,data.endTime);
-  //   data.totalTime = totalHours;
-  //   data.amount = data.totalTime * this.shekelsPerHour;
-  //   data.perHour = this.shekelsPerHour;
-  //   data.waitrsBook = true
-  //   data.yearMonth = this.addTipService.setYearMonth();
-    
-  //   this.totalTip = this.totalTip - data.amount;
-  //   //this.waitrTipForm.reset()
-  //   this.waitrsBookService.addTip(data);
-  // }
-
-  // addBarManTip(data){
-  //   const totalHours = this.addTipService.calculateTotalHours(data.startTime,data.endTime);
-  //   data.amount = this.barmanTip;
-  //   data.totalTime = totalHours;
-  //   data.perHour = null;
-  //   data.waitrsBook = true
-  //   data.yearMonth = this.addTipService.setYearMonth();
-  //   this.totalTip = this.totalTip - this.barmanTip;
-  //   this.barManTip = false;
-  //   //this.waitrTipForm.reset();
-  //   this.waitrsBookService.addTip(data);
-  // }
-
-
   ngOnDestroy(){
-    this.subscription.unsubscribe();
-    this.tipsFetchedSubscription.unsubscribe();
+    this.errorMessageSub.unsubscribe();
+    
   }
 
 }

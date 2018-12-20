@@ -28,7 +28,7 @@ router.post('/addTip',auth,(req,res)=>{
 router.post('/saveWaitrsTips',(req,res)=>{
    const waitrsStack = req.body;
    
-   // add on each waitr object date property
+   // add on each waitr object, date property
    for(let i = 0; i < waitrsStack.length; i += 1){
     waitrsStack[i].date = date;
    }
