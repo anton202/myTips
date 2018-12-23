@@ -20,12 +20,12 @@ export class WaitrsBookService {
     }
     
 
-    deleteTip(id: number) {
-        this.http.delete(environment.apiUrl+'/waitrsBook/deleteTip/'+this.waitrsTips[id].id)
+    deleteTip(waitrData) {
+        this.http.delete(environment.apiUrl+'/waitrsBook/deleteTip/',{observe:waitrData})
         .subscribe(response => {
            
-            this.totalTipsChanged.next(this.waitrsTips[id].amount);
-            this.waitrsTips.splice(id, 1);
+            // this.totalTipsChanged.next(this.waitrsTips[id].amount);
+            // this.waitrsTips.splice(id, 1);
         },
         error => this.errorMessage.next(error.error.message)
     )

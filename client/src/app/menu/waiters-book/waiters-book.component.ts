@@ -6,6 +6,7 @@ import { WaitrsBookService } from './waiters-book.service';
 import { AddTipService } from '../my-tips/add-tip/add-tip.service';
 import { Subscription } from 'rxjs/Subscription';
 import { HttpClient } from '@angular/common/http';
+import { error } from 'util';
 
 
 @Component({
@@ -24,7 +25,8 @@ export class WaitersBookComponent implements OnInit,OnDestroy {
   todaysDate:string = new Date().toLocaleDateString();
   errorMessageSub: Subscription; 
   errorMessaage: string;
-  loadGif = false
+  loadGif = false;
+  isDataSendedToServer = false;
   @ViewChild('f') waitrDataForm: NgForm
   
 
@@ -58,6 +60,16 @@ export class WaitersBookComponent implements OnInit,OnDestroy {
   }
 
   deleteWaitr(index){
+    if(this.isDataSendedToServer){
+      this.loadGif = true;
+      this.http.delete(environment.apiUrl+'/waitrsBook/deleteTip/'+JSON.stringify(this.waitrsStack[index]))
+      .subscribe(res =>{
+        this.waitrsStack.splice(index,1);
+        this.loadGif = false;
+      },
+      error => this.errorMessaage = error.error.message )
+      return
+    }
     this.waitrsStack.splice(index,1);
   }
 
@@ -82,7 +94,7 @@ export class WaitersBookComponent implements OnInit,OnDestroy {
         if(this.waitrsStack.length > 1 && totalTip - this.waitrsStack[i].totalTime * tipPerHour < 0){
             throw console.log('error not enogh tip');
         }
-        //add to waitr totalTip property, perHour property and month property
+        //add to waitr - totalTip property, perHour property and month property
         this.waitrsStack[i].totalTip = Math.floor(this.waitrsStack[i].totalTime * tipPerHour);
         this.waitrsStack[i].perHour = tipPerHour;
         this.waitrsStack[i].yearMonth = this.addTipService.setYearMonth();
@@ -98,17 +110,14 @@ export class WaitersBookComponent implements OnInit,OnDestroy {
     this.barManTip = barManTip;
 
     // send all tips to server
-    //this.waitrsBookService.sendWaitrsDataToServer(this.waitrsStack)
     this.http.post(environment.apiUrl+'/waitrsBook/saveWaitrsTips',this.waitrsStack)
         .subscribe(()=>{
-          setTimeout(()=>{this.loadGif = false
-          },3000)
+         this.loadGif = false;
+         this.isDataSendedToServer = true;
         },error =>{
             this.errorMessaage = error.error.message
-        })
-    
+        })  
   }
-
 
   ngOnDestroy(){
     this.errorMessageSub.unsubscribe();

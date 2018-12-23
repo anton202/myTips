@@ -58,14 +58,16 @@ router.post('/saveWaitrsTips',(req,res)=>{
 // })
 
 
-router.delete('/deleteTip/:id',(req,res)=>{
-    MyTips.deleteOne({_id: req.params.id})
-    .then(query => {
-        res.status(200).json({message:'tip deleted'});
-    })
-    .catch(error => {
-        res.status(500).json({message:'something went wrong,please try again later'})
-})
+router.delete('/deleteTip/:waitrData',(req,res)=>{
+//     MyTips.deleteOne({_id: req.params.id})
+//     .then(query => {
+//         res.status(200).json({message:'tip deleted'});
+//     })
+//     .catch(error => {
+//         res.status(500).json({message:'something went wrong,please try again later'})
+// })
+console.log(req.params.waitrData);
+res.status(200).json({message:'tip deleted'});
 })
 
 

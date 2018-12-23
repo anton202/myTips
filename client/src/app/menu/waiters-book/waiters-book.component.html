@@ -1,6 +1,6 @@
 <div class="container">
   <p class="date">{{todaysDate | date:'d/M/y'}}</p>
-  <p>{{errorMessaage}}</p>
+  
   <div class="waitrForm">
     <label for="totalTip">סה&#34;כ מזומן</label>
     <input style="width:98%" type="number" name="totalTip" id="totalTip" #totalTip ngModel>
@@ -23,6 +23,8 @@
     </form>
   </div>
 
+  <p>{{errorMessaage}}</p>
+  
   <div class="loader" *ngIf="loadGif">
     <img class="loader" src="../../../assets/loading2.gif" alt="loading.gif">
   </div>
@@ -65,7 +67,7 @@
               <td>{{totalTime}}</td>
               <td>{{totalTip.value - barManTip}}</td>
               <td>{{tipPerHour}}</td>
-              <td>{{barManTip > 0?barManTip:""}}</td>
+              <td>{{barManTip > 0?barManTip.toFixed(2):""}}</td>
             </tr>
           </tbody>
         </table>
