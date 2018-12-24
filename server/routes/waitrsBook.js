@@ -45,17 +45,17 @@ router.post('/saveWaitrsTips', (req, res) => {
 
 })
 
-// router.get('/getTodaysTips',auth,(req,res)=>{
-//     const todaysDate = new Date().toLocaleDateString()
-//     MyTips.find({date: todaysDate, waitrsBook: true})
-//     .then(tips => {
-//         res.status(200).json({tips:tips});
-//     })
-//     .catch(error => {
-//         res.status(500).json({message:'something went wrong,please try again later'})
+router.get('/getTodaysTips',auth,(req,res)=>{
+    const todaysDate = new Date().toLocaleDateString()
+    waitrData.find({date: todaysDate, waitrsBook: true})
+    .then(tips => {
+        res.status(200).json(tips);
+    })
+    .catch(error => {
+        res.status(500).json({message:'something went wrong,please try again later'})
 
-//     })
-// })
+    })
+})
 
 
 router.delete('/deleteTip/:waitrData', (req, res) => {
