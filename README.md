@@ -16,6 +16,6 @@ http://46.101.194.54:8083
 
 
 ## Build With
-* anagular2
+* angular2
 * nodejs
 * mongodb
