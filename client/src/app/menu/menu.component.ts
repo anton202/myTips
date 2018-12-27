@@ -27,7 +27,6 @@ todaysTips;
       this.http.get(environment.apiUrl+'/waitrsBook/getTodaysTips')
       .subscribe(tips =>{
         this.todaysTips = tips
-        console.log(tips)
       },error => console.log(error))
   }
 

@@ -18,7 +18,7 @@ import { AddTipComponent } from './menu/my-tips/add-tip/add-tip.component';
 import { EditTipDirective } from './directives/edit-tip.directive';
 import { AppRoutingModule} from './app-routing.module';
 import { NewWaitrTipComponent } from './menu/waiters-book/new-waitr-tip/new-waitr-tip.component';
-import { WaitrsBookDirective } from './directives/waitrs-book.directive';
+import { MenuExtendDirective } from './directives/menu-extend.directive';
 import { StatisticsModule } from './menu/statistics/statistics.module';
 import { Auth } from './auth/auth.service';
 import { AuthInterceptor } from './auth.interceptor';
@@ -38,7 +38,7 @@ import { SettingsComponent } from './menu/settings/settings.component';
     AddTipComponent,
     EditTipDirective,
     NewWaitrTipComponent,
-    WaitrsBookDirective,
+    MenuExtendDirective,
     SettingsComponent,
   ],
   imports: [
