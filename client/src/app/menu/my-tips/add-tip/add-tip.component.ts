@@ -12,7 +12,7 @@ import { AddTipService } from './add-tip.service';
   styleUrls: ['./add-tip.component.css']
 })
 export class AddTipComponent implements OnInit, OnDestroy{
- state: string = 'add tip';
+ state = 'הוסף טיפ';
  stateSubscription: Subscription;
  editDataSubscription: Subscription;
  serverErrorSubscription: Subscription;
@@ -58,13 +58,13 @@ export class AddTipComponent implements OnInit, OnDestroy{
     newTip.perHour = Math.floor(newTip.amount / totalHour);
     newTip.totalHours = totalHour
 
-    if(this.state === 'add tip'){
+    if(this.state === 'הוסף טיפ'){
     this.MyTipsService.addTip(newTip);
      this.tipForm.reset();
     }else if(this.state === 'edit'){
       newTip.id = this.serverTipId
       this.MyTipsService.editTip(newTip,this.editIndex)
-      this.state = 'add tip';
+      this.state = 'הוסף טים';
       this.tipForm.reset();
     }
   }

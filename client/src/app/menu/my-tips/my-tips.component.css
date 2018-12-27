@@ -24,6 +24,9 @@ h2{
     width: 70%;
 }
 
+.newTip > table>thead > th{
+    padding-left: 10px;
+}
 
 @media screen and (min-width: 320px) and (max-width: 480px){
 .container{
@@ -36,7 +39,7 @@ h2{
 }
 
 .newTip{
-    height: 30%;
+    height: 35%;
     overflow-y: scroll;
     position: fixed;
     padding-bottom: 20px;
@@ -97,5 +100,16 @@ input {
       width: 100%;
       
   }
+
+  table{
+      font-size: 18px;
+      text-align: center;
+  }
+
+  table > td,th{
+    padding-left: 7px;
+  }
+  
+  
 }
 

@@ -106,7 +106,7 @@ select{
       }
 
       input[type="time"]{
-        width: 27%
+        width: 40%
      }
 
     select{
@@ -124,6 +124,10 @@ select{
 
     #shiftType{
         margin-left: 2.5rem;
+    }
+
+    .moveRight{
+        margin-right: 5rem;
     }
 
     }

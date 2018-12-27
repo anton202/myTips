@@ -26,6 +26,7 @@ constructor(
       tip: this.tip,
       index: this.index
     };
+    console.log(this.tip)
   }
 
   deleteTip(){
@@ -34,7 +35,7 @@ constructor(
 
   editTip(){
     
-    this.addTipService.formState.next('edit');
+    this.addTipService.formState.next('ערוך טיפ');
     this.newTipService.editData.next(this.editData);
     
   }

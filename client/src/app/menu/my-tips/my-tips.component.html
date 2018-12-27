@@ -1,11 +1,31 @@
-<div class="container">
+<div dir="rtl" class="container">
   <div class="addTip" >
-    <h2>Add tip</h2>
-    <a routerLink="/menu"><h2 id="menu">Menu</h2></a> 
         <app-add-tip></app-add-tip>
         <img src="../../assets/line.jpg" alt="">
   </div>
   <div class="newTip"> 
-       <app-new-tip *ngFor="let newTip of tips; let i = index" [tip]="newTip" [index]="i"></app-new-tip>
+       <!-- <app-new-tip *ngFor="let newTip of tips; let i = index" [tip]="newTip" [index]="i"></app-new-tip> -->
+       <table>
+         <thead>
+           <tr>
+             <th>תאריך</th>
+             <th>משעה</th>
+             <th>עד שעה</th>
+             <th>סה"כ שעות</th>
+             <th>סה"כ לשעה</th>
+             <th>סה"כ מזומן</th>
+           </tr>
+         </thead>
+         <tbody>
+           <tr *ngFor="let newTip of tips">
+             <td>{{newTip.date}}</td>
+             <td>{{newTip.startTime}}</td>
+             <td>{{newTip.endTime}}</td>
+             <td>{{newTip.totalTime}}</td>
+             <td>{{newTip.perHour}}</td>
+             <td>{{newTip.totalTip}}</td>
+           </tr>
+         </tbody>
+       </table>
   </div>
 </div>

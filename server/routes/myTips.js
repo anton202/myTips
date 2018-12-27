@@ -28,7 +28,7 @@ router.get('/getMyTips',auth,(req, res) => {
     const yearMonth = date.getFullYear()+'-'+date.getMonth();;
     MyTips.find({name:req.body.userName, yearMonth: yearMonth.toString()})
     .then(tips => {
-        res.status(200).json({tips:tips});
+        res.status(200).json(tips);
     })
     .catch(error => res.status(500).json({message:'something went wrong,please try again later'}))
 })
