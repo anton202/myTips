@@ -23,6 +23,7 @@ import { StatisticsModule } from './menu/statistics/statistics.module';
 import { Auth } from './auth/auth.service';
 import { AuthInterceptor } from './auth.interceptor';
 import { SettingsComponent } from './menu/settings/settings.component'; 
+import { ShortenDatePipe } from './menu/my-tips/shortenDate.pipe'
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { SettingsComponent } from './menu/settings/settings.component';
     NewWaitrTipComponent,
     MenuExtendDirective,
     SettingsComponent,
+    ShortenDatePipe
   ],
   imports: [
     BrowserModule,
