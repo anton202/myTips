@@ -14,53 +14,42 @@ export class MyTipsService{
  
 constructor(private http: HttpClient){}
 
- fetchTips(){
-     this.http.get<{tips}>(environment.apiUrl+'/myTips/getMyTips')
-        .subscribe(
-            response =>{
-                response.tips.forEach(tip => {
-                    this.tips.unshift(new Tip(
-                        tip._id,
-                        tip.date, 
-                        tip.amount,
-                        tip.startTime, 
-                        tip.endTime, 
-                        tip.shiftCategory,
-                        tip.yearMonth,
-                        tip.name,
-                        tip.totalTime,
-                        tip.perHour,
-                     ))
-                })
-                this.tipAdded.next(this.tips.slice())
+//  fetchTips(){
+//      this.http.get<{tips}>(environment.apiUrl+'/myTips/getMyTips')
+//         .subscribe(
+//             response =>{
+//                 response.tips.forEach(tip => {
+//                     this.tips.unshift(new Tip(
+//                         tip._id,
+//                         tip.date, 
+//                         tip.amount,
+//                         tip.startTime, 
+//                         tip.endTime, 
+//                         tip.shiftCategory,
+//                         tip.yearMonth,
+//                         tip.name,
+//                         tip.totalTime,
+//                         tip.perHour,
+//                      ))
+//                 })
+//                 this.tipAdded.next(this.tips.slice())
                
-            },
-            error => this.serverError.next(error.error.message)
-        )
+//             },
+//             error => this.serverError.next(error.error.message)
+//         )
       
- }
+//  }
 
   addTip(newTip){
-      this.tips.unshift(new Tip(
-          newTip.id,
-          newTip.date,
-          newTip.amount,
-          newTip.startTime, 
-          newTip.endTime, 
-          newTip.shiftCategory, 
-          newTip.userName, 
-          newTip.yearMonth,
-          newTip.totalHours, 
-          newTip.perHour,
-          
-        ))
       this.http.post(environment.apiUrl+'/myTips/addTip',newTip)
       .subscribe(
           response => {},
           error => this.serverError.next(error.error.message)
         )
-        
-      this.tipAdded.next(this.tips.slice());
+        //change daate format to dd/mm from yyyy-dd-mm
+      const date = newTip.date.split('-');
+      newTip.date = date[1] + '/' + date[2];         
+      this.tipAdded.next(newTip);
   }
 
   editTip(editedTip,index){

@@ -27,16 +27,14 @@ export class MyTipsComponent implements OnInit, OnDestroy {
     this.http.get(environment.apiUrl+'/myTips/getMyTips')
     .subscribe(tips =>{
       console.log(tips)
-      // for(let i = 0; i < tips.length; i += 1){
-      //   tips[i].date = new Date(tips[i].date)
-      // }
       this.tips = tips;
     },
     error => {
       console.log(error);
     })
-    this.addTipSubscription = this.myTipsService.tipAdded.subscribe(tips =>{
-      this.tips = tips;
+    this.addTipSubscription = this.myTipsService.tipAdded.subscribe(tip =>{
+      
+      this.tips.unshift(tip);
     })
 
     this.delteTipSubscription = this.myTipsService.tipDeleted.subscribe(tips => {

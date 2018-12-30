@@ -34,7 +34,6 @@ constructor(
   }
 
   editTip(){
-    
     this.addTipService.formState.next('ערוך טיפ');
     this.newTipService.editData.next(this.editData);
     

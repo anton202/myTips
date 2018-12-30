@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../midleware/check-auth');
 const waitrData = require('../models/myTips');
-const User = require('../models/user');
 const date = new Date().toLocaleDateString();
 
 router.post('/addTip', auth, (req, res) => {
@@ -10,7 +9,6 @@ router.post('/addTip', auth, (req, res) => {
         date: date,
         yearMonth: req.body.yearMonth,
         amount: req.body.amount,
-        shiftCategory: req.body.shiftCategory,
         startTime: req.body.startTime,
         endTime: req.body.endTime,
         name: req.body.name,
