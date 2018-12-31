@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { MyTipsService } from '../my-tips.service';
 import { NewTipService } from '../new-tip/new-tip.service';
 import { AddTipService } from './add-tip.service';
+import { startTimeRange } from '@angular/core/src/profile/wtf_impl';
 
 @Component({
   selector: 'app-add-tip',
@@ -35,14 +36,17 @@ export class AddTipComponent implements OnInit, OnDestroy {
     })
 
     this.editDataSubscription = this.newTipService.editData.subscribe(editData => {
-      this.serverTipId = editData.tip.id;
+      console.log(editData)
+      this.serverTipId = editData.tip._id;
       this.editIndex = editData.index;
+      //split date to change the format 
+      const date = editData.tip.date.split('/');
       this.tipForm.setValue({
-        date: editData.tip.date,
-        amount: editData.tip.amount,
+        // change date format to yyyy-dd-mm
+        date: date[2] + '-' + date[1] + '-' + date[0],
+        totalTip: editData.tip.totalTip,
         startTime: editData.tip.startTime,
         endTime: editData.tip.endTime,
-        shiftCategory: editData.tip.shiftCategory
       })
     })
 
@@ -62,12 +66,10 @@ export class AddTipComponent implements OnInit, OnDestroy {
     end.setHours(parseInt(endTime[0], 10), parseInt(endTime[1], 10));
 
     //add - total time,user name, yearMonth and perHour properties to waitrData object.
-    //edit date format to dd/mm/yyyy
     waitrData.totalTime = ((end.getTime() - start.getTime()) / (1000 * 60 * 60)).toFixed(2); //(2)
     waitrData.yearMonth = this.addTipService.setYearMonth();
     waitrData.userName = localStorage.getItem('userName');
     waitrData.perHour = Number(waitrData.totalTip / waitrData.totalTime).toFixed(2);
-   // waitrData.date = new Date(waitrData.date).getDate().toLocaleString();
 
     console.log(waitrData);
     //check the state status. in both cases the function calculate or recalculate all the input values.
@@ -76,8 +78,13 @@ export class AddTipComponent implements OnInit, OnDestroy {
       this.MyTipsService.addTip(waitrData);
     } else if (this.state === 'ערוך טיפ') {
       waitrData.id = this.serverTipId;
+      console.log(waitrData)
+      //change date format back to dd/mm/yyyy
+      const date = waitrData.date.split('-');
+      waitrData.date = date[2] + '/' + date[1] + '/' + date[0];
+      //send to server
       this.MyTipsService.editTip(waitrData,this.editIndex)
-      this.state = 'הוסף טים';
+      this.state = 'הוסף טיפ';
     }
 
      //reset form inputs

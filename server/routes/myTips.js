@@ -6,7 +6,7 @@ const waitrData = require('../models/myTips');
 router.post('/addTip', auth, (req, res) => {
     const date = new Date(req.body.date).toLocaleDateString().split('/'); 
     const tip = new waitrData({
-        date: date[1] + '/' + date[0] + '/' + date[2],
+        date: date[0] + '/' + date[1] + '/' + date[2],
         yearMonth: req.body.yearMonth,
         totalTip: req.body.totalTip,
         startTime: req.body.startTime,
@@ -17,7 +17,7 @@ router.post('/addTip', auth, (req, res) => {
     })
     tip.save()
         .then(tip => {
-            res.status(201).json({ message: 'tip added' })
+            res.status(201).json(tip)
         })
         .catch(error => {
             console.log(error)
@@ -31,6 +31,7 @@ router.get('/getMyTips',auth,(req, res) => {
     const yearMonth = date.getFullYear()+'-'+date.getMonth();;
     waitrData.find({name:req.body.userName, yearMonth: yearMonth.toString()})
     .then(tips => {
+        console.log(tips)
         res.status(200).json(tips);
     })
     .catch(error => res.status(500).json({message:'something went wrong,please try again later'}))

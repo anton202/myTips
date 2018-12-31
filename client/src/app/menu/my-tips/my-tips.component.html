@@ -17,7 +17,7 @@
            </tr>
          </thead>
          <tbody>
-           <tr *ngFor="let newTip of tips">
+           <tr *ngFor="let newTip of tips; let i = index" (click)="editDeleteTip(newTip, i)">
              <td>{{newTip.date | shortenDate}}</td>
              <td>{{newTip.startTime}}</td>
              <td>{{newTip.endTime}}</td>

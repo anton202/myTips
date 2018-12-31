@@ -29,9 +29,9 @@ constructor(
     console.log(this.tip)
   }
 
-  deleteTip(){
-    this.MyTipsService.deleteTip(this.index,this.editData.tip.id);
-  }
+  // deleteTip(){
+  //   this.MyTipsService.deleteTip(this.index,this.editData.tip.id);
+  // }
 
   editTip(){
     this.addTipService.formState.next('ערוך טיפ');
