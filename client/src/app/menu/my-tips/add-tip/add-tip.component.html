@@ -17,6 +17,7 @@
         <input style="display:inline-block" type="time" name="endTime" ngModel required>
 
         <input type="submit" [value]="state" [disabled]="!f.valid">
+        <button type="button" (click)="deleteTip()">מחק טיפ</button>
     </form>
     <div class="errorMessage">{{serverErrorMessage}}</div>
 </div>

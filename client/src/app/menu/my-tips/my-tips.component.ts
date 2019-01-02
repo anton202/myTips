@@ -31,22 +31,27 @@ export class MyTipsComponent implements OnInit, OnDestroy {
     ) { }
 
   ngOnInit() {
-   //this.myTipsService.fetchTips();
-    this.http.get(environment.apiUrl+'/myTips/getMyTips')
-    .subscribe(tips =>{
-      console.log(tips)
+    // this.http.get(environment.apiUrl+'/myTips/getMyTips')
+    // .subscribe(tips =>{
+    //   console.log(tips)
+    //   this.tips = tips;
+    // },
+    // error => {
+    //   console.log(error);
+    // })
+
+    //run getTips func to fetch tips from sever 
+    this.myTipsService.getTips();
+    //listen to observable that sends the tips to this class after they are fetched succesfuly
+    this.myTipsService.fetchedTips.subscribe(tips => this.tips = tips)
+
+    this.addTipSubscription = this.myTipsService.tipAdded.subscribe(tips =>{
+      //updating the tips array - tips = [{tip},{tip},{tip}....]
       this.tips = tips;
-    },
-    error => {
-      console.log(error);
     })
-    this.addTipSubscription = this.myTipsService.tipAdded.subscribe(tip =>{
-      console.log(tip)
-      this.tips.unshift(tip);
-    })
-    this.editTipSubscription = this.myTipsService.editSelectedTip.subscribe(data =>{
-      this.tips[data.index] = data.editedTip
-     console.log(data)
+    this.editTipSubscription = this.myTipsService.editSelectedTip.subscribe(tips =>{
+      //same procces as with addTipSubscrition
+      this.tips = tips
     })
     
     this.delteTipSubscription = this.myTipsService.tipDeleted.subscribe(tips => {

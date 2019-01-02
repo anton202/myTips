@@ -1,5 +1,5 @@
 
- input {
+ input, button {
     outline: none;
     border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
     border: solid 2px #016270;
@@ -66,7 +66,7 @@ select{
 
 @media screen and (min-width: 320px) and (max-width: 480px){
     
-    input {
+    input, button {
         outline: none;
         border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
         border: solid 2px #016270;
@@ -95,7 +95,7 @@ select{
             background-color: transparent;
       }
     
-      input[type="submit"]{
+      input[type="submit"],button{
           display: block;
           width: 100%;
           margin-bottom: 20px;

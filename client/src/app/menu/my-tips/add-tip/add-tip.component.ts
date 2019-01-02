@@ -5,7 +5,9 @@ import { Subscription } from 'rxjs';
 import { MyTipsService } from '../my-tips.service';
 import { NewTipService } from '../new-tip/new-tip.service';
 import { AddTipService } from './add-tip.service';
-import { startTimeRange } from '@angular/core/src/profile/wtf_impl';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../environments/environment';
+
 
 @Component({
   selector: 'app-add-tip',
@@ -26,7 +28,8 @@ export class AddTipComponent implements OnInit, OnDestroy {
   constructor(
     private MyTipsService: MyTipsService,
     private newTipService: NewTipService,
-    private addTipService: AddTipService
+    private addTipService: AddTipService,
+    private http: HttpClient
   ) { }
 
   ngOnInit() {
@@ -36,7 +39,6 @@ export class AddTipComponent implements OnInit, OnDestroy {
     })
 
     this.editDataSubscription = this.newTipService.editData.subscribe(editData => {
-      console.log(editData)
       this.serverTipId = editData.tip._id;
       this.editIndex = editData.index;
       //split date to change the format 
@@ -71,7 +73,6 @@ export class AddTipComponent implements OnInit, OnDestroy {
     waitrData.userName = localStorage.getItem('userName');
     waitrData.perHour = Number(waitrData.totalTip / waitrData.totalTime).toFixed(2);
 
-    console.log(waitrData);
     //check the state status. in both cases the function calculate or recalculate all the input values.
     if (this.state === 'הוסף טיפ') {
       //send new tip to server
@@ -86,30 +87,15 @@ export class AddTipComponent implements OnInit, OnDestroy {
       this.MyTipsService.editTip(waitrData,this.editIndex)
       this.state = 'הוסף טיפ';
     }
-
      //reset form inputs
      this.tipForm.reset();
-
-
-    // newTip.id = null;
-    // newTip.yearMonth = this.addTipService.setYearMonth();
-    // newTip.userName = localStorage.getItem('userName');
-    // const totalHour = this.addTipService.calculateTotalHours(newTip.startTime, newTip.endTime);
-    // newTip.perHour = Math.floor(newTip.amount / totalHour);
-    // newTip.totalHours = totalHour
-
-    // if(this.state === 'הוסף טיפ'){
-    // this.MyTipsService.addTip(newTip);
-    //  this.tipForm.reset();
-    // }else if(this.state === 'edit'){
-    //   newTip.id = this.serverTipId
-    //   this.MyTipsService.editTip(newTip,this.editIndex)
-    //   this.state = 'הוסף טים';
-    //   this.tipForm.reset();
-    // }
   }
 
-
+  deleteTip(){
+  this.MyTipsService.deleteTip(this.editIndex,this.serverTipId)
+  this.state = 'הוסף טיפ'
+  this.tipForm.reset();
+  }
 
   ngOnDestroy() {
     this.stateSubscription.unsubscribe();

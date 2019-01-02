@@ -10,44 +10,58 @@ export class MyTipsService {
   editSelectedTip = new Subject<{ index, editedTip }>();
   tipDeleted = new Subject();
   serverError = new Subject<string>();
+  fetchedTips = new Subject();
+  //all of the tips for this month
+  tips;
 
   constructor(private http: HttpClient) { }
 
-  changeDateFormat(changeDate) {
-    const date = changeDate.split('-');
-    return date[2] + '/' + date[1];
+  getTips() {
+    this.http.get(environment.apiUrl + '/myTips/getMyTips')
+      .subscribe(tips => {
+        console.log(tips)
+        this.tips = tips;
+        // send fetched tips to myTips component class
+        this.fetchedTips.next(this.tips)
+      },
+        error => {
+          console.log(error);
+        })
   }
+
 
   addTip(newTip) {
     this.http.post(environment.apiUrl + '/myTips/addTip', newTip)
       .subscribe(
-        tip => { console.log(tip); this.tipAdded.next(tip);}, 
+        tip => {
+          this.tips.unshift(tip)
+          this.tipAdded.next(this.tips)
+        }
+        ,
         error => this.serverError.next(error.error.message)
       )
-    //change daate format to dd/mm from yyyy-dd-mm
-    //newTip.date = this.changeDateFormat(newTip.date)
-    
   }
 
   editTip(editedTip, index) {
     this.http.put(environment.apiUrl + '/myTips/editTip', { editedTip })
       .subscribe(response => {
-        //editedTip.date = this.changeDateFormat(editedTip.date)
-        this.editSelectedTip.next({ editedTip, index });
+        this.tips.splice(index, 1, editedTip)
+        this.editSelectedTip.next(this.tips);
       },
         error => this.serverError.next(error.error.message)
       )
 
   }
 
-  //   deleteTip(id,serverTipId){
-  //       this.http.delete(environment.apiUrl+'/myTips/deleteTip/'+serverTipId)
-  //       .subscribe(response => {
-  //           this.tips.splice(id,1);
-  //           this.tipDeleted.next(this.tips.slice());
-  //       },
-  //     error => this.serverError.next(error.error.message)
-  // )
+  deleteTip(index,serverTipId) {
+    this.http.delete(environment.apiUrl + '/myTips/deleteTip/' + serverTipId)
+      .subscribe(response => {
+        this.tips.splice(index, 1);
+        this.tipDeleted.next(this.tips);
+      },
+        error => this.serverError.next(error.error.message)
+      )
 
-  //   }
+  }
+
 }
