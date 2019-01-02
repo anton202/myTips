@@ -3,8 +3,10 @@
         <app-add-tip></app-add-tip>
         <img src="../../assets/line.jpg" alt="">
   </div>
-  <div class="newTip"> 
-       <!-- <app-new-tip *ngFor="let newTip of tips; let i = index" [tip]="newTip" [index]="i"></app-new-tip> -->
+  <div class="loader" *ngIf="loadGif" >
+    <img style="height:100%" src="../../../assets/loading2.gif" alt="loading">
+  </div>
+  <div class="newTip" *ngIf="!loadGif"> 
        <table>
          <thead>
            <tr>
