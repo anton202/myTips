@@ -1,6 +1,47 @@
-<div class="container">
-  <h1>Statistics:</h1>
-  <h2 routerLink="/menu">menu</h2>
-    <a routerLink="/waitrs-book-statistics/waitrsBook"><button> Waitr's Book</button></a>
-  <a routerLink="/waitrs-book-statistics/myTips"><button>My Tips</button></a> 
+<div class="container" dir="rtl">
+  <div class="personalTips">
+    <span>סה"כ טיפים שלי החודש:</span>
+    <span> ממוצע לשעה החודש:</span>
+  </div>
+  <div class="allwaitersTips">
+    <span>כל הטיפים החודש:</span>
+    <span>ממוצע לשעה החודש:</span>
+  </div>
+  <div class="showTips">
+    <span style="text-decoration:underline" >הצג טיפים:</span>
+    <form>
+      <select name="whosTips">
+        <option value="myTips">הטיפים שלי</option>
+        <option value="allTips">טיפים של כולם</option>
+      </select>
+      <label for="month">בחר חודש:</label>
+            <select name="month" id="month" ngModel>
+              <option value="0">January</option>
+              <option value="1">February</option>
+              <option value="2">March</option>
+              <option value="3">April</option>
+              <option value="4">May</option>
+              <option value="5">June</option>
+              <option value="6">July</option>
+              <option value="7">August</option>
+              <option value="8">September</option>
+              <option value="9">October</option>
+              <option value="10">November</option>
+              <option value="11">December</option>
+            </select>
+        
+        <div class="form-group">
+            <label for="year">הזן שנה:</label>
+            <input type="number" id="year" name="year" placeholder="2018,2019...." ngModel>
+        </div>
+        <button type="submit">הצג</button>
+    </form>
+  </div>
 </div>
+
+
+
+<!-- 
+<h1>סה"כ טיפים החודש:</h1>
+    <a routerLink="/waitrs-book-statistics/waitrsBook"><button> Waitr's Book</button></a>
+   -->
