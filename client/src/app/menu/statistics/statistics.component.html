@@ -1,21 +1,21 @@
 <div class="container" dir="rtl">
   <div class="personalTips">
-    <span>סה"כ טיפים שלי החודש:</span>
-    <span> ממוצע לשעה החודש:</span>
+    <span>סה"כ טיפים שלי החודש: {{myTotalIncome}} ש"ח</span>
+    <span> ממוצע לשעה החודש: {{myTotalPerHourAvrg}} ש"ח</span>
   </div>
   <div class="allwaitersTips">
-    <span>כל הטיפים החודש:</span>
-    <span>ממוצע לשעה החודש:</span>
+    <span>כל הטיפים החודש: {{totalTips}} ש"ח</span>
+    <span>ממוצע לשעה החודש: {{perHourAvrg}} ש"ח</span>
   </div>
   <div class="showTips">
     <span style="text-decoration:underline" >הצג טיפים:</span>
-    <form>
-      <select name="whosTips">
-        <option value="myTips">הטיפים שלי</option>
+    <form (ngSubmit)="onSubmit(f.value)" #f="ngForm"> 
+      <select name="whosTips" ngModel>
+        <option value="myTips" selected>הטיפים שלי</option>
         <option value="allTips">טיפים של כולם</option>
       </select>
       <label for="month">בחר חודש:</label>
-            <select name="month" id="month" ngModel>
+            <select name="month"  ngModel>
               <option value="0">January</option>
               <option value="1">February</option>
               <option value="2">March</option>
@@ -32,7 +32,7 @@
         
         <div class="form-group">
             <label for="year">הזן שנה:</label>
-            <input type="number" id="year" name="year" placeholder="2018,2019...." ngModel>
+            <input type="number"  name="year" placeholder="2018,2019...." ngModel>
         </div>
         <button type="submit">הצג</button>
     </form>

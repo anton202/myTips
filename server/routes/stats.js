@@ -6,21 +6,22 @@ const MyTips = require('../models/myTips');
 
 router.get('/myStats/:id',auth,(req,res)=>{
     const userName = req.params.id;
+    console.log(req.params.id)
     const date = new Date();
     const yearMonth = date.getFullYear()+'-'+date.getMonth();
-    let totalTipsThisMonth = 0;
-    let monthlyPerHourAvg = 0;
+    let myTotalIncome = 0;
+    let myTotalPerHourAvrg = 0;
    
     MyTips.find({name: userName, yearMonth: yearMonth})
     .then(tips =>{
-        
+        console.log(tips)
         tips.forEach(tip =>{
-            totalTipsThisMonth += tip.amount;
-            monthlyPerHourAvg += tip.perHour?tip.perHour:0;
+            myTotalIncome += tip.totalTip;
+            myTotalPerHourAvrg += tip.perHour?tip.perHour:0;
         })
         res.status(200).json({
-            totalTipsThisMonth,
-            monthlyPerHourAvg:Math.round(monthlyPerHourAvg/tips.length)
+            myTotalIncome,
+            myTotalPerHourAvrg:myTotalPerHourAvrg > 0?(myTotalPerHourAvrg/tips.length).toFixed(2):0
     })
     } )
 })
@@ -28,17 +29,18 @@ router.get('/myStats/:id',auth,(req,res)=>{
 router.get('/waitrsBookStats',auth,(req,res)=>{
     const date = new Date();
     const yearMonth = date.getFullYear()+'-'+date.getMonth();
-    let totalTipsThisMonth = 0;
-    let monthlyPerHourAvg = 0;
+    let totalTips = 0;
+    let perHourAvrg = 0;
     MyTips.find({yearMonth:yearMonth,waitrsBook:true})
     .then(tips =>{
         tips.forEach(tip =>{
-            totalTipsThisMonth += tip.amount;
-            monthlyPerHourAvg += tip.perHour?tip.perHour:0;
+            totalTips += tip.totalTip;
+            perHourAvrg += tip.perHour?tip.perHour:0;
         })
+        console.log(tips , perHourAvrg)
         res.status(200).json({
-            totalTipsThisMonth,
-            monthlyPerHourAvg:Math.round(monthlyPerHourAvg/tips.length)
+            totalTips,
+            perHourAvrg:perHourAvrg > 0?(perHourAvrg/tips.length).toFixed(2):0
     })
     })
     .catch(error => res.status(400).json({message:'server error'}))
@@ -50,21 +52,21 @@ router.get('/myLog/:state/:yearMonth',auth,(req,res)=>{
     const state = req.params.state;
     const waitrsBookLogQuery = {waitrsBook:true,yearMonth:yearMonth}
     const myTipsLogQuery = {name:userName,yearMonth:yearMonth}
-    let totalTipsThisMonth = 0;
-    let monthlyPerHourAvg = 0;
+    let totalTips = 0;
+    let perHourAvrg = 0;
     console.log(userName, yearMonth,state);
    
     MyTips.find(state === 'myTips'? myTipsLogQuery : waitrsBookLogQuery)
     .then(tips =>{
         tips.forEach(tip =>{
-            totalTipsThisMonth += tip.amount;
-            monthlyPerHourAvg += tip.perHour?tip.perHour:0;
+            totalTips += tip.amount;
+            perHourAvrg += tip.perHour?tip.perHour:0;
         })
         console.log(tips);
         res.status(200).json({
             tips:tips,
-            monthlyPerHourAvg:Math.round(monthlyPerHourAvg/tips.length),
-            totalTipsThisMonth
+            perHourAvrg:Math.round(perHourAvrg/tips.length),
+            totalTips
         });
     })
     .catch(error =>{
