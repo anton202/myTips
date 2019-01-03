@@ -10,12 +10,15 @@
   <div class="showTips">
     <span style="text-decoration:underline" >הצג טיפים:</span>
     <form (ngSubmit)="onSubmit(f.value)" #f="ngForm"> 
-      <select name="whosTips" ngModel>
+        <!-- <label for="whosTips">בחר טיפים של מי להציג:</label> -->
+      <!-- <select name="whosTips" id="whosTips" ngModel>
         <option value="myTips" selected>הטיפים שלי</option>
         <option value="allTips">טיפים של כולם</option>
-      </select>
+      </select> -->
+      <input type="radio" value="myTips" name="whosTips" ngModel>טיפים שלי
+      <input type="radio" value="allTips" name="whosTips" ngModel> טיפים של כולם
       <label for="month">בחר חודש:</label>
-            <select name="month"  ngModel>
+            <select name="month" id="month" ngModel>
               <option value="0">January</option>
               <option value="1">February</option>
               <option value="2">March</option>

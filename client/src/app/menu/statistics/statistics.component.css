@@ -39,4 +39,8 @@ select{
     height: 1.5rem;
 }
 
+input[name="year"]{
+    height: 1.5rem;
+}
+
 }
