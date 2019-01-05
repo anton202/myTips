@@ -59,13 +59,13 @@ router.get('/myLog/:state/:yearMonth',auth,(req,res)=>{
     MyTips.find(state === 'myTips'? myTipsLogQuery : waitrsBookLogQuery)
     .then(tips =>{
         tips.forEach(tip =>{
-            totalTips += tip.amount;
+            totalTips += tip.totalTip;
             perHourAvrg += tip.perHour?tip.perHour:0;
         })
         console.log(tips);
         res.status(200).json({
             tips:tips,
-            perHourAvrg:Math.round(perHourAvrg/tips.length),
+            perHourAvrg:(perHourAvrg/tips.length).toFixed(2),
             totalTips
         });
     })

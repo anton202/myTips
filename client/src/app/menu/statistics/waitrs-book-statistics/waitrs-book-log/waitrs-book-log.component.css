@@ -1,5 +1,28 @@
-.dayLog{
-    border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
-          border:solid 2px #016270;
-          padding: 5px;
+.container{
+    font-size: 18px;
+    width: 95%;
+    margin: auto;
+}
+
+.stats{
+    height: 500px;
+    overflow: scroll
+}
+
+table{
+    text-align: center;
+    width: 100%;
+}
+
+/* th{
+    padding-left: 15px;
+} */
+
+.moneySummery{
+    margin-top: 6%;
+    font-size: 1.3rem;
+}
+
+span{
+    display: block;
 }

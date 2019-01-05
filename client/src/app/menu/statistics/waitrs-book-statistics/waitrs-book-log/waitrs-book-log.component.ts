@@ -11,32 +11,22 @@ import { environment } from '../../../../../environments/environment';
   styleUrls: ['./waitrs-book-log.component.css']
 })
 export class WaitrsBookLogComponent implements OnInit {
-tips:Tip[] = [];
+tips = [];
 totalTips;
 perHourAvg;
+
   constructor(private http: HttpClient, private route: ActivatedRoute) { }
 
   ngOnInit() {
     const yearMonth = this.route.snapshot.params.yearMonth;
     const state = this.route.snapshot.params.state;
-    this.http.get<{tips,totalTipsThisMonth,monthlyPerHourAvg}>(environment.apiUrl+'/stats/mylog/'+state+'/'+yearMonth)
+    this.http.get<{tips,totalTips,perHourAvrg}>(environment.apiUrl+'/stats/mylog/'+state+'/'+yearMonth)
     .subscribe(log =>{
-      this.totalTips = log.totalTipsThisMonth;
-      this.perHourAvg = log.monthlyPerHourAvg;
-      log.tips.forEach(tip => {
-        this.tips.push(new Tip(
-          tip.id,
-          tip.date,
-          tip.amount,
-          tip.startTime,
-          tip.endTime,
-          tip.shiftCategory,
-          tip.yearMonth,
-          tip.name,
-          tip.totalTime,
-          tip.perHour
-          ))
-      });
+      console.log(log)
+      this.totalTips = log.totalTips;
+      this.perHourAvg = log.perHourAvrg;
+      this.tips = log.tips;
+      console.log(this.perHourAvg);
     })
   }
 
