@@ -77,6 +77,7 @@ export class AddTipComponent implements OnInit, OnDestroy {
     if (this.state === 'הוסף טיפ') {
       //send new tip to server
       this.MyTipsService.addTip(waitrData);
+      console.log(waitrData)
     } else if (this.state === 'ערוך טיפ') {
       waitrData.id = this.serverTipId;
       console.log(waitrData)

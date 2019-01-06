@@ -40,7 +40,7 @@ export class MyTipsComponent implements OnInit, OnDestroy {
     this.myTipsService.getTips();
     //listen to observable that sends the tips to this class after they are fetched successfully
     this.myTipsService.fetchedTips.subscribe(tips => {
-      console.log(this.loadGif)      
+      console.log(tips)      
       this.tips = tips
     })
 
