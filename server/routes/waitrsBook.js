@@ -3,6 +3,8 @@ const router = express.Router();
 const auth = require('../midleware/check-auth');
 const waitrData = require('../models/myTips');
 const date = new Date();
+const setDate = (date.getDate() < 10 ?'0'+ date.getDate():date.getDate()) + '/' + (date.getMonth() < 10 ?'0'+ (date.getMonth()+1):date.getMonth())
++ '/' + date.getFullYear()
 
 
 // router.post('/addTip', auth, (req, res) => {
@@ -28,10 +30,7 @@ const date = new Date();
 
 router.post('/saveWaitrsTips', (req, res) => {
     const waitrsStack = req.body;
-    const setDate = (date.getDate() < 10 ?'0'+ date.getDate():date.getDate()) + '/' + (date.getMonth() < 10 ?'0'+ (date.getMonth()+1):date.getMonth())
-    + '/' + date.getFullYear()
-
-
+   
     // add on each waitr object, date property
     for (let i = 0; i < waitrsStack.length; i += 1) {
         waitrsStack[i].date = setDate;
@@ -50,8 +49,8 @@ router.post('/saveWaitrsTips', (req, res) => {
 })
 
 router.get('/getTodaysTips',auth,(req,res)=>{
-    const todaysDate = new Date().toLocaleDateString()
-    waitrData.find({date: todaysDate, waitrsBook: true})
+    
+    waitrData.find({date: setDate, waitrsBook: true})
     .then(tips => {
         res.status(200).json(tips);
     })
