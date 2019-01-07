@@ -35,12 +35,10 @@ export class MyTipsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     //loadGift on myTipsService --> loadGift on myTips comp.ts --> html
     this.loadGifSubscription = this.myTipsService.loadGif.subscribe(isLoad => this.loadGif = isLoad)
-    console.log(this.loadGif)
     //run getTips func to fetch tips from sever 
     this.myTipsService.getTips();
     //listen to observable that sends the tips to this class after they are fetched successfully
     this.myTipsService.fetchedTips.subscribe(tips => {
-      console.log(tips)      
       this.tips = tips
     })
 

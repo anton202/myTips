@@ -4,9 +4,13 @@ const auth = require('../midleware/check-auth');
 const waitrData = require('../models/myTips');
 
 router.post('/addTip', auth, (req, res) => {
-    const date = new Date(req.body.date).toLocaleDateString().split('/'); 
+    const date = new Date(req.body.date);
+    const setDate = (date.getDate() < 10 ?'0'+ date.getDate():date.getDate()) + '/' + (date.getMonth() < 10 ?'0'+ (date.getMonth()+1):date.getMonth())
+    + '/' + date.getFullYear()
+    console.log(setDate);
+    console.log(date)
     const tip = new waitrData({
-        date: date[0] + '/' + date[1] + '/' + date[2],
+        date: setDate,
         yearMonth: req.body.yearMonth,
         totalTip: req.body.totalTip,
         startTime: req.body.startTime,

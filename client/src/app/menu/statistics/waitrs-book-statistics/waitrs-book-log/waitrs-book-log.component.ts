@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 
-import { Tip } from '../../../my-tips/tip.model';
 import { environment } from '../../../../../environments/environment';
 
 @Component({
@@ -22,11 +21,9 @@ perHourAvg;
     const state = this.route.snapshot.params.state;
     this.http.get<{tips,totalTips,perHourAvrg}>(environment.apiUrl+'/stats/mylog/'+state+'/'+yearMonth)
     .subscribe(log =>{
-      console.log(log)
       this.totalTips = log.totalTips;
       this.perHourAvg = log.perHourAvrg;
       this.tips = log.tips;
-      console.log(this.perHourAvg);
     })
   }
 

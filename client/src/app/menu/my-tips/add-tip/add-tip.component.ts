@@ -44,8 +44,8 @@ export class AddTipComponent implements OnInit, OnDestroy {
       //split date to change the format 
       const date = editData.tip.date.split('/');
       this.tipForm.setValue({
-        // change date format to yyyy-dd-mm
-        date: date[2] + '-' + date[1] + '-' + date[0],
+        // change date format to yyyy-mm-dd
+        date:date[2] + '-' + date[1] + '-' + date[0] ,
         totalTip: editData.tip.totalTip,
         startTime: editData.tip.startTime,
         endTime: editData.tip.endTime,
@@ -77,10 +77,8 @@ export class AddTipComponent implements OnInit, OnDestroy {
     if (this.state === 'הוסף טיפ') {
       //send new tip to server
       this.MyTipsService.addTip(waitrData);
-      console.log(waitrData)
     } else if (this.state === 'ערוך טיפ') {
       waitrData.id = this.serverTipId;
-      console.log(waitrData)
       //change date format back to dd/mm/yyyy
       const date = waitrData.date.split('-');
       waitrData.date = date[2] + '/' + date[1] + '/' + date[0];

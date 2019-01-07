@@ -20,14 +20,12 @@ perHourAvrg;
   ngOnInit() {
     this.http.get<{myTotalIncome,myTotalPerHourAvrg}>(environment.apiUrl+'/stats/myStats/'+localStorage.getItem('userName'))
     .subscribe(myStats => {
-      console.log(myStats)
       this.myTotalIncome = myStats.myTotalIncome;
       this.myTotalPerHourAvrg = myStats.myTotalPerHourAvrg;
     })
 
     this.http.get<{totalTips,perHourAvrg}>(environment.apiUrl + '/stats/waitrsBookStats')
     .subscribe(tips => {
-      console.log(tips)
       this.totalTips = tips.totalTips;
       this.perHourAvrg = tips.perHourAvrg;
       
@@ -35,7 +33,6 @@ perHourAvrg;
   }
 
   onSubmit(form){
-    console.log(form)
     const whosTips = form.whosTips;
     const month = form.month;
     const year = form.year;

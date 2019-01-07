@@ -37,6 +37,7 @@ export class MyTipsService {
     this.http.post(environment.apiUrl + '/myTips/addTip', newTip)
       .subscribe(
         tip => {
+          console.log(tip)
           this.tips.unshift(tip);
           this.tipAdded.next(this.tips);
           this.loadGif.next(false);

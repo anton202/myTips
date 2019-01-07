@@ -5,7 +5,7 @@ import { PipeTransform , Pipe} from "@angular/core";
 })
 export class ShortenDatePipe implements PipeTransform {
     transform(value:any){
-        return value.substr(0,5);
+        return value.substring(0,5);
     }
 
 }
