@@ -43,14 +43,9 @@ button{
         margin-bottom: 20px;
     }
 
-    h2{
-        margin-top: 50px;
-    }
 
-    .about { 
-        width:100%;
-        margin: 0;
-        text-align:none;
+    h1{
+        font-size: 1.7rem;
     }
 
     .container {

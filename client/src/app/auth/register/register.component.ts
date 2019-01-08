@@ -17,6 +17,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSignUp(form: NgForm){
+    form.value.userName = form.value.userName.toLowerCase();
     this.auth.register(form.value)
     .subscribe(
       (res) => { 

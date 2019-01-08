@@ -16,6 +16,7 @@ export class SignInComponent implements OnInit {
   }
 
   onSignIn(form:NgForm){
+    form.value.userName = form.value.userName.toLowerCase() 
    this.auth.login(form.value)
    .subscribe(
     response =>{ 
