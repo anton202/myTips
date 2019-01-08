@@ -23,7 +23,7 @@ import { StatisticsModule } from './menu/statistics/statistics.module';
 import { Auth } from './auth/auth.service';
 import { AuthInterceptor } from './auth.interceptor';
 import { SettingsComponent } from './menu/settings/settings.component'; 
-import { ShortenDatePipe } from './menu/my-tips/shortenDate.pipe'
+import { ReuseblePipe} from './reusblePipe.module';
 
 @NgModule({
   declarations: [
@@ -40,8 +40,7 @@ import { ShortenDatePipe } from './menu/my-tips/shortenDate.pipe'
     EditTipDirective,
     NewWaitrTipComponent,
     MenuExtendDirective,
-    SettingsComponent,
-    ShortenDatePipe
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +48,8 @@ import { ShortenDatePipe } from './menu/my-tips/shortenDate.pipe'
     FormsModule,
     AppRoutingModule,
     StatisticsModule,
-    RouterModule
+    RouterModule,
+    ReuseblePipe
   ],
   providers: [Auth,{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },],
   bootstrap: [AppComponent]

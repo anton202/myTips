@@ -54,7 +54,7 @@ router.get('/myLog/:state/:yearMonth',auth,(req,res)=>{
     const myTipsLogQuery = {name:userName,yearMonth:yearMonth}
     let totalTips = 0;
     let perHourAvrg = 0;
-    console.log(userName, yearMonth,state);
+    
    
     MyTips.find(state === 'myTips'? myTipsLogQuery : waitrsBookLogQuery)
     .then(tips =>{

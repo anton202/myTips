@@ -1,20 +1,12 @@
 <div class="container" dir="rtl">
   <div class="personalTips">
-    <span>סה"כ טיפים שלי החודש: {{myTotalIncome}} ש"ח</span>
-    <span> ממוצע לשעה החודש: {{myTotalPerHourAvrg}} ש"ח</span>
-  </div>
-  <div class="allwaitersTips">
-    <span>כל הטיפים החודש: {{totalTips}} ש"ח</span>
-    <span>ממוצע לשעה החודש: {{perHourAvrg}} ש"ח</span>
+    <span id="myTotal">סה"כ טיפים שלי החודש: {{myTotalIncome}} ש"ח</span>
+    <span> ממוצע שלי לשעה החודש: {{myTotalPerHourAvrg}} ש"ח</span>
+    <span>ממוצע כללי לשעה החודש: {{perHourAvrg}} ש"ח</span>
   </div>
   <div class="showTips">
     <span style="text-decoration:underline" >הצג טיפים:</span>
     <form (ngSubmit)="onSubmit(f.value)" #f="ngForm"> 
-        <!-- <label for="whosTips">בחר טיפים של מי להציג:</label> -->
-      <!-- <select name="whosTips" id="whosTips" ngModel>
-        <option value="myTips" selected>הטיפים שלי</option>
-        <option value="allTips">טיפים של כולם</option>
-      </select> -->
       <input type="radio" value="myTips" name="whosTips" ngModel>טיפים שלי
       <input type="radio" value="allTips" name="whosTips" ngModel> טיפים של כולם
       <label for="month">בחר חודש:</label>
@@ -41,10 +33,3 @@
     </form>
   </div>
 </div>
-
-
-
-<!-- 
-<h1>סה"כ טיפים החודש:</h1>
-    <a routerLink="/waitrs-book-statistics/waitrsBook"><button> Waitr's Book</button></a>
-   -->

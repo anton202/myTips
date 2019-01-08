@@ -13,13 +13,13 @@ export class WaitrsBookLogComponent implements OnInit {
 tips = [];
 totalTips;
 perHourAvg;
-
+state
   constructor(private http: HttpClient, private route: ActivatedRoute) { }
 
   ngOnInit() {
     const yearMonth = this.route.snapshot.params.yearMonth;
-    const state = this.route.snapshot.params.state;
-    this.http.get<{tips,totalTips,perHourAvrg}>(environment.apiUrl+'/stats/mylog/'+state+'/'+yearMonth)
+     this.state = this.route.snapshot.params.state;
+    this.http.get<{tips,totalTips,perHourAvrg}>(environment.apiUrl+'/stats/mylog/'+this.state+'/'+yearMonth)
     .subscribe(log =>{
       this.totalTips = log.totalTips;
       this.perHourAvg = log.perHourAvrg;

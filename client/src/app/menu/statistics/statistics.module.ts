@@ -7,7 +7,7 @@ import { StatisticsComponent } from './statistics.component';
 import { WaitrsBookStatisticsComponent } from './waitrs-book-statistics/waitrs-book-statistics.component';
 import { WaitrsBookLogComponent } from './waitrs-book-statistics/waitrs-book-log/waitrs-book-log.component';
 import { StatisticsRoutingModule } from './statistics-routing.module';
-
+import { ReuseblePipe } from '../../reusblePipe.module'
 @NgModule({
     declarations:[
         StatisticsComponent,
@@ -18,6 +18,7 @@ import { StatisticsRoutingModule } from './statistics-routing.module';
         FormsModule,
         CommonModule,
         StatisticsRoutingModule,
+        ReuseblePipe
         
     ]
 })

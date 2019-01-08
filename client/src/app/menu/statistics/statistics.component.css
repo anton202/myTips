@@ -23,7 +23,7 @@ button{
 
 
 @media screen and (min-width: 320px) and (max-width: 480px){
-.allwaitersTips, .personalTips, .showTips{
+.personalTips, .showTips{
     margin-top: 20%;
 }
 
@@ -41,6 +41,14 @@ select{
 
 input[name="year"]{
     height: 1.5rem;
+}
+
+#myTotal{
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+button{
+    margin-top: 7%;
 }
 
 }

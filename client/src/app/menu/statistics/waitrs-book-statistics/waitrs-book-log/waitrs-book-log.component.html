@@ -4,7 +4,7 @@
     <table dir="rtl">
       <thead>
         <th>תאריך</th>
-        <th>שם</th>
+        <th *ngIf="!(state === 'myTips')">שם</th>
         <th>משעה</th>
         <th>עד שעה</th>
         <th>סה"כ לשעה</th>
@@ -12,8 +12,8 @@
       </thead>
       <tbody>
         <tr *ngFor="let tip of tips">
-          <td>{{tip.date}}</td>
-          <td>{{tip.name}}</td>
+          <td>{{tip.date | shortenDate}}</td>
+          <td *ngIf="!(state === 'myTips')" >{{tip.name}}</td>
           <td>{{tip.startTime}}</td>
           <td>{{tip.endTime}}</td>
           <td>{{tip.perHour}}</td>
@@ -28,14 +28,3 @@
 </div>
 </div>
 
-<!-- 
-<span>Total Tips: {{totalTips}}&#x20AA;</span> - <span>perHour Avg: {{perHourAvg}}&#x20AA;</span>
-</div>
-<div class="dayLog" *ngFor="let tip of tips">
-<p>{{tip.date | date:'d/M/y'}}</p>
-<span>{{tip.name}}</span> - <span>{{tip.amount}}&#x20AA;</span> - 
-<span>{{tip.perHour}}&#x20AA;</span> - 
-<div>
-  <span>{{tip.startTime}}</span> - <span>{{tip.endTime}}</span> -
-  <span>{{tip.totalTime}} hours</span> - <span>{{tip.shiftCategory}}</span> 
-</div> -->
