@@ -1,12 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Tip } from './tip.model';
 import { MyTipsService } from './my-tips.service';
 import {  Subscription } from 'rxjs';
 import { NewTipService } from './new-tip/new-tip.service';
 import { AddTipService } from './add-tip/add-tip.service';
-import { environment } from '../../../environments/environment';
 
 
 

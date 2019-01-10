@@ -12,6 +12,7 @@
 table{
     text-align: center;
     width: 100%;
+    border-collapse: collapse;
 }
 
 /* th{
@@ -25,4 +26,9 @@ table{
 
 span{
     display: block;
+}
+
+.highLightTip{
+    color: white;
+    background-color: #016270;
 }

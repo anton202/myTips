@@ -9,6 +9,8 @@ const myTipsSchema = mongoose.Schema({
     name: { type: String },
     totalTime: { type: Number },
     perHour: { type: Number },
+    moneyToGoverment: {type:Number},
+    taxPerHour:{type: Number},
     waitrsBook: {type:  Boolean}
 })
 

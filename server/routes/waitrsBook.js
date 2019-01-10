@@ -9,8 +9,6 @@ router.post('/saveWaitrsTips', (req, res) => {
     const date = new Date();
     const setDate = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + '/' + (date.getMonth() < 10 ? '0' + (date.getMonth() + 1) : date.getMonth())
         + '/' + date.getFullYear()
-
-
     // add on each waitr object, date property
     for (let i = 0; i < waitrsStack.length; i += 1) {
         waitrsStack[i].date = setDate;

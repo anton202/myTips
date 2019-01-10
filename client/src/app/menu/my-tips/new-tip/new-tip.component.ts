@@ -1,5 +1,4 @@
 import { Component, OnInit,Input } from '@angular/core';
-import { Tip } from '../tip.model'; 
 import { MyTipsService } from '../my-tips.service';
 import { NewTipService } from './new-tip.service';
 import { AddTipService } from '../add-tip/add-tip.service';
@@ -11,9 +10,9 @@ import { AddTipService } from '../add-tip/add-tip.service';
   styleUrls: ['./new-tip.component.css']
 })
 export class NewTipComponent implements OnInit {
-@Input() tip: Tip;
+@Input() tip
 @Input() index: number;
-editData:{tip:Tip,index:number};
+editData:{tip,index:number};
 
 constructor(
   private MyTipsService: MyTipsService, 

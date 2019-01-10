@@ -1,4 +1,3 @@
-import { Tip } from '../tip.model'; 
 import { Subject } from 'rxjs';
 
 export class NewTipService{

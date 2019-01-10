@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 
-import { environment } from '../../../../../environments/environment';
+import { environment } from './../../../../environments/environment';
 
 @Component({
   selector: 'app-waitrs-book-log',
@@ -14,6 +14,7 @@ tips = [];
 totalTips;
 perHourAvg;
 state
+isHighLighted = false;
   constructor(private http: HttpClient, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -26,5 +27,5 @@ state
       this.tips = log.tips;
     })
   }
-
+deleteTip(){}
 }
