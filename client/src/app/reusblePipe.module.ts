@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { ShortenDatePipe } from "./menu/my-tips/shortenDate.pipe";
+import { ShortenDatePipe } from "./directives/shortenDate.pipe";
 
 @NgModule({
   declarations:[ShortenDatePipe],

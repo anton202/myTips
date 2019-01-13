@@ -3,17 +3,15 @@ import { NgForm } from '@angular/forms';
 
 import { environment } from '../../../environments/environment';
 import { WaitrsBookService } from './waiters-book.service';
-import { AddTipService } from '../my-tips/add-tip/add-tip.service';
 import { Subscription } from 'rxjs/Subscription';
 import { HttpClient } from '@angular/common/http';
-import { error } from 'util';
 
 
 @Component({
   selector: 'app-waiters-book',
   templateUrl: './waiters-book.component.html',
   styleUrls: ['./waiters-book.component.css'],
-  providers:[WaitrsBookService, AddTipService]
+  providers:[WaitrsBookService]
 })
 export class WaitersBookComponent implements OnInit,OnDestroy {
   waitrsStack = [];
@@ -32,7 +30,7 @@ export class WaitersBookComponent implements OnInit,OnDestroy {
   @ViewChild('f') waitrDataForm: NgForm
   
 
-  constructor(private waitrsBookService: WaitrsBookService, private addTipService: AddTipService, private http: HttpClient){}
+  constructor(private waitrsBookService: WaitrsBookService, private http: HttpClient){}
 
   ngOnInit() {
     this.waitrsBookService.getWorkersNames()
@@ -74,6 +72,13 @@ export class WaitersBookComponent implements OnInit,OnDestroy {
     }
     this.waitrsStack.splice(index,1);
   }
+
+  setYearMonth(){
+    const date = new Date();
+    const yearMonth = date.getFullYear()+'-'+date.getMonth();
+    return yearMonth.toString();
+  }
+
 
   calculateTips(totalTip){
     this.loadGif = true;
@@ -146,7 +151,7 @@ export class WaitersBookComponent implements OnInit,OnDestroy {
           this.waitrsStack[i].taxPerHour = 19;
       }
 
-        this.waitrsStack[i].yearMonth = this.addTipService.setYearMonth();
+        this.waitrsStack[i].yearMonth = this.setYearMonth();
         this.waitrsStack[i].waitrsBook = true;
         
         totalTip -= this.waitrsStack[i].totalTip + this.waitrsStack[i].moneyToGoverment;

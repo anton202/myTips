@@ -22,9 +22,6 @@ export class WaitrsBookService {
     deleteTip(waitrData) {
         this.http.delete(environment.apiUrl+'/waitrsBook/deleteTip/',{observe:waitrData})
         .subscribe(response => {
-           
-            // this.totalTipsChanged.next(this.waitrsTips[id].amount);
-            // this.waitrsTips.splice(id, 1);
         },
         error => this.errorMessage.next(error.error.message)
     )
