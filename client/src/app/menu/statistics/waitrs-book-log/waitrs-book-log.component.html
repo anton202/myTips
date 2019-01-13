@@ -14,7 +14,7 @@
         <th>סה"כ הפרשה למעסיק</th>
       </thead>
       <tbody>
-        <tr *ngFor="let tip of tips" >
+        <tr *ngFor="let tip of tips; let i = index" (click)="TipToDelete(i)">
           <td>{{tip.date | shortenDate}}</td>
           <td *ngIf="!(state === 'myTips')" >{{tip.name}}</td>
           <td>{{tip.startTime}}</td>
@@ -27,10 +27,9 @@
         </tr>
       </tbody>
     </table>
-   
   </div>
+  <button (click)="deleteTip()" [disabled]="!tipToDelete">מחק רישום</button>
 <div dir="rtl" class="moneySummery">
-    <button (click)="deleteTip()">מחק רישום</button>
   <span>סה"כ מזומן: {{totalTips}} ש"ח</span>
   <span>ממוצע לשעה:{{perHourAvg}} ש"ח</span>
 </div>

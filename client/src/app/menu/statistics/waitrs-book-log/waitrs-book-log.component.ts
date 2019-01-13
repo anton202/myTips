@@ -15,6 +15,8 @@ totalTips;
 perHourAvg;
 state
 isHighLighted = false;
+tipToDelete;
+
   constructor(private http: HttpClient, private route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -27,5 +29,25 @@ isHighLighted = false;
       this.tips = log.tips;
     })
   }
-deleteTip(){}
+
+  TipToDelete(index){
+    if(this.tipToDelete === this.tips[index]){
+      this.tipToDelete = null;
+      return
+    }
+    this.tipToDelete = this.tips[index];
+    this.tipToDelete.index = index;
+  }
+
+  deleteTip(){
+   this.http.delete(environment.apiUrl+'/myTips/deleteTip/'+this.tipToDelete._id)
+   .subscribe(()=>{
+     this.tips.splice(this.tipToDelete.index,1);
+     this.tipToDelete = null;
+    },
+    error =>{
+      console.log(error);
+    } )
+  }
+
 }

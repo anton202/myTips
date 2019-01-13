@@ -8,8 +8,10 @@
   <div class="showTips">
     <span style="text-decoration:underline" >הצג טיפים:</span>
     <form (ngSubmit)="onSubmit(f.value)" #f="ngForm"> 
-      <input type="radio" value="myTips" name="whosTips" ngModel>טיפים שלי
-      <input type="radio" value="allTips" name="whosTips" ngModel> טיפים של כולם
+      <input type="radio" id="myTips" value="myTips" name="whosTips" ngModel>
+      <label for="myTips" style="display:inline-block">טיפים שלי</label>
+      <input type="radio" id="allTips" value="allTips" name="whosTips" ngModel> 
+      <label for="allTips" style="display:inline-block">טיפים של כולם</label>
       <label for="month">בחר חודש:</label>
             <select dir="rtl" name="month" id="month" ngModel>
               <option value="0">ינואר</option>

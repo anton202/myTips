@@ -15,9 +15,9 @@ table{
     border-collapse: collapse;
 }
 
-/* th{
+ th{
     padding-left: 15px;
-} */
+}
 
 .moneySummery{
     margin-top: 6%;
@@ -31,4 +31,21 @@ span{
 .highLightTip{
     color: white;
     background-color: #016270;
+}
+
+button{
+    width: 90%;
+    margin: auto;
+    display: block;
+    outline: none;
+    border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+    border: solid 2px #016270;
+    font-family: 'Gaegu', cursive;
+    color:#016270;
+    padding-left: 5px;
+    height: 40px;
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 25px;
+    background-color: transparent;
 }
