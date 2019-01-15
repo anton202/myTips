@@ -3,7 +3,7 @@ import { Directive, HostListener, Renderer, ElementRef } from "@angular/core";
 @Directive({
     selector: '[highLightSelection]'
 })
-export class HighLightTip {
+export class HighLightTipDirective {
     selectedTip = [];
 
     constructor(private renderer: Renderer, private el: ElementRef) { }

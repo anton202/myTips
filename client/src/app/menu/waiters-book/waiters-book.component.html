@@ -8,7 +8,7 @@
     <form (ngSubmit)="addWaitr(f.value)" #f="ngForm">
       <label for="waitrNamae">שם מלצר</label>
       <select id="waitrName" style="display:block;width:100%" name="name" ngModel required>
-        <option [value]="name" *ngFor="let name of workersNames">{{name}}</option>
+        <option dir="rtl" [value]="name" *ngFor="let name of workersNames">{{name}}</option>
       </select>
       <div class="lables">
         <label for="startTime">משעה</label>

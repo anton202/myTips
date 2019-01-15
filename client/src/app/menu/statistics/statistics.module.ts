@@ -7,13 +7,13 @@ import { StatisticsComponent } from './statistics.component';
 import { WaitrsBookLogComponent } from './waitrs-book-log/waitrs-book-log.component';
 import { StatisticsRoutingModule } from './statistics-routing.module';
 import { ReuseblePipe } from '../../reusblePipe.module'
-import { HighLightTip } from './waitrs-book-log/highlightTip.directive'
+import { HighLightTipDirective } from './waitrs-book-log/highlightTip.directive'
 
 @NgModule({
     declarations:[
         StatisticsComponent,
         WaitrsBookLogComponent,
-        HighLightTip
+        HighLightTipDirective
     ],
     imports: [
         FormsModule,

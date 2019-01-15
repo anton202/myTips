@@ -8,7 +8,6 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { SignInComponent } from './auth/sign-in/sign-in.component';
-import { HeaderComponent } from './header/header.component';
 import { MenuComponent } from './menu/menu.component';
 
 import { WaitersBookComponent } from './menu/waiters-book/waiters-book.component';
@@ -28,7 +27,6 @@ import { ReuseblePipe} from './reusblePipe.module';
     HomeComponent,
     RegisterComponent,
     SignInComponent,
-    HeaderComponent,
     MenuComponent,
     WaitersBookComponent,
     EditTipDirective,
