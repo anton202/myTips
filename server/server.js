@@ -9,12 +9,16 @@ const myTips = require('./routes/myTips');
 const waitrsBook = require('./routes/waitrsBook')
 const stats = require('./routes/stats');
 
+const corsOptions = {
+  origin: 'http://myTips.mobi'
+}
+
+mongoose.connect('mongodb://localhost/myTips',{useNewUrlParser:true});
+
 app.use(express.static(path.join('../client/dist')));
 app.use(bodyParser.json());
 
-  mongoose.connect('mongodb://localhost/myTips',{useNewUrlParser:true});
-
-app.options('*', cors())
+app.use(cors(corsOptions))
 
 app.use('/api/user',user);
 app.use('/api/myTips',myTips);
