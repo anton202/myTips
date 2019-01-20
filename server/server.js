@@ -10,23 +10,23 @@ const waitrsBook = require('./routes/waitrsBook')
 const stats = require('./routes/stats');
 
 const corsOptions = {
-  origin: 'http://myTips.mobi'
+  origin: 'http://mytips.mobi'
 }
 
-mongoose.connect('mongodb://localhost/myTips',{useNewUrlParser:true});
+mongoose.connect('mongodb://localhost/myTips', { useNewUrlParser: true });
 
-app.use(express.static(path.join('../client/dist')));
 app.use(bodyParser.json());
-
 app.use(cors(corsOptions))
+app.use(express.static(path.join('../client/dist')))
 
-app.use('/api/user',user);
-app.use('/api/myTips',myTips);
-app.use('/api/waitrsBook',waitrsBook);
-app.use('/api/stats',stats);
+
+app.use('/api/user', user);
+app.use('/api/myTips', myTips);
+app.use('/api/waitrsBook', waitrsBook);
+app.use('/api/stats', stats);
 
 app.get('*', (req, res) => {
-    return res.sendFile(path.join('../client/dist','/index.html'));
+    return res.sendFile(path.join('../mobileV/dist','/index.html'));
   });
 
-app.listen(8083,console.log('server listning on port 8000'))
+app.listen(8083, console.log('server listning on port 8000'))
