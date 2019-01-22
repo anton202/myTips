@@ -1,8 +1,8 @@
 <div dir="rtl" class="container">
   <div class="header">
     <div class="incomeStats">
-      <p id="totalTip">סה"כ טיפים החודש:</p>
-      <p> מומצע לשעה שלי החודש:</p>
+      <p id="totalTip">סה"כ טיפים החודש: {{myTotalIncome}} ש"ח</p>
+      <p> מומצע לשעה שלי החודש:{{myTotalPerHourAvrg}} ש"ח</p>
       <p>ממוצע לשעה כללי החודש:</p>
     </div>
   </div>
@@ -42,7 +42,10 @@
   <hr>
   <div class="bottom">
     <div class="generalChart">
-      <canvas baseChart [chartType]="chartType" [labels]="chartLabels" [datasets]="chartData"></canvas>
+      <canvas baseChart [chartType]="chartType"
+                       [labels]="chartLabels" 
+                       [datasets]="chartData"
+                       ></canvas>
     </div>
   </div>
 </div>

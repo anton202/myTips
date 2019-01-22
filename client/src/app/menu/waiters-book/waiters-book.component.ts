@@ -80,16 +80,26 @@ export class WaitersBookComponent implements OnInit,OnDestroy {
   }
 
 
+ 
   calculateTips(totalTip){
     this.loadGif = true;
-
+    let i = 0
     let totalTime = 0;
     let tipPerHour = 0;
     let barManTip = 0;
     let taxPerHour = 0;
 
+
+    function calculateTax(tax,i){
+        this.waitrsStack[i].totalTip = Math.floor(this.waitrsStack[i].totalTime * tipPerHour);
+        this.waitrsStack[i].moneyToGoverment = Math.round(this.waitrsStack[i].totalTip * tax);
+        this.waitrsStack[i].totalTip -= this.waitrsStack[i].totalTip * tax 
+        this.waitrsStack[i].perHour = Number((this.waitrsStack[i].totalTip / this.waitrsStack[i].totalTime).toFixed(2));
+      }
+    
+
     //calculate total time worked by waitrs
-    for (let i = 0; i < this.waitrsStack.length; i++) {
+    for (i; i < this.waitrsStack.length; i++) {
         totalTime += Number(this.waitrsStack[i].totalTime);
     }
 
@@ -103,53 +113,7 @@ export class WaitersBookComponent implements OnInit,OnDestroy {
             throw console.log('error not enogh tip');
         }
 
-        if(tipPerHour < 50){
-          this.waitrsStack[i].totalTip = Math.floor(this.waitrsStack[i].totalTime * tipPerHour);
-          this.waitrsStack[i].perHour = tipPerHour;
-
-      }
-      if(tipPerHour >= 50 && tipPerHour < 55){
-          this.waitrsStack[i].totalTip = Math.floor(this.waitrsStack[i].totalTime * (tipPerHour - 11));
-          this.waitrsStack[i].moneyToGoverment = Math.round(this.waitrsStack[i].totalTime * 11);
-          this.waitrsStack[i].perHour = Number((tipPerHour - 11).toFixed(2));
-          this.waitrsStack[i].taxPerHour = 11;
-      }
-      if(tipPerHour >= 55 && tipPerHour < 60){
-          this.waitrsStack[i].totalTip = Math.floor(this.waitrsStack[i].totalTime * (tipPerHour - 12));
-          this.waitrsStack[i].moneyToGoverment = Math.round(this.waitrsStack[i].totalTime * 12);
-          this.waitrsStack[i].perHour = Number((tipPerHour - 12).toFixed(2));
-          this.waitrsStack[i].taxPerHour = 12;
-      }
-      if(tipPerHour >= 60 && tipPerHour < 65){
-          this.waitrsStack[i].totalTip = Math.floor(this.waitrsStack[i].totalTime * (tipPerHour - 13));
-          this.waitrsStack[i].moneyToGoverment = Math.round(this.waitrsStack[i].totalTime * 13);
-          this.waitrsStack[i].perHour = Number((tipPerHour - 13).toFixed(2));
-          this.waitrsStack[i].taxPerHour = 13;
-      }
-      if(tipPerHour >= 65 && tipPerHour < 70){
-          this.waitrsStack[i].totalTip = Math.floor(this.waitrsStack[i].totalTime * (tipPerHour - 14));
-          this.waitrsStack[i].moneyToGoverment = Math.round(this.waitrsStack[i].totalTime * 14);
-          this.waitrsStack[i].perHour = Number((tipPerHour - 14).toFixed(2));
-          this.waitrsStack[i].taxPerHour = 14;
-      }
-      if(tipPerHour >= 70 && tipPerHour < 75){
-          this.waitrsStack[i].totalTip = Math.floor(this.waitrsStack[i].totalTime * (tipPerHour - 15));
-          this.waitrsStack[i].moneyToGoverment = Math.round(this.waitrsStack[i].totalTime * 15);
-          this.waitrsStack[i].perHour = Number((tipPerHour - 15).toFixed(2));
-          this.waitrsStack[i].taxPerHour = 15;
-      }
-      if(tipPerHour >= 75 && tipPerHour < 80){
-          this.waitrsStack[i].totalTip = Math.floor(this.waitrsStack[i].totalTime * (tipPerHour - 17));
-          this.waitrsStack[i].moneyToGoverment = Math.round(this.waitrsStack[i].totalTime * 17);
-          this.waitrsStack[i].perHour = Number((tipPerHour - 17).toFixed(2));
-          this.waitrsStack[i].taxPerHour = 17;
-      }
-      if(tipPerHour >= 80 ){
-          this.waitrsStack[i].totalTip = Math.floor(this.waitrsStack[i].totalTime * (tipPerHour - 19));
-          this.waitrsStack[i].moneyToGoverment = Math.round(this.waitrsStack[i].totalTime * 19);
-          this.waitrsStack[i].perHour = Number((tipPerHour - 19).toFixed(2));
-          this.waitrsStack[i].taxPerHour = 19;
-      }
+       calculateTax.call(this,0.2,i);
 
         this.waitrsStack[i].yearMonth = this.setYearMonth();
         this.waitrsStack[i].waitrsBook = true;
@@ -162,9 +126,7 @@ export class WaitersBookComponent implements OnInit,OnDestroy {
     this.totalTime = totalTime;
     this.tipPerHour = tipPerHour;
     this.barManTip = barManTip;
-    //taking first waitr object from array to initialize tax per hour
-    this.taxPerHour = this.waitrsStack[0].taxPerHour;
-
+   
     // send all tips to server
     this.http.post(environment.apiUrl+'/waitrsBook/saveWaitrsTips',this.waitrsStack)
         .subscribe(()=>{
