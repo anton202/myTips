@@ -29,6 +29,8 @@ export class DesktopComponent implements OnInit {
       })
   }
 
-  onSubmit(){}
+  onSubmit(form){
+    console.log(form)
+  }
 
 }
