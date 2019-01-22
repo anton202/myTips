@@ -21,7 +21,7 @@ import { AuthInterceptor } from './auth.interceptor';
 import { SettingsComponent } from './menu/settings/settings.component'; 
 import { ReuseblePipe} from './reusblePipe.module';
 import { DesktopComponent } from './desktop/desktop.component';
-import { ChartsModule } from 'ng2-charts';
+import { ChartsModule } from '../../node_modules/ng2-charts';
 
 @NgModule({
   declarations: [
