@@ -26,7 +26,7 @@ app.use('/api/waitrsBook', waitrsBook);
 app.use('/api/stats', stats);
 
 app.get('*', (req, res) => {
-    return res.sendFile(path.join('../client/dist','/index.html'));
+    return res.sendFile(path.join('/home/anton/dev/myTips/client/dist','/index.html'));
   });
 
 app.listen(8083, console.log('server listning on port 8000'))

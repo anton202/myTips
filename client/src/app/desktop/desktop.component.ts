@@ -11,6 +11,7 @@ import { environment } from '../../environments/environment'
 export class DesktopComponent implements OnInit {
   myTotalIncome;
   myTotalPerHourAvrg
+  totalPerHourAvrg;
   chartType = 'bar'
   //chartColors = [{backgroundColor:'#36a2eb'}]
   chartLabels = ['1/1','2,1','3/1','4/1','5/1','6/1','7/1'];
@@ -27,10 +28,21 @@ export class DesktopComponent implements OnInit {
       error =>{
         console.log(error)
       })
+
+      this.http.get<{perHourAvrg}>(environment.apiUrl+'/stats/waitrsBookStats')
+        .subscribe((stats)=>{
+          this.totalPerHourAvrg = stats.perHourAvrg;
+        },
+        error => console.log(error))
   }
 
   onSubmit(form){
-    console.log(form)
+    window.open(environment.apiUrl + '/stats/getExcel/'+ form.whosTips +'/'+ form.year +'-' + form.month)
+  //   this.http.get(environment.apiUrl + '/stats/getExcel')
+  //     .subscribe((res)=>{
+  //       console.log(res)
+  //       window.open(environment.apiUrl + '/stats/getExcel');
+  //     });
   }
 
 }

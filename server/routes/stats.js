@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../midleware/check-auth');
 const MyTips = require('../models/myTips');
-
+const path = require('path');
+const xl = require('../models/excel');
 
 router.get('/myStats/:id',auth,(req,res)=>{
     const userName = req.params.id;
@@ -14,7 +15,6 @@ router.get('/myStats/:id',auth,(req,res)=>{
    
     MyTips.find({name: userName, yearMonth: yearMonth})
     .then(tips =>{
-        console.log(tips)
         tips.forEach(tip =>{
             myTotalIncome += tip.totalTip;
             myTotalPerHourAvrg += tip.perHour?tip.perHour:0;
@@ -37,13 +37,28 @@ router.get('/waitrsBookStats',auth,(req,res)=>{
             totalTips += tip.totalTip;
             perHourAvrg += tip.perHour?tip.perHour:0;
         })
-        console.log(tips , perHourAvrg)
+       
         res.status(200).json({
             totalTips,
             perHourAvrg:perHourAvrg > 0?(perHourAvrg/tips.length).toFixed(2):0
     })
     })
     .catch(error => res.status(400).json({message:'server error'}))
+})
+
+
+router.get('/getExcel/:state/:yearMonth',(req,res)=>{
+    const yearMonth = req.params.yearMonth;
+    const userName = req.body.userName;
+    const state = req.params.state;
+    console.log(state, yearMonth , userName)
+    const waitrsBookLogQuery = {waitrsBook:true,yearMonth:yearMonth}
+    const myTipsLogQuery = {name:userName,yearMonth:yearMonth}
+    MyTips.find(state === 'myTips'? myTipsLogQuery : waitrsBookLogQuery)
+        .then(tips =>{
+            xl.insertData(tips);
+            res.download('/home/anton/dev/myTips/server/' + 'Excel.xlsx','excel.xlsx')
+        })
 })
 
 router.get('/myLog/:state/:yearMonth',auth,(req,res)=>{
@@ -55,7 +70,6 @@ router.get('/myLog/:state/:yearMonth',auth,(req,res)=>{
     let totalTips = 0;
     let perHourAvrg = 0;
     
-   
     MyTips.find(state === 'myTips'? myTipsLogQuery : waitrsBookLogQuery)
     .then(tips =>{
         tips.forEach(tip =>{
