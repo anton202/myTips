@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../midleware/check-auth');
 const MyTips = require('../models/myTips');
-const path = require('path');
 const xl = require('../models/excel');
 
 router.get('/myStats/:id',auth,(req,res)=>{
@@ -47,17 +46,16 @@ router.get('/waitrsBookStats',auth,(req,res)=>{
 })
 
 
-router.get('/getExcel/:state/:yearMonth',(req,res)=>{
+router.get('/getExcel/:state/:yearMonth/:userName',(req,res)=>{
     const yearMonth = req.params.yearMonth;
-    const userName = req.body.userName;
+    const userName = req.params.userName;
     const state = req.params.state;
     console.log(state, yearMonth , userName)
     const waitrsBookLogQuery = {waitrsBook:true,yearMonth:yearMonth}
     const myTipsLogQuery = {name:userName,yearMonth:yearMonth}
     MyTips.find(state === 'myTips'? myTipsLogQuery : waitrsBookLogQuery)
-        .then(tips =>{
-            xl.insertData(tips);
-            res.download('/home/anton/dev/myTips/server/' + 'Excel.xlsx','excel.xlsx')
+        .then( tips =>{
+            xl.insertData(tips,res)
         })
 })
 

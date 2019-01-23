@@ -37,7 +37,7 @@ export class DesktopComponent implements OnInit {
   }
 
   onSubmit(form){
-    window.open(environment.apiUrl + '/stats/getExcel/'+ form.whosTips +'/'+ form.year +'-' + form.month)
+    window.open(environment.apiUrl + '/stats/getExcel/'+ form.whosTips +'/'+ form.year +'-' + form.month + '/' + localStorage.getItem('userName'))
   //   this.http.get(environment.apiUrl + '/stats/getExcel')
   //     .subscribe((res)=>{
   //       console.log(res)
