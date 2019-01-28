@@ -41,8 +41,26 @@
   </div>
   <hr>
   <div class="bottom">
+    <div class="showInChart">
+      <h3 style="text-decoration:underline">הצג בגרף</h3>
+      <div>
+        <form (ngSubmit)="getDataForChart(info.value)" #info="ngForm">
+        <input type="radio" id="myTipsChart" name="whosTips" value="myTips" ngModel> 
+        <label for="myTipsChart">טיפים שלי</label>
+        <input type="radio"  id="allTipsChart" name="whosTips" value="allTips" ngModel>  
+        <label for="allTipsChart">טיפים של כולם</label>
+        <label for="timePeriod" style="display:block;margin-top:10px">בחר זמן:</label>
+        <select name="timePeriod" id="timePeriod" ngModel>
+          <option value="week">השבוע</option>
+          <option value="month">החודש</option>
+          <option value="year">השנה</option>
+        </select>
+        <button type="submit">הצג</button>
+      </form>
+      </div>
+    </div>
     <div class="generalChart">
-      <canvas baseChart [chartType]="chartType"
+      <canvas  baseChart [chartType]="chartType"
                        [labels]="chartLabels" 
                        [datasets]="chartData"
                        ></canvas>

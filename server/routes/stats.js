@@ -55,6 +55,7 @@ router.get('/getExcel/:state/:yearMonth/:userName',(req,res)=>{
     const myTipsLogQuery = {name:userName,yearMonth:yearMonth}
     MyTips.find(state === 'myTips'? myTipsLogQuery : waitrsBookLogQuery)
         .then( tips =>{
+            console.log(tips);
             xl.insertData(tips,res)
         })
 })
@@ -74,7 +75,7 @@ router.get('/myLog/:state/:yearMonth',auth,(req,res)=>{
             totalTips += tip.totalTip;
             perHourAvrg += tip.perHour?tip.perHour:0;
         })
-        console.log(tips);
+
         res.status(200).json({
             tips:tips,
             perHourAvrg:(perHourAvrg/tips.length).toFixed(2),
@@ -88,5 +89,37 @@ router.get('/myLog/:state/:yearMonth',auth,(req,res)=>{
 
 })
 
+router.get('/chart/:whosTips/:time/:userName',(req,res)=>{
+    const whosTips = req.params.whosTips;
+    const timePeriod = req.params.time;
+    const userName = req.params.userName;
+    const createdAt = {
+        week:{
+                $lte: new Date().getTime(),
+                $gte:new Date().getTime() - 604800000
+        },
+        month:{
+                $lte: new Date().getTime(),
+                $gte:new Date().getTime() - 2678400000
+        }
+    }
+
+    MyTips.find(whosTips === 'myTips'?{createdAt:createdAt[timePeriod],name:userName}:{createdAt:createdAt[timePeriod]})
+        .then(tips => {
+            console.log(tips)
+            res.status(200).json(tips);
+        })
+        .catch(error => {
+            console.log(error);
+            res.status(400).json({message:'server error'});
+            })
+    
+})
+
 
 module.exports = router;
+
+// createdAt:{
+//     $lte: new Date().getTime(),
+//     $gte:new Date().getTime() - 604800000
+// }

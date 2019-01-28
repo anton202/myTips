@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment'
+import { BaseChartDirective } from 'ng2-charts/ng2-charts';
+import { ChartColors } from './chartColors';
 
 
 @Component({
@@ -13,36 +15,67 @@ export class DesktopComponent implements OnInit {
   myTotalPerHourAvrg
   totalPerHourAvrg;
   chartType = 'bar'
-  //chartColors = [{backgroundColor:'#36a2eb'}]
-  chartLabels = ['1/1','2,1','3/1','4/1','5/1','6/1','7/1'];
-  chartData = [{data:[300,540,280,430,370,480,330],label:'טיפים'}]
+  chartLabels = [];
+  chartData = [{ data: [] }]
+  chartColors = new ChartColors()
+  @ViewChild(BaseChartDirective) chart: BaseChartDirective;
 
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    this.http.get<{myTotalIncome,myTotalPerHourAvrg}>(environment.apiUrl + '/stats/myStats/'+localStorage.getItem('userName'))
-      .subscribe(stats =>{
+    this.http.get<{ myTotalIncome, myTotalPerHourAvrg }>(environment.apiUrl + '/stats/myStats/' + localStorage.getItem('userName'))
+      .subscribe(stats => {
         this.myTotalIncome = stats.myTotalIncome;
         this.myTotalPerHourAvrg = stats.myTotalPerHourAvrg;
       },
-      error =>{
-        console.log(error)
-      })
+        error => {
+          console.log(error)
+        })
 
-      this.http.get<{perHourAvrg}>(environment.apiUrl+'/stats/waitrsBookStats')
-        .subscribe((stats)=>{
-          this.totalPerHourAvrg = stats.perHourAvrg;
-        },
+    this.http.get<{ perHourAvrg }>(environment.apiUrl + '/stats/waitrsBookStats')
+      .subscribe((stats) => {
+        this.totalPerHourAvrg = stats.perHourAvrg;
+      },
         error => console.log(error))
   }
 
-  onSubmit(form){
-    window.open(environment.apiUrl + '/stats/getExcel/'+ form.whosTips +'/'+ form.year +'-' + form.month + '/' + localStorage.getItem('userName'))
-  //   this.http.get(environment.apiUrl + '/stats/getExcel')
-  //     .subscribe((res)=>{
-  //       console.log(res)
-  //       window.open(environment.apiUrl + '/stats/getExcel');
-  //     });
+  onSubmit(form) {
+    window.open(environment.apiUrl + '/stats/getExcel/' + form.whosTips + '/' + form.year + '-' + form.month + '/' + localStorage.getItem('userName'))
   }
+
+  getDataForChart(info) {
+    const timePeriod = info.timePeriod;
+    const whosTips = info.whosTips;
+    const userName = localStorage.getItem('userName');
+    
+    this.http.get<[{ date, totalTip, name }]>(environment.apiUrl + '/stats/chart/' + whosTips + '/' + timePeriod + '/' + userName)
+      .subscribe(tips => {
+        let chartData = [];
+        this.chartLabels.length = 0;
+        for (let i = 0; i < tips.length; i++) {
+          if (this.chartLabels.indexOf(tips[i].date) === -1) {
+            this.chartLabels.push(tips[i].date)
+          }
+
+          let chartDataEl = chartData.find((el) => {
+            if (el.label === tips[i].name) {
+              return el
+            }
+          })
+          if (chartDataEl) {
+            chartDataEl.data.push(tips[i].totalTip)
+          } else {
+            chartData.push({ data: [tips[i].totalTip], backgroundColor: 'rgba(' + this.chartColors.defaultColors[chartData.length] + ')', label: tips[i].name });
+          }
+        }
+        this.chart.chart.config.data.datasets = chartData
+        this.chart.chart.update();
+      },
+        error => {
+          console.log(error);
+        })
+  }
+
+
 
 }

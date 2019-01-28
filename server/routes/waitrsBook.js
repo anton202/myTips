@@ -12,6 +12,7 @@ router.post('/saveWaitrsTips', (req, res) => {
     // add on each waitr object, date property
     for (let i = 0; i < waitrsStack.length; i += 1) {
         waitrsStack[i].date = setDate;
+        waitrsStack[i].createdAt = date.getTime()
     }
 
     waitrData.insertMany(waitrsStack)

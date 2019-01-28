@@ -11,7 +11,8 @@ const myTipsSchema = mongoose.Schema({
     perHour: { type: Number },
     moneyToGoverment: {type:Number},
     taxPerHour:{type: Number},
-    waitrsBook: {type:  Boolean}
+    waitrsBook: {type:  Boolean},
+    createdAt: {type:Number}
 })
 
 module.exports = mongoose.model('myTip',myTipsSchema)
