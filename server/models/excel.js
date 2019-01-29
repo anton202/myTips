@@ -30,7 +30,6 @@ const insertData = function (tips, res) {
     ws.cell(c, n += 1).string(tips[i].date)
     ws.cell(c, n += 1).string(tips[i].name)
 
-    console.log(c, n)
     n = 1;
     c += 1;
   }

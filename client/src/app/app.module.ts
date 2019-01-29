@@ -3,14 +3,17 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule,HTTP_INTERCEPTORS} from '@angular/common/http'
 import { RouterModule } from '@angular/router';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatButtonModule} from '@angular/material/button';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { SignInComponent } from './auth/sign-in/sign-in.component';
 import { MenuComponent } from './menu/menu.component';
-
 import { WaitersBookComponent } from './menu/waiters-book/waiters-book.component';
+import { ErrorMessageComponenet } from './material/errorMessage.component'
 
 import { EditTipDirective } from './directives/edit-tip.directive';
 import { AppRoutingModule} from './app-routing.module';
@@ -34,7 +37,8 @@ import { ChartsModule } from '../../node_modules/ng2-charts';
     EditTipDirective,
     MenuExtendDirective,
     SettingsComponent,
-    DesktopComponent
+    DesktopComponent,
+    ErrorMessageComponenet
   ],
   imports: [
     BrowserModule,
@@ -44,8 +48,12 @@ import { ChartsModule } from '../../node_modules/ng2-charts';
     StatisticsModule,
     RouterModule,
     ReuseblePipe,
-    ChartsModule
+    ChartsModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+    MatButtonModule
   ],
+  entryComponents: [ErrorMessageComponenet],
   providers: [Auth,{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },],
   bootstrap: [AppComponent]
 })

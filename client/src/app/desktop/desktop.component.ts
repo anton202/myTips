@@ -3,6 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment'
 import { BaseChartDirective } from 'ng2-charts/ng2-charts';
 import { ChartColors } from './chartColors';
+import {MatDialog} from '@angular/material';
+import { ErrorMessageComponenet } from '../material/errorMessage.component'
+
 
 
 @Component({
@@ -20,7 +23,7 @@ export class DesktopComponent implements OnInit {
   chartColors = new ChartColors()
   @ViewChild(BaseChartDirective) chart: BaseChartDirective;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,public dialog: MatDialog) { }
 
   ngOnInit() {
     this.http.get<{ myTotalIncome, myTotalPerHourAvrg }>(environment.apiUrl + '/stats/myStats/' + localStorage.getItem('userName'))
@@ -29,14 +32,20 @@ export class DesktopComponent implements OnInit {
         this.myTotalPerHourAvrg = stats.myTotalPerHourAvrg;
       },
         error => {
-          console.log(error)
+          this.dialog.open(ErrorMessageComponenet,{
+            width: '300px'
+          })
         })
 
     this.http.get<{ perHourAvrg }>(environment.apiUrl + '/stats/waitrsBookStats')
       .subscribe((stats) => {
         this.totalPerHourAvrg = stats.perHourAvrg;
       },
-        error => console.log(error))
+        error => {
+          this.dialog.open(ErrorMessageComponenet,{
+            width: '300px'
+          })
+        })
   }
 
   onSubmit(form) {
@@ -72,7 +81,9 @@ export class DesktopComponent implements OnInit {
         this.chart.chart.update();
       },
         error => {
-          console.log(error);
+          this.dialog.open(ErrorMessageComponenet,{
+            width: '300px'
+          })
         })
   }
 
