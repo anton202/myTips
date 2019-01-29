@@ -17,6 +17,7 @@ ws.cell(1, 4).string('סה"כ שעות')
 ws.cell(1, 5).string('עד שעה')
 ws.cell(1, 6).string('משעה')
 ws.cell(1, 7).string('תאריך')
+ws.cell(1, 8).string('שם')
 
 const insertData = function (tips, res) {
   for (let i = 0, c = 2, n = 1; i < tips.length; i++){
@@ -27,6 +28,8 @@ const insertData = function (tips, res) {
     ws.cell(c, n += 1).string(tips[i].endTime)
     ws.cell(c, n += 1).string(tips[i].startTime)
     ws.cell(c, n += 1).string(tips[i].date)
+    ws.cell(c, n += 1).string(tips[i].name)
+
     console.log(c, n)
     n = 1;
     c += 1;

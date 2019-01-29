@@ -50,12 +50,11 @@ router.get('/getExcel/:state/:yearMonth/:userName',(req,res)=>{
     const yearMonth = req.params.yearMonth;
     const userName = req.params.userName;
     const state = req.params.state;
-    console.log(state, yearMonth , userName)
     const waitrsBookLogQuery = {waitrsBook:true,yearMonth:yearMonth}
     const myTipsLogQuery = {name:userName,yearMonth:yearMonth}
+
     MyTips.find(state === 'myTips'? myTipsLogQuery : waitrsBookLogQuery)
         .then( tips =>{
-            console.log(tips);
             xl.insertData(tips,res)
         })
 })
