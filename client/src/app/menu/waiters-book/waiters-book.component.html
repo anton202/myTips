@@ -22,8 +22,6 @@
       <button type="button" (click)="calculateTips(totalTip.value)">חשב טיפים</button>
     </form>
   </div>
-
-  <p>{{errorMessaage}}</p>
   
   <div class="loader" *ngIf="loadGif">
     <img class="loader" src="../../../assets/loading2.gif" alt="loading.gif">
@@ -43,7 +41,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let waitr of waitrsStack; let i = index" (click)="deleteWaitr(i)">
+        <tr *ngFor="let waitr of waitrsStack; let i = index" (click)="openDialog(i)">
           <td>{{waitr.name}} </td>
         <td>{{waitr.startTime}}</td>
         <td>{{waitr.endTime}}</td>

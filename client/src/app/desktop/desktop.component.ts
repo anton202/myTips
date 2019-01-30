@@ -1,12 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment'
+import { MatDialog } from '@angular/material';
+
+import { ErrorMessageComponenet } from '../material/errorMessage/errorMessage.component'
 import { BaseChartDirective } from 'ng2-charts/ng2-charts';
 import { ChartColors } from './chartColors';
-import {MatDialog} from '@angular/material';
-import { ErrorMessageComponenet } from '../material/errorMessage.component'
-
-
 
 @Component({
   selector: 'app-desktop',

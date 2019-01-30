@@ -19,10 +19,11 @@ router.get('/myStats/:id',auth,(req,res)=>{
             myTotalPerHourAvrg += tip.perHour?tip.perHour:0;
         })
         res.status(200).json({
-            myTotalIncome,
+            myTotalIncome:Math.round(myTotalIncome),
             myTotalPerHourAvrg:myTotalPerHourAvrg > 0?(myTotalPerHourAvrg/tips.length).toFixed(2):0
     })
     } )
+    .catch(error => res.status(400).json({message:'server error'}))
 })
 
 router.get('/waitrsBookStats',auth,(req,res)=>{
@@ -38,7 +39,7 @@ router.get('/waitrsBookStats',auth,(req,res)=>{
         })
        
         res.status(200).json({
-            totalTips,
+            totalTips:Math.round(totalTips),
             perHourAvrg:perHourAvrg > 0?(perHourAvrg/tips.length).toFixed(2):0
     })
     })

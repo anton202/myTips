@@ -13,7 +13,9 @@ import { RegisterComponent } from './auth/register/register.component';
 import { SignInComponent } from './auth/sign-in/sign-in.component';
 import { MenuComponent } from './menu/menu.component';
 import { WaitersBookComponent } from './menu/waiters-book/waiters-book.component';
-import { ErrorMessageComponenet } from './material/errorMessage.component'
+import { ErrorMessageComponenet } from './material/errorMessage/errorMessage.component'
+import { DesktopComponent } from './desktop/desktop.component';
+import { ConfirmationDialog } from './material/confirmationDailog/confirmationDialog.component';
 
 import { EditTipDirective } from './directives/edit-tip.directive';
 import { AppRoutingModule} from './app-routing.module';
@@ -23,7 +25,6 @@ import { Auth } from './auth/auth.service';
 import { AuthInterceptor } from './auth.interceptor';
 import { SettingsComponent } from './menu/settings/settings.component'; 
 import { ReuseblePipe} from './reusblePipe.module';
-import { DesktopComponent } from './desktop/desktop.component';
 import { ChartsModule } from '../../node_modules/ng2-charts';
 
 @NgModule({
@@ -38,7 +39,8 @@ import { ChartsModule } from '../../node_modules/ng2-charts';
     MenuExtendDirective,
     SettingsComponent,
     DesktopComponent,
-    ErrorMessageComponenet
+    ErrorMessageComponenet,
+    ConfirmationDialog
   ],
   imports: [
     BrowserModule,
@@ -53,7 +55,7 @@ import { ChartsModule } from '../../node_modules/ng2-charts';
     MatDialogModule,
     MatButtonModule
   ],
-  entryComponents: [ErrorMessageComponenet],
+  entryComponents: [ErrorMessageComponenet,ConfirmationDialog],
   providers: [Auth,{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },],
   bootstrap: [AppComponent]
 })

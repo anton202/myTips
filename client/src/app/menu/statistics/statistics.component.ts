@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material';
 
 import { environment } from '../../../environments/environment';
-import { Router } from '@angular/router';
+import { ErrorMessageComponenet } from '../../material/errorMessage/errorMessage.component'
 
 @Component({
   selector: 'app-statistics',
@@ -15,20 +17,29 @@ myTotalPerHourAvrg;
 totalTips;
 perHourAvrg;
 
-  constructor(private http: HttpClient, private router:Router) { }
+  constructor(private http: HttpClient, private router:Router, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.http.get<{myTotalIncome,myTotalPerHourAvrg}>(environment.apiUrl+'/stats/myStats/'+localStorage.getItem('userName'))
     .subscribe(myStats => {
       this.myTotalIncome = myStats.myTotalIncome;
       this.myTotalPerHourAvrg = myStats.myTotalPerHourAvrg;
+    },
+    error =>{
+      this.dialog.open(ErrorMessageComponenet,{
+        width: '300px'
+      })
     })
 
     this.http.get<{totalTips,perHourAvrg}>(environment.apiUrl + '/stats/waitrsBookStats')
     .subscribe(tips => {
       this.totalTips = tips.totalTips;
       this.perHourAvrg = tips.perHourAvrg;
-      
+    },
+    error =>{
+      this.dialog.open(ErrorMessageComponenet,{
+        width: '300px'
+      })
     })
   }
 

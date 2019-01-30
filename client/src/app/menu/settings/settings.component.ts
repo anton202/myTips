@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { MatDialog } from '@angular/material';
+
 
 import { environment } from '../../../environments/environment';
+import { ErrorMessageComponenet } from '../../material/errorMessage/errorMessage.component'
+
 
 @Component({
   selector: 'app-settings',
@@ -10,9 +14,8 @@ import { environment } from '../../../environments/environment';
 })
 export class SettingsComponent implements OnInit {
 workersNames;
-errorMessage;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,public dialog: MatDialog) { }
 
   ngOnInit() {
    this.getNames()
@@ -23,7 +26,11 @@ errorMessage;
     .subscribe(response =>{
       this.getNames()
     },
-  error => this.errorMessage = error.error.message)
+  error => {
+    this.dialog.open(ErrorMessageComponenet,{
+      width: '300px'
+    })
+  })
   }
 
 getNames(){

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material';
 
+import { ErrorMessageComponenet } from '../../../material/errorMessage/errorMessage.component';
 import { environment } from './../../../../environments/environment';
 
 @Component({
@@ -17,7 +19,7 @@ state
 isHighLighted = false;
 tipToDelete;
 
-  constructor(private http: HttpClient, private route: ActivatedRoute) { }
+  constructor(private http: HttpClient, private route: ActivatedRoute,public dialog: MatDialog) { }
 
   ngOnInit() {
     const yearMonth = this.route.snapshot.params.yearMonth;
@@ -27,6 +29,11 @@ tipToDelete;
       this.totalTips = log.totalTips;
       this.perHourAvg = log.perHourAvrg;
       this.tips = log.tips;
+    },
+    errpr =>{
+      this.dialog.open(ErrorMessageComponenet,{
+        width: '300px'
+      })
     })
   }
 
@@ -46,7 +53,9 @@ tipToDelete;
      this.tipToDelete = null;
     },
     error =>{
-      console.log(error);
+      this.dialog.open(ErrorMessageComponenet,{
+        width: '300px'
+      })
     } )
   }
 
