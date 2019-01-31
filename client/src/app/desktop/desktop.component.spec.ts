@@ -3,23 +3,13 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DesktopComponent } from './desktop.component';
 
 describe('DesktopComponent', () => {
-  let component: DesktopComponent;
-  let fixture: ComponentFixture<DesktopComponent>;
+  let component:DesktopComponent;
+  
+ beforeEach(()=>{
+  component = new DesktopComponent(null,null);
+ })
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ DesktopComponent ]
-    })
-    .compileComponents();
-  }));
+ it('shoult return avrgPerHour and total income this month, from api',()=>{
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(DesktopComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+ })
 });

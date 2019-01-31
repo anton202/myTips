@@ -19,7 +19,7 @@
       <input id="startTime" type="time" name="startTime" ngModel required>
 
       <button type="submit" [disabled]="!f.valid">הוסף מלצר</button>
-      <button type="button" (click)="calculateTips(totalTip.value)">חשב טיפים</button>
+      <button type="button" [disabled]="loadGif" (click)="calculateTips(totalTip.value)">חשב טיפים</button>
     </form>
   </div>
   

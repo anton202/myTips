@@ -140,6 +140,7 @@ export class WaitersBookComponent implements OnInit, OnDestroy {
     this.tipPerHour = tipPerHour;
     this.barManTip = barManTip;
 
+   
     // send all tips to server
     this.http.post(environment.apiUrl + '/waitrsBook/saveWaitrsTips', this.waitrsStack)
       .subscribe(() => {

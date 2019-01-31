@@ -99,7 +99,7 @@ router.get('/chart/:whosTips/:time/:userName',(req,res)=>{
                 $gte:new Date().getTime() - 604800000
         },
         month:{
-                $lte: new Date().getTime(),
+                // $lte: new Date().getTime(),
                 $gte:new Date().getTime() - 2678400000
         }
     }

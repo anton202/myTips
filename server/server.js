@@ -9,6 +9,7 @@ const myTips = require('./routes/myTips');
 const waitrsBook = require('./routes/waitrsBook')
 const stats = require('./routes/stats');
 
+
 const corsOptions = {
   origin: 'http://mytips.mobi'
 }

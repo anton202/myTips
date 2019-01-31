@@ -22,7 +22,7 @@ export class DesktopComponent implements OnInit {
   chartColors = new ChartColors()
   @ViewChild(BaseChartDirective) chart: BaseChartDirective;
 
-  constructor(private http: HttpClient,public dialog: MatDialog) { }
+  constructor(private http: HttpClient, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.http.get<{ myTotalIncome, myTotalPerHourAvrg }>(environment.apiUrl + '/stats/myStats/' + localStorage.getItem('userName'))
@@ -31,7 +31,7 @@ export class DesktopComponent implements OnInit {
         this.myTotalPerHourAvrg = stats.myTotalPerHourAvrg;
       },
         error => {
-          this.dialog.open(ErrorMessageComponenet,{
+          this.dialog.open(ErrorMessageComponenet, {
             width: '300px'
           })
         })
@@ -41,7 +41,7 @@ export class DesktopComponent implements OnInit {
         this.totalPerHourAvrg = stats.perHourAvrg;
       },
         error => {
-          this.dialog.open(ErrorMessageComponenet,{
+          this.dialog.open(ErrorMessageComponenet, {
             width: '300px'
           })
         })
@@ -55,9 +55,10 @@ export class DesktopComponent implements OnInit {
     const timePeriod = info.timePeriod;
     const whosTips = info.whosTips;
     const userName = localStorage.getItem('userName');
-    
+
     this.http.get<[{ date, totalTip, name }]>(environment.apiUrl + '/stats/chart/' + whosTips + '/' + timePeriod + '/' + userName)
       .subscribe(tips => {
+
         let chartData = [];
         this.chartLabels.length = 0;
         for (let i = 0; i < tips.length; i++) {
@@ -67,20 +68,24 @@ export class DesktopComponent implements OnInit {
 
           let chartDataEl = chartData.find((el) => {
             if (el.label === tips[i].name) {
+
               return el
             }
           })
+
           if (chartDataEl) {
             chartDataEl.data.push(tips[i].totalTip)
+
           } else {
             chartData.push({ data: [tips[i].totalTip], backgroundColor: 'rgba(' + this.chartColors.defaultColors[chartData.length] + ')', label: tips[i].name });
           }
         }
+
         this.chart.chart.config.data.datasets = chartData
         this.chart.chart.update();
       },
         error => {
-          this.dialog.open(ErrorMessageComponenet,{
+          this.dialog.open(ErrorMessageComponenet, {
             width: '300px'
           })
         })
