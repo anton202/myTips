@@ -1,6 +1,10 @@
 # MyTips
 
-Mytips is a tip tracking webapp for waitrs and bartenders.
+Mytips is a tip tracking webapp for waitrs.   ![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
+
+
+With myTips you can track your monthly income as well as your monthly per hour avrg.
+in the desktop version of myTips you can download an Excel file of your tips and check on your co-workers tips this month.
 
 ## Geting started 
 1. clone this directory to a folder of your chosie. 
