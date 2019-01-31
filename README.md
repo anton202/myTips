@@ -18,7 +18,7 @@ With myTips you can record the tips of your co-workers that worked with you in t
 ![workersNmaes](https://github.com/anton202/myTips/blob/master/client/src/assets/workersNames.png)
 ![waitersBook](https://github.com/anton202/myTips/blob/master/client/src/assets/waitersBook.png)
 
-In the desktop version you can see your tip in a chart and download an Excel report of your tip.
+In the desktop version you can see your tips in a chart and download an Excel report of your tips.
 
 ![desktopV](https://github.com/anton202/myTips/blob/master/client/src/assets/desktopV.png)
 
