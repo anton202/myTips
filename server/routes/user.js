@@ -76,12 +76,10 @@ router.get('/getNames',auth,(req,res)=>{
 })
 
 router.delete('/deleteUser/:id',auth,(req,res)=>{
-    console.log(req.params.id)
     Mytips.deleteMany({name:req.params.id})
     .then(()=>{})
     User.deleteOne({userName:req.params.id})
     .then(query =>{
-        console.log(query);
         res.status(200).json({message:'worker deleted'})
     })
     .catch(error => {

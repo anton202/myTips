@@ -1,7 +1,39 @@
 <div class="container">
- <a routerLink="/waiters-book"><button>Waiters-Book</button></a>
- <a routerLink="/my-tips"><button>My-Tips</button></a>
- <a routerLink="/statistics"><button>Statistics</button></a>
- <a routerLink="/settings"><button>Settings</button></a>
- <button (click)="logOut()">LogOut</button>
+  <a routerLink="/waiters-book"><button>ספר מלצרים</button></a>
+  <a routerLink="/statistics"><button>הטיפים שלי</button></a>
+  <div appMinimize class="menuExtend">
+    <button>תפריט</button>
+    <div class="menuItems">
+      <a routerLink="/settings"><button class="menuButton">הגדרות</button></a>
+      <button class="menuButton" (click)="logOut()">התנתק</button>
+    </div>
+  </div>
+  <div dir="rtl">
+    <h3>טיפים של היום</h3>
+    <table class="tipsTable" dir="rtl">
+      <thead>
+        <tr>
+          <th>שם</th>
+          <th>משעה</th>
+          <th>עד שעה</th>
+          <th>סה&#34;כ שעות</th>
+          <th>טיפים</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let waitr of todaysTips">
+          <td>{{waitr.name}} </td>
+          <td>{{waitr.startTime}}</td>
+          <td>{{waitr.endTime}}</td>
+          <td>{{waitr.totalTime}}</td>
+          <td>{{waitr.totalTip}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
+
+<!-- 
+<a routerLink="/statistics"><button>כמה כסף עשיתי</button></a>
+<a routerLink="/settings"><button>הגדרות</button></a>
+<button (click)="logOut()">התנתק</button> -->

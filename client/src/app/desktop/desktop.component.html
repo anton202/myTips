@@ -1,0 +1,69 @@
+<div dir="rtl" class="container">
+  <div class="header">
+    <div class="incomeStats">
+      <p id="totalTip">סה"כ טיפים החודש: {{myTotalIncome}} ש"ח</p>
+      <p> מומצע לשעה שלי החודש:{{myTotalPerHourAvrg}} ש"ח</p>
+      <p>ממוצע לשעה כללי החודש: {{totalPerHourAvrg}} ש"ח</p>
+    </div>
+  </div>
+  <hr>
+  <div class="top">
+    <div class="exportToExcel">
+      <h2 style="text-decoration:underline">יצא טיפים לקובץ Excel</h2>
+      <form (ngSubmit)="onSubmit(f.value)" #f="ngForm">
+        <input type="radio" id="myTips" value="myTips" name="whosTips" ngModel>
+        <label for="myTips" style="display:inline-block">טיפים שלי</label>
+        <input type="radio" id="allTips" value="allTips" name="whosTips" ngModel>
+        <label for="allTips" style="display:inline-block">טיפים של כולם</label>
+        <label for="month" style="display:block; margin-top:10px;">בחר חודש:</label>
+        <select name="month" id="month" ngModel>
+          <option value="0">ינואר</option>
+          <option value="1">פברואר</option>
+          <option value="2">מרץ</option>
+          <option value="3">אפריל</option>
+          <option value="4">מאי</option>
+          <option value="5">יוני</option>
+          <option value="6">יולי</option>
+          <option value="7">אוגוסט</option>
+          <option value="8">ספטמבר</option>
+          <option value="9">אוקטובר</option>
+          <option value="10">נובמבר</option>
+          <option value="11">דצמבר</option>
+        </select>
+
+        <div class="form-group">
+          <label for="year" style="display:block; margin-top:10px">הזן שנה:</label>
+          <input type="number" name="year" placeholder="2018,2019...." ngModel>
+        </div>
+        <button type="submit">הורד קובץ</button>
+      </form>
+    </div>
+  </div>
+  <hr>
+  <div class="bottom">
+    <div class="showInChart">
+      <h3 style="text-decoration:underline">הצג בגרף</h3>
+      <div>
+        <form (ngSubmit)="getDataForChart(info.value)" #info="ngForm">
+        <input type="radio" id="myTipsChart" name="whosTips" value="myTips" ngModel> 
+        <label for="myTipsChart">טיפים שלי</label>
+        <input type="radio"  id="allTipsChart" name="whosTips" value="allTips" ngModel>  
+        <label for="allTipsChart">טיפים של כולם</label>
+        <label for="timePeriod" style="display:block;margin-top:10px">בחר זמן:</label>
+        <select name="timePeriod" id="timePeriod" ngModel>
+          <option value="week">השבוע</option>
+          <option value="month">החודש</option>
+          <option value="year">השנה</option>
+        </select>
+        <button style="display:block" type="submit">הצג</button>
+      </form>
+      </div>
+    </div>
+    <div class="generalChart">
+      <canvas  baseChart [chartType]="chartType"
+                       [labels]="chartLabels" 
+                       [datasets]="chartData"
+                       ></canvas>
+    </div>
+  </div>
+</div>

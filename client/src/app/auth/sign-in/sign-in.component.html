@@ -1,9 +1,9 @@
 <div class="main">
-    <h2>Sign-In:</h2>
-    <form (ngSubmit)="onSignIn(f)" #f="ngForm">
-      <input type="text" name="userName"  placeholder="user name" required  ngModel>
-      <input type="password" name="password" placeholder="Password" required ngModel>
-      <button type="submit" [disabled]="!f.valid">Sign-In</button>
+    <h2>כניסה למערכת</h2>
+    <form (ngSubmit)="onSignIn(f)" #f="ngForm" dir="rtl">
+      <input type="text" name="userName"  placeholder="שם" required  ngModel dir="rtl">
+      <input type="password" name="password" placeholder="סיסמא" required ngModel dir="rtl">
+      <button type="submit" [disabled]="!f.valid">כנס</button>
     </form>
     <p>{{errorMessage}}</p>
   </div>

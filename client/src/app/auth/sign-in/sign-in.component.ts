@@ -16,12 +16,17 @@ export class SignInComponent implements OnInit {
   }
 
   onSignIn(form:NgForm){
+    form.value.userName = form.value.userName.toLowerCase() 
    this.auth.login(form.value)
    .subscribe(
     response =>{ 
       localStorage.setItem('token',response.token)
       localStorage.setItem('userName',form.value.userName)
-      this.router.navigate(['/menu']) 
+      if(window.screen.width >= 1025){
+        this.router.navigate(['/desktop'])
+      }else{
+        this.router.navigate(['/menu']) 
+      }
     },
     error => this.errorMessage = error.error.message
   )

@@ -4,22 +4,24 @@ import { CommonModule } from "@angular/common";
 
 
 import { StatisticsComponent } from './statistics.component';
-import { WaitrsBookStatisticsComponent } from './waitrs-book-statistics/waitrs-book-statistics.component';
-import { WaitrsBookLogComponent } from './waitrs-book-statistics/waitrs-book-log/waitrs-book-log.component';
+import { WaitrsBookLogComponent } from './waitrs-book-log/waitrs-book-log.component';
 import { StatisticsRoutingModule } from './statistics-routing.module';
+import { ReuseblePipe } from '../../reusblePipe.module'
+import { HighLightTipDirective } from './waitrs-book-log/highlightTip.directive'
 
 @NgModule({
     declarations:[
         StatisticsComponent,
-        WaitrsBookStatisticsComponent,
-        WaitrsBookLogComponent
+        WaitrsBookLogComponent,
+        HighLightTipDirective
     ],
     imports: [
         FormsModule,
         CommonModule,
         StatisticsRoutingModule,
-        
-    ]
+        ReuseblePipe
+    ],
+    exports:[StatisticsComponent]
 })
 export class StatisticsModule{
 

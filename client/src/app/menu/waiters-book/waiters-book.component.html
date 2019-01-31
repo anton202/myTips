@@ -1,45 +1,76 @@
 <div class="container">
-  <h2>Waitrs Book</h2>
-  <a routerLink="/menu"><h2  id="menu">Menu</h2></a> 
   <p class="date">{{todaysDate | date:'d/M/y'}}</p>
-  <p>{{errorMessaage}}</p>
-  <div class="genralData" appMinimize>
-  <form (ngSubmit)="calculatePerHour(f.value)" #f="ngForm">
-    <input type="number" placeholder="Total Tips" name="totalTips" ngModel required> 
-    <input type="number" placeholder="Total Hours" name="totalHours" ngModel required>
-    <input type="number" placeholder="BarMan Precntage" name="barmanPrecentage" ngModel required>
-    <button type="submit" [disabled]="!f.valid">Submit</button>
-  </form>
-  <button class="totalTipsHours">edit Total tips and hours</button>
-</div>
-  <div class="submitPerWaitr" *ngIf="initialSubmit">
-    <span>barMan tip: {{barmanTip}}&#x20AA;</span> --
-    <span>Per Hour: {{shekelsPerHour}}&#x20AA;</span>
-    <p id="totalTip" [ngClass]="{notEnoughTips:totalTip < 0}">total tip:{{totalTip}}&#x20AA;</p>
-      <p class="notEnoughTips" *ngIf="totalTip < 0">NOT ENOUGH TIP!!</p>
-    <div>
-      <p style="color:red">First submit BarMan Tip</p>
-      <form (ngSubmit)="addWaitrTip(fw.value)" #fw="ngForm">
-        <select name="name" ngModel>
-            <option [value]="name" *ngFor="let name of workersNames">{{name}}</option>
-        </select>
-        <select name="shiftCategory" ngModel>
-          <option value="morningShift">morning shift</option>
-          <option value="middleShift">middle Shift</option>
-          <option value="evningShift">evning shift</option>
-        </select>
-        <div>
-          <label for="startTime">Start Time</label> <label id="endTimeLabel" for="endTime">End Time</label>
-        </div>
-        <input type="time" id="startTime" placeholder="Hours" name="startTime"  ngModel required>
-        <input type="time" id="endTime" name="endTime"  ngModel required>
-        <button type="submit" [disabled]="!fw.valid">Submit</button>
-      </form>
+  
+  <div class="waitrForm">
+    <label for="totalTip">סה&#34;כ מזומן</label>
+    <input style="width:98%" type="number" name="totalTip" id="totalTip" #totalTip ngModel>
+
+    <form (ngSubmit)="addWaitr(f.value)" #f="ngForm">
+      <label for="waitrNamae">שם מלצר</label>
+      <select id="waitrName" style="display:block;width:100%" name="name" ngModel required>
+        <option dir="rtl" [value]="name" *ngFor="let name of workersNames">{{name}}</option>
+      </select>
+      <div class="lables">
+        <label for="startTime">משעה</label>
+        <label id="endTimeLable" for="endTime">עד שעה</label>
+      </div>
+
+      <input id="endTime" type="time" name="endTime" ngModel required>
+      <input id="startTime" type="time" name="startTime" ngModel required>
+
+      <button type="submit" [disabled]="!f.valid">הוסף מלצר</button>
+      <button type="button" [disabled]="loadGif" (click)="calculateTips(totalTip.value)">חשב טיפים</button>
+    </form>
+  </div>
+  
+  <div class="loader" *ngIf="loadGif">
+    <img class="loader" src="../../../assets/loading2.gif" alt="loading.gif">
+  </div>
+
+  <div *ngIf="waitrsStack.length > 0 && !loadGif" class="calculatedTips">
+   <div class="tips">
+    <table class="tipsTable" dir="rtl">
+      <thead>
+        <tr>
+          <th>שם</th>
+          <th>התחלה</th>
+          <th>סיום</th>
+          <th>סה&#34;כ שעות</th>
+          <th>טיפים</th>
+          <th>הפרשה 20% למעסיק</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let waitr of waitrsStack; let i = index" (click)="openDialog(i)">
+          <td>{{waitr.name}} </td>
+        <td>{{waitr.startTime}}</td>
+        <td>{{waitr.endTime}}</td>
+        <td>{{waitr.totalTime}}</td>
+        <td>{{waitr.totalTip}}</td>
+        <td>{{waitr.moneyToGoverment}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+    <div class="sum" >
+        <table dir="rtl">
+          <thead>
+            <tr>
+              <th>סה&#34;	כ שעות</th>
+              <th>סה&#34;	כ מזומן</th>
+              <th>סה&#34;	כ לשעה</th>
+              <th>הפרשה ברמן</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{totalTime}}</td>
+              <td>{{totalTip.value - barManTip}}</td>
+              <td>{{tipPerHour}}</td>
+              <td>{{barManTip > 0?barManTip.toFixed(2):""}}</td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
     </div>
   </div>
-  <img src="../../assets/line.jpg" alt="">
-  <h2 style="margin-top:0">Today's Tips</h2>
-  <div class="waitrTip">
-      <app-new-waitr-tip *ngFor="let waitrTip of todaysTips; let i = index" [waitrData]="waitrTip" [index]="i"></app-new-waitr-tip>
-    </div>
-</div>

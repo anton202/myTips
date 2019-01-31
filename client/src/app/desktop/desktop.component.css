@@ -1,0 +1,58 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    margin: auto;
+}
+
+.header{
+    /* border: 1px solid black; */
+    width: 100%
+}
+
+.header > .incomeStats{
+    width: 50%;
+    margin: auto;
+    line-height: 0.7rem;
+}
+
+.header > .incomeStats > p{
+    text-align: center;
+}
+
+.header > .incomeStats > #totalTip{
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.top{
+    display: flex;
+    /* border: 1px solid red; */
+    width: 100%
+}
+
+.bottom{
+    display: flex;
+    /* border: 1px solid green; */
+    width: 100%
+}
+
+.bottom > .generalChart{
+    width: 55%;
+    margin: auto;
+}
+
+button, select, input[name="year"]{
+    align-self:center;
+      background:transparent;
+      margin-top: 3%;
+      width: 50%;
+      color:#016270;
+      font-size:1rem;
+      letter-spacing:1px;
+      outline:none;
+      border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+      border:solid 2px #016270;
+      font-family: 'Gaegu', cursive;
+      font-weight: bold;
+}

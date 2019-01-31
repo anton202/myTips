@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { HttpClient } from '@angular/common/http';
+import { MatDialog } from '@angular/material';
 
+import { ErrorMessageComponenet } from '../material/errorMessage/errorMessage.component'
 import { environment } from '../../environments/environment';
+
 
 
 @Component({
@@ -12,8 +14,9 @@ import { environment } from '../../environments/environment';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
+todaysTips;
 
-  constructor(private router: Router,  private http: HttpClient) { }
+  constructor(private router: Router,  private http: HttpClient,public dialog: MatDialog) { }
 
   ngOnInit() {
     this.http.get(environment.apiUrl+'/user/isTokenValid')
@@ -23,6 +26,14 @@ export class MenuComponent implements OnInit {
         this.router.navigate(['/home'])
         localStorage.removeItem('token');
         localStorage.removeItem('userName');
+      })
+      this.http.get(environment.apiUrl+'/waitrsBook/getTodaysTips')
+      .subscribe(tips =>{
+        this.todaysTips = tips
+      },error => {
+        this.dialog.open(ErrorMessageComponenet,{
+          width: '300px'
+        })
       })
   }
 

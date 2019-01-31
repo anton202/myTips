@@ -1,10 +1,10 @@
 <div class="main">
-  <h2>Register:</h2>
+  <h2>הירשם:</h2>
   <form (ngSubmit)="onSignUp(f)" #f="ngForm">
-    <input type="text" name="userName" placeholder="Name" required ngModel>
-    <p *ngIf="userAlreadyExist">this user name already exist, please choose a diffrent username.</p>
-    <input type="password" name="password" placeholder="Password" required ngModel>
-    <button [disabled]="!f.valid" type="submit">Create Account</button>
+    <input type="text" name="userName" placeholder="שם" required ngModel>
+    <p *ngIf="userAlreadyExist">השם הזה כבר קיים במערכת, בחר שם אחר</p>
+    <input type="password" name="password" placeholder="סיסמא" required ngModel>
+    <button [disabled]="!f.valid" type="submit">צור משתמש</button>
   </form>
-    <p *ngIf="userCreated">Acoount created</p>
+    <p *ngIf="userCreated">המשתמש נוצר בהצלחה</p>
 </div>

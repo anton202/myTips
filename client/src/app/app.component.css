@@ -2,3 +2,17 @@
     position: sticky;
     top: 10px;
 }
+
+/* @media screen and (min-width:1025px){
+    .myTips{
+        display: none;
+    }
+}
+
+
+@media screen and (min-width: 320px) and (max-width: 480px){
+.desktop{
+    display: none;
+}
+
+} */
