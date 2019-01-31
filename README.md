@@ -2,7 +2,7 @@
 
 # MyTips
 
-Mytips is a tip tracking webapp for waitrs.
+Mytips is a tip tracking webapp for waiters.
 <img align="right" width="100" height="100" src="https://github.com/anton202/myTips/blob/master/client/src/assets/logo.png">
 
 
