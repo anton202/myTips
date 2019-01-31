@@ -13,7 +13,14 @@ in the desktop version of myTips you can download an Excel file of your tips and
   <img width="600" height="360" src="https://github.com/anton202/myTips/blob/master/client/src/assets/myTipsLog.png">
 </p>
 
+With myTips you can record the tips of your co-workers that worked with you in the same shift.
 
+![workersNmaes](https://github.com/anton202/myTips/blob/master/client/src/assets/workersNames.png)
+![waitersBook](https://github.com/anton202/myTips/blob/master/client/src/assets/waitersBook.png)
+
+In the desktop version you can see your tip in a chart and download an Excel report of your tip.
+
+![desktopV](https://github.com/anton202/myTips/blob/master/client/src/assets/desktopV.png)
 
 ## Geting started 
 1. clone this directory to a folder of your chosie. 
@@ -25,8 +32,7 @@ in the desktop version of myTips you can download an Excel file of your tips and
 
  
 ## Deployment
-http://46.101.194.54:8083
-
+http://mytips.mobi
 
 ## Build With
 * angular2
