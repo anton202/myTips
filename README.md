@@ -1,7 +1,9 @@
+
+
 # MyTips
 
 Mytips is a tip tracking webapp for waitrs.
-![mytips](https://github.com/anton202/myTips/blob/master/client/src/assets/logo.png)
+<img style="float: right;" src="https://github.com/anton202/myTips/blob/master/client/src/assets/logo.png">
 
 
 With myTips you can track your monthly income as well as your monthly per hour avrg.
