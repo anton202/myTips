@@ -107,7 +107,7 @@ export class WaitersBookComponent implements OnInit, OnDestroy {
 
     function calculateTax(tax, i) {
       this.waitrsStack[i].totalTip = Math.floor(this.waitrsStack[i].totalTime * tipPerHour);
-      this.waitrsStack[i].moneyToGoverment = Math.round(this.waitrsStack[i].totalTip * tax);
+      this.waitrsStack[i].moneyToGoverment = Math.round(this.waitrsStack[i].totalTime * tax);
       this.waitrsStack[i].totalTip -= this.waitrsStack[i].moneyToGoverment;
       this.waitrsStack[i].perHour = Number((this.waitrsStack[i].totalTip / this.waitrsStack[i].totalTime).toFixed(2));
     }
@@ -126,7 +126,7 @@ export class WaitersBookComponent implements OnInit, OnDestroy {
       if (this.waitrsStack.length > 1 && totalTip - this.waitrsStack[i].totalTime * tipPerHour < 0) {
         throw console.log('error not enogh tip');
       }
-      calculateTax.call(this, 0.2, i);
+      calculateTax.call(this, 6, i);
 
       this.waitrsStack[i].yearMonth = this.setYearMonth();
       this.waitrsStack[i].waitrsBook = true;
