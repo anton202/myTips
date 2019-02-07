@@ -16,6 +16,7 @@ import { WaitersBookComponent } from './menu/waiters-book/waiters-book.component
 import { ErrorMessageComponenet } from './material/errorMessage/errorMessage.component'
 import { DesktopComponent } from './desktop/desktop.component';
 import { ConfirmationDialog } from './material/confirmationDailog/confirmationDialog.component';
+import { InstructionMessaageComponent } from './material/tipCalculatorInstructionsMessage/instruction.component'
 
 import { EditTipDirective } from './directives/edit-tip.directive';
 import { AppRoutingModule} from './app-routing.module';
@@ -40,7 +41,8 @@ import { ChartsModule } from '../../node_modules/ng2-charts';
     SettingsComponent,
     DesktopComponent,
     ErrorMessageComponenet,
-    ConfirmationDialog
+    ConfirmationDialog,
+    InstructionMessaageComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +57,7 @@ import { ChartsModule } from '../../node_modules/ng2-charts';
     MatDialogModule,
     MatButtonModule
   ],
-  entryComponents: [ErrorMessageComponenet,ConfirmationDialog],
+  entryComponents: [ErrorMessageComponenet,ConfirmationDialog,InstructionMessaageComponent],
   providers: [Auth,{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },],
   bootstrap: [AppComponent]
 })

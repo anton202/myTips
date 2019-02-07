@@ -7,7 +7,7 @@ import { environment } from '../../../environments/environment';
 import { WaitrsBookService } from './waiters-book.service';
 import { HttpClient } from '@angular/common/http';
 import { ConfirmationDialog } from '../../material/confirmationDailog/confirmationDialog.component'
-import { disableBindings } from '@angular/core/src/render3';
+import {InstructionMessaageComponent } from '../../material/tipCalculatorInstructionsMessage/instruction.component'
 
 
 @Component({
@@ -34,9 +34,13 @@ export class WaitersBookComponent implements OnInit, OnDestroy {
   constructor(private waitrsBookService: WaitrsBookService, private http: HttpClient, public dialog: MatDialog) { }
 
   ngOnInit() {
+   
     this.waitrsBookService.getWorkersNames()
       .subscribe(workersNames => {
         this.workersNames = workersNames;
+        this.dialog.open(InstructionMessaageComponent,{
+          width:'340px'
+        })
       },
         error => {
           this.dialog.open(ErrorMessageComponenet,{
@@ -44,6 +48,8 @@ export class WaitersBookComponent implements OnInit, OnDestroy {
           })
         }
       )
+
+      
   }
 
   addWaitr(waitrData) {
