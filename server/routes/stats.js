@@ -78,7 +78,7 @@ router.get('/myLog/:state/:yearMonth',auth,(req,res)=>{
 
         res.status(200).json({
             tips:tips,
-            perHourAvrg:(perHourAvrg/tips.length).toFixed(2),
+            perHourAvrg:!perHourAvrg?perHourAvrg:(perHourAvrg/tips.length).toFixed(2),
             totalTips
         });
     })

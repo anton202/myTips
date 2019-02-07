@@ -1,5 +1,5 @@
 <div class="container">
-  <a routerLink="/waiters-book"><button>ספר מלצרים</button></a>
+  <a routerLink="/waiters-book"><button>מחשבון טיפים</button></a>
   <a routerLink="/statistics"><button>הטיפים שלי</button></a>
   <div appMinimize class="menuExtend">
     <button>תפריט</button>
@@ -8,7 +8,7 @@
       <button class="menuButton" (click)="logOut()">התנתק</button>
     </div>
   </div>
-  <div dir="rtl">
+  <div *ngIf="isTodaysTips" dir="rtl">
     <h3>טיפים של היום</h3>
     <table class="tipsTable" dir="rtl">
       <thead>
@@ -33,7 +33,3 @@
   </div>
 </div>
 
-<!-- 
-<a routerLink="/statistics"><button>כמה כסף עשיתי</button></a>
-<a routerLink="/settings"><button>הגדרות</button></a>
-<button (click)="logOut()">התנתק</button> -->

@@ -15,6 +15,7 @@ import { environment } from '../../environments/environment';
 })
 export class MenuComponent implements OnInit {
 todaysTips;
+isTodaysTips = false;
 
   constructor(private router: Router,  private http: HttpClient,public dialog: MatDialog) { }
 
@@ -27,9 +28,12 @@ todaysTips;
         localStorage.removeItem('token');
         localStorage.removeItem('userName');
       })
-      this.http.get(environment.apiUrl+'/waitrsBook/getTodaysTips')
+      this.http.get<[]>(environment.apiUrl+'/waitrsBook/getTodaysTips')
       .subscribe(tips =>{
         this.todaysTips = tips
+        if(tips.length > 0){
+        this.isTodaysTips = true;
+        }
       },error => {
         this.dialog.open(ErrorMessageComponenet,{
           width: '300px'

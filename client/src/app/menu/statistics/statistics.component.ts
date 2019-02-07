@@ -44,9 +44,10 @@ perHourAvrg;
   }
 
   onSubmit(form){
+   
     const whosTips = form.whosTips;
     const month = form.month;
-    const year = form.year;
+    const year = form.year | 2019;
     this.router.navigate(['waitrs-book-log/'+whosTips+'/'+year + '-' + month]);
     }
 
