@@ -58,7 +58,7 @@ export class DesktopComponent implements OnInit {
 
     this.http.get<[{ date, totalTip, name }]>(environment.apiUrl + '/stats/chart/' + whosTips + '/' + timePeriod + '/' + userName)
       .subscribe(tips => {
-
+        console.table(tips)
         let chartData = [];
         this.chartLabels.length = 0;
         for (let i = 0; i < tips.length; i++) {
@@ -68,16 +68,19 @@ export class DesktopComponent implements OnInit {
 
           let chartDataEl = chartData.find((el) => {
             if (el.label === tips[i].name) {
-
               return el
             }
           })
 
+          const indexOfDate = this.chartLabels.indexOf(tips[i].date)
+
           if (chartDataEl) {
-            chartDataEl.data.push(tips[i].totalTip)
+            chartDataEl.data[indexOfDate] = tips[i].totalTip;
 
           } else {
-            chartData.push({ data: [tips[i].totalTip], backgroundColor: 'rgba(' + this.chartColors.defaultColors[chartData.length] + ')', label: tips[i].name });
+            const dataArray = [];
+            dataArray[indexOfDate] = tips[i].totalTip
+            chartData.push({ data: dataArray, backgroundColor: 'rgba(' + this.chartColors.defaultColors[chartData.length] + ')', label: tips[i].name });
           }
         }
 
