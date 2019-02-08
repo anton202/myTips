@@ -58,7 +58,6 @@ export class DesktopComponent implements OnInit {
 
     this.http.get<[{ date, totalTip, name }]>(environment.apiUrl + '/stats/chart/' + whosTips + '/' + timePeriod + '/' + userName)
       .subscribe(tips => {
-        console.table(tips)
         let chartData = [];
         this.chartLabels.length = 0;
         for (let i = 0; i < tips.length; i++) {
