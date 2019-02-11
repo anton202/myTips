@@ -6,8 +6,9 @@ import { ErrorMessageComponenet } from '../../material/errorMessage/errorMessage
 import { environment } from '../../../environments/environment';
 import { WaitrsBookService } from './waiters-book.service';
 import { HttpClient } from '@angular/common/http';
-import { ConfirmationDialog } from '../../material/confirmationDailog/confirmationDialog.component'
-import {InstructionMessaageComponent } from '../../material/tipCalculatorInstructionsMessage/instruction.component'
+import { ConfirmationDialog } from '../../material/confirmationDailog/confirmationDialog.component';
+import {InstructionMessaageComponent } from '../../material/tipCalculatorInstructionsMessage/instruction.component';
+import { NotEnoughTipError } from '../../material/notEnoughTipError/notEnoughTipError.component';
 
 
 @Component({
@@ -30,11 +31,9 @@ export class WaitersBookComponent implements OnInit, OnDestroy {
   isDataSendedToServer = false;
   @ViewChild('f') waitrDataForm: NgForm
 
-
   constructor(private waitrsBookService: WaitrsBookService, private http: HttpClient, public dialog: MatDialog) { }
 
   ngOnInit() {
-   
     this.waitrsBookService.getWorkersNames()
       .subscribe(workersNames => {
         this.workersNames = workersNames;
@@ -47,9 +46,7 @@ export class WaitersBookComponent implements OnInit, OnDestroy {
             width: '300px'
           })
         }
-      )
-
-      
+      )      
   }
 
   addWaitr(waitrData) {
@@ -129,8 +126,10 @@ export class WaitersBookComponent implements OnInit, OnDestroy {
 
     //add properties to each waitr inside waitrsStack
     for (let i = 0; i < this.waitrsStack.length; i++) {
-      if (this.waitrsStack.length > 1 && totalTip - this.waitrsStack[i].totalTime * tipPerHour < 0) {
-        throw console.log('error not enogh tip');
+      if (this.waitrsStack.length > 1 && Number(totalTip.toFixed()) - Number((this.waitrsStack[i].totalTime * tipPerHour).toFixed()) < 0) {
+        this.dialog.open(NotEnoughTipError,{
+          width: '300px'
+        })
       }
       calculateTax.call(this, 6, i);
 

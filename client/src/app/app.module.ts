@@ -16,7 +16,9 @@ import { WaitersBookComponent } from './menu/waiters-book/waiters-book.component
 import { ErrorMessageComponenet } from './material/errorMessage/errorMessage.component'
 import { DesktopComponent } from './desktop/desktop.component';
 import { ConfirmationDialog } from './material/confirmationDailog/confirmationDialog.component';
-import { InstructionMessaageComponent } from './material/tipCalculatorInstructionsMessage/instruction.component'
+import { InstructionMessaageComponent } from './material/tipCalculatorInstructionsMessage/instruction.component';
+import { NotEnoughTipError } from './material/notEnoughTipError/notEnoughTipError.component'
+
 
 import { EditTipDirective } from './directives/edit-tip.directive';
 import { AppRoutingModule} from './app-routing.module';
@@ -42,7 +44,8 @@ import { ChartsModule } from '../../node_modules/ng2-charts';
     DesktopComponent,
     ErrorMessageComponenet,
     ConfirmationDialog,
-    InstructionMessaageComponent
+    InstructionMessaageComponent,
+    NotEnoughTipError
   ],
   imports: [
     BrowserModule,
@@ -57,7 +60,7 @@ import { ChartsModule } from '../../node_modules/ng2-charts';
     MatDialogModule,
     MatButtonModule
   ],
-  entryComponents: [ErrorMessageComponenet,ConfirmationDialog,InstructionMessaageComponent],
+  entryComponents: [ErrorMessageComponenet,ConfirmationDialog,InstructionMessaageComponent,NotEnoughTipError],
   providers: [Auth,{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },],
   bootstrap: [AppComponent]
 })
