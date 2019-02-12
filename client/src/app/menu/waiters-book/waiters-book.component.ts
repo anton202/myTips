@@ -20,6 +20,7 @@ import { NotEnoughTipError } from '../../material/notEnoughTipError/notEnoughTip
 export class WaitersBookComponent implements OnInit, OnDestroy {
   waitrsStack = [];
   totalTips;
+  totalTax;
   totalTime;
   tipPerHour;
   moneyToGoverment;
@@ -107,6 +108,7 @@ export class WaitersBookComponent implements OnInit, OnDestroy {
     let totalTime = 0;
     let tipPerHour = 0;
     let barManTip = 0;
+    let totalTax = 0;
 
     function calculateTax(tax, i) {
       this.waitrsStack[i].totalTip = Math.floor(this.waitrsStack[i].totalTime * tipPerHour);
@@ -136,6 +138,7 @@ export class WaitersBookComponent implements OnInit, OnDestroy {
       this.waitrsStack[i].yearMonth = this.setYearMonth();
       this.waitrsStack[i].waitrsBook = true;
 
+      totalTax += this.waitrsStack[i].moneyToGoverment;
       totalTip -= this.waitrsStack[i].totalTip + this.waitrsStack[i].moneyToGoverment;
     }
 
@@ -144,7 +147,7 @@ export class WaitersBookComponent implements OnInit, OnDestroy {
     this.totalTime = totalTime;
     this.tipPerHour = tipPerHour;
     this.barManTip = barManTip;
-
+    this.totalTax = totalTax
    
     // send all tips to server
     this.http.post(environment.apiUrl + '/waitrsBook/saveWaitrsTips', this.waitrsStack)

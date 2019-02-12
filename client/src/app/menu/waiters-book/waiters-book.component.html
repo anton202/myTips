@@ -57,7 +57,7 @@
           <thead>
             <tr>
               <th>סה&#34;	כ שעות</th>
-              <th>סה&#34;כ מזומן אחרי הפרשה לברמן</th>
+              <th>סה&#34;כ הפרשה למעסיק</th>
               <th>סה&#34;כ לשעה לפני הפרשה למעסיק</th>
               <th>הפרשה 10% לברמן מהסכום {{totalTip.value}}</th>
             </tr>
@@ -65,7 +65,7 @@
           <tbody>
             <tr>
               <td>{{totalTime}}</td>
-              <td>{{totalTip.value - barManTip}}</td>
+              <td>{{totalTax}}</td>
               <td>{{tipPerHour}}</td>
               <td>{{barManTip > 0?barManTip.toFixed(2):""}}</td>
             </tr>
