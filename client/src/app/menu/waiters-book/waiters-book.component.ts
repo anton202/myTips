@@ -7,8 +7,9 @@ import { environment } from '../../../environments/environment';
 import { WaitrsBookService } from './waiters-book.service';
 import { HttpClient } from '@angular/common/http';
 import { ConfirmationDialog } from '../../material/confirmationDailog/confirmationDialog.component';
-import {InstructionMessaageComponent } from '../../material/tipCalculatorInstructionsMessage/instruction.component';
+import { InstructionMessaageComponent } from '../../material/tipCalculatorInstructionsMessage/instruction.component';
 import { NotEnoughTipError } from '../../material/notEnoughTipError/notEnoughTipError.component';
+import { IncorrectTimeInputComponent } from '../../material/incorrectTimeInputsDialog/incorrectTimeInput.component';
 
 
 @Component({
@@ -60,10 +61,16 @@ export class WaitersBookComponent implements OnInit, OnDestroy {
     start.setHours(parseInt(startTime[0], 10), parseInt(startTime[1], 10));
     end.setHours(parseInt(endTime[0], 10), parseInt(endTime[1], 10));
 
-    waitrData.totalTime = ((end.getTime() - start.getTime()) / (1000 * 60 * 60)).toFixed(2);
-    this.waitrsStack.push(waitrData)
-
-    this.waitrDataForm.reset()
+    if(end.getTime() - start.getTime() < 0){
+      this.dialog.open(IncorrectTimeInputComponent,{
+        width:'340px'
+      })
+    }else{
+      waitrData.totalTime = ((end.getTime() - start.getTime()) / (1000 * 60 * 60)).toFixed(2);
+      this.waitrsStack.push(waitrData)
+  
+      this.waitrDataForm.reset()
+    }
   }
 
   openDialog(index){

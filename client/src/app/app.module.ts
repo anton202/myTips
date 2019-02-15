@@ -18,6 +18,7 @@ import { DesktopComponent } from './desktop/desktop.component';
 import { ConfirmationDialog } from './material/confirmationDailog/confirmationDialog.component';
 import { InstructionMessaageComponent } from './material/tipCalculatorInstructionsMessage/instruction.component';
 import { NotEnoughTipError } from './material/notEnoughTipError/notEnoughTipError.component'
+import { IncorrectTimeInputComponent } from './material/incorrectTimeInputsDialog/incorrectTimeInput.component'
 
 
 import { EditTipDirective } from './directives/edit-tip.directive';
@@ -45,7 +46,8 @@ import { ChartsModule } from '../../node_modules/ng2-charts';
     ErrorMessageComponenet,
     ConfirmationDialog,
     InstructionMessaageComponent,
-    NotEnoughTipError
+    NotEnoughTipError,
+    IncorrectTimeInputComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +62,7 @@ import { ChartsModule } from '../../node_modules/ng2-charts';
     MatDialogModule,
     MatButtonModule
   ],
-  entryComponents: [ErrorMessageComponenet,ConfirmationDialog,InstructionMessaageComponent,NotEnoughTipError],
+  entryComponents: [ErrorMessageComponenet,ConfirmationDialog,InstructionMessaageComponent,NotEnoughTipError,IncorrectTimeInputComponent],
   providers: [Auth,{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },],
   bootstrap: [AppComponent]
 })
