@@ -21,7 +21,7 @@ In the desktop version users can see their tips in a chart and download an Excel
 
 ![desktopV](https://github.com/anton202/myTips/blob/master/client/src/assets/desktopV.png)
 
-## Geting started 
+## Runing the project localy
 1. clone this directory to a folder of your chosie. 
 2. in the terminal navigate to myTips/client and run npm install.
 3. run ng build
