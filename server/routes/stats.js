@@ -6,7 +6,6 @@ const xl = require('../models/excel');
 
 router.get('/myStats/:id',auth,(req,res)=>{
     const userName = req.params.id;
-    console.log(req.params.id)
     const date = new Date();
     const yearMonth = date.getFullYear()+'-'+date.getMonth();
     let myTotalIncome = 0;
@@ -83,7 +82,6 @@ router.get('/myLog/:state/:yearMonth',auth,(req,res)=>{
         });
     })
     .catch(error =>{
-        console.log(error)
         res.status(400).json({message:'server error'});
     })
 
@@ -99,18 +97,15 @@ router.get('/chart/:whosTips/:time/:userName',(req,res)=>{
                 $gte:new Date().getTime() - 604800000
         },
         month:{
-                // $lte: new Date().getTime(),
                 $gte:new Date().getTime() - 2678400000
         }
     }
 
     MyTips.find(whosTips === 'myTips'?{createdAt:createdAt[timePeriod],name:userName}:{createdAt:createdAt[timePeriod]})
         .then(tips => {
-            console.log(tips)
             res.status(200).json(tips);
         })
         .catch(error => {
-            console.log(error);
             res.status(400).json({message:'server error'});
             })
     
@@ -119,7 +114,3 @@ router.get('/chart/:whosTips/:time/:userName',(req,res)=>{
 
 module.exports = router;
 
-// createdAt:{
-//     $lte: new Date().getTime(),
-//     $gte:new Date().getTime() - 604800000
-// }
