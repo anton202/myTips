@@ -1,35 +1,5 @@
-<div class="container">
-  <a routerLink="/waiters-book"><button>מחשבון טיפים</button></a>
-  <a routerLink="/statistics"><button>הטיפים שלי</button></a>
-  <div appMinimize class="menuExtend">
-    <button>תפריט</button>
-    <div class="menuItems">
-      <a routerLink="/settings"><button class="menuButton">הגדרות</button></a>
-      <button class="menuButton" (click)="logOut()">התנתק</button>
-    </div>
-  </div>
-  <div *ngIf="isTodaysTips" dir="rtl">
-    <h3>טיפים של היום</h3>
-    <table class="tipsTable" dir="rtl">
-      <thead>
-        <tr>
-          <th>שם</th>
-          <th>משעה</th>
-          <th>עד שעה</th>
-          <th>סה&#34;כ שעות</th>
-          <th>טיפים</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let waitr of todaysTips">
-          <td>{{waitr.name}} </td>
-          <td>{{waitr.startTime}}</td>
-          <td>{{waitr.endTime}}</td>
-          <td>{{waitr.totalTime}}</td>
-          <td>{{waitr.totalTip}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+<div class="buttons">
+  <a routerLink="/waiters-book"> <button mat-raised-button color="warn">מחשבון טיפים</button></a>
+  <a routerLink="/statistics"> <button mat-raised-button color="primary">הטיפים שלי</button></a>
 </div>
 

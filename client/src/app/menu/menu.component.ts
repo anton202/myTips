@@ -6,8 +6,6 @@ import { MatDialog } from '@angular/material';
 import { ErrorMessageComponenet } from '../material/errorMessage/errorMessage.component'
 import { environment } from '../../environments/environment';
 
-
-
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',

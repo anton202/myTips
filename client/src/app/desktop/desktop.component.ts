@@ -20,7 +20,7 @@ export class DesktopComponent implements OnInit {
   chartLabels = [];
   chartData = [{ data: [] }]
   chartColors = new ChartColors()
-  @ViewChild(BaseChartDirective) chart: BaseChartDirective;
+  @ViewChild(BaseChartDirective,{ static: true }) chart: BaseChartDirective;
 
   constructor(private http: HttpClient, public dialog: MatDialog) { }
 

@@ -30,6 +30,7 @@ import { AuthInterceptor } from './auth.interceptor';
 import { SettingsComponent } from './menu/settings/settings.component'; 
 import { ReuseblePipe} from './reusblePipe.module';
 import { ChartsModule } from '../../node_modules/ng2-charts';
+import { NavComponent } from './nav/nav.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { ChartsModule } from '../../node_modules/ng2-charts';
     ConfirmationDialog,
     InstructionMessaageComponent,
     NotEnoughTipError,
-    IncorrectTimeInputComponent
+    IncorrectTimeInputComponent,
+    NavComponent
   ],
   imports: [
     BrowserModule,

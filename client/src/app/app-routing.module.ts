@@ -10,7 +10,7 @@ import { SettingsComponent } from './menu/settings/settings.component';
 import { DesktopComponent } from './desktop/desktop.component';
 
 const appRoutes:Routes = [{path:'',component: HomeComponent},
-{path:'statistics', loadChildren:'./menu/statistics/statistics.module#StatisticsModule'},
+{path:'statistics', loadChildren:() => import('./menu/statistics/statistics.module').then(m => m.StatisticsModule)},
 {path:'register', component:RegisterComponent},
 {path:'sign-in',component: SignInComponent},
 {path:'home', component: HomeComponent},

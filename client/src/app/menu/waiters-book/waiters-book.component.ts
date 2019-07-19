@@ -31,7 +31,7 @@ export class WaitersBookComponent implements OnInit, OnDestroy {
   todaysDate: string = new Date().toLocaleDateString();
   loadGif = false;
   isDataSendedToServer = false;
-  @ViewChild('f') waitrDataForm: NgForm
+  @ViewChild('f',{ static: true }) waitrDataForm: NgForm
 
   constructor(private waitrsBookService: WaitrsBookService, private http: HttpClient, public dialog: MatDialog) { }
 
