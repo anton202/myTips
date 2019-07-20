@@ -7,6 +7,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonModule} from '@angular/material/button';
 
+
+
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './auth/register/register.component';
@@ -62,7 +64,7 @@ import { NavComponent } from './nav/nav.component';
     ChartsModule,
     BrowserAnimationsModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
   ],
   entryComponents: [ErrorMessageComponenet,ConfirmationDialog,InstructionMessaageComponent,NotEnoughTipError,IncorrectTimeInputComponent],
   providers: [Auth,{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },],

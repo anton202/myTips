@@ -1,6 +1,9 @@
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
+import { MatTableModule } from '@angular/material/table';
+import {MatButtonModule} from '@angular/material/button';
+import {MatSelectModule} from '@angular/material/select';
 
 
 import { StatisticsComponent } from './statistics.component';
@@ -19,7 +22,10 @@ import { HighLightTipDirective } from './waitrs-book-log/highlightTip.directive'
         FormsModule,
         CommonModule,
         StatisticsRoutingModule,
-        ReuseblePipe
+        ReuseblePipe,
+        MatTableModule,
+        MatButtonModule,
+        MatSelectModule
     ],
     exports:[StatisticsComponent]
 })

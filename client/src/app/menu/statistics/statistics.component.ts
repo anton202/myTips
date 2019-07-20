@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material';
 
 import { environment } from '../../../environments/environment';
 import { ErrorMessageComponenet } from '../../material/errorMessage/errorMessage.component'
+import { months, years } from './date';
 
 @Component({
   selector: 'app-statistics',
@@ -16,6 +17,21 @@ myTotalIncome;
 myTotalPerHourAvrg;
 totalTips;
 perHourAvrg;
+displayedColumns: string[] = ['תאריך','יום','סה"כ לשעה','סה"כ טיפים'];
+dataSource: Array<object> = [
+  {date:'13.7.2019',day:'שני',perHour:67,tips:450},
+  {date:'13.7.2019',day:'שני',perHour:67,tips:450},
+  {date:'13.7.2019',day:'שני',perHour:67,tips:450},
+  {date:'13.7.2019',day:'שני',perHour:67,tips:450},
+  {date:'13.7.2019',day:'שני',perHour:67,tips:450},
+  {date:'13.7.2019',day:'שני',perHour:67,tips:450},
+  {date:'13.7.2019',day:'שני',perHour:67,tips:450},
+  {date:'13.7.2019',day:'שני',perHour:67,tips:450},
+  {date:'13.7.2019',day:'שני',perHour:67,tips:450}
+];
+months: Array<object> = months;
+years: Array<number> = years;
+
 
   constructor(private http: HttpClient, private router:Router, public dialog: MatDialog) { }
 
