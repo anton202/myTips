@@ -32,38 +32,36 @@
   
   <div class="table-container">
   <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-    <!-- Position Column -->
+    
     <ng-container matColumnDef="תאריך">
       <mat-header-cell *matHeaderCellDef> תאריך </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.date}} </mat-cell>
     </ng-container>
 
-    <!-- Name Column -->
+   
     <ng-container matColumnDef="יום">
       <mat-header-cell *matHeaderCellDef> יום </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.day}} </mat-cell>
     </ng-container>
 
-    <!-- Weight Column -->
+    
     <ng-container matColumnDef='סה"כ לשעה'>
       <mat-header-cell *matHeaderCellDef> סהכ לשעה </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.perHour}} </mat-cell>
     </ng-container>
 
-    <!-- Symbol Column -->
+    
     <ng-container matColumnDef='סה"כ טיפים'>
       <mat-header-cell *matHeaderCellDef> סה"כ טיפים </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.tips}} </mat-cell>
     </ng-container>
     
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
 </div>
 
-  <div class="buttons">
-      <button mat-raised-button color="primary" (click)="addColumn()"> טיפים שלי </button>
-      <button mat-raised-button color="primary" (click)="removeColumn()"> טיפים של כולם </button>
+  <div class="expandTable">
       <button mat-raised-button color="primary" (click)="shuffle()"> טבלה מורחבת </button>
     </div>
   

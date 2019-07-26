@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 
@@ -18,7 +18,7 @@ import { IncorrectTimeInputComponent } from '../../material/incorrectTimeInputsD
   styleUrls: ['./waiters-book.component.css'],
   providers: [WaitrsBookService]
 })
-export class WaitersBookComponent implements OnInit, OnDestroy {
+export class WaitersBookComponent implements OnInit{
   waitrsStack = [];
   totalTips;
   totalTax;
@@ -168,8 +168,6 @@ export class WaitersBookComponent implements OnInit, OnDestroy {
       })
   }
 
-  ngOnDestroy() {
-    
-  }
+  
 
 }
