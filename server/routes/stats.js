@@ -14,6 +14,7 @@ router.get('/myStats/:id',auth,(req,res)=>{
     MyTips.find({name: userName, yearMonth: yearMonth})
     .then(tips =>{
         tips.forEach(tip =>{
+            console.log(tips)
             myTotalIncome += tip.totalTip;
             myTotalPerHourAvrg += tip.perHour?tip.perHour:0;
         })
@@ -23,6 +24,19 @@ router.get('/myStats/:id',auth,(req,res)=>{
     })
     } )
     .catch(error => res.status(400).json({message:'server error'}))
+})
+
+router.get('/thisMonthTips/:id',(req,res)=>{
+    const userName = req.params.id;
+    const date = new Date();
+    const yearMonth = date.getFullYear()+'-'+date.getMonth();
+console.log(yearMonth, userName)
+    MyTips.find({name:userName, yearMonth: yearMonth})
+        .then(tips =>{
+            console.log(tips)
+            res.status(200).json(tips)
+        })
+        .catch(error => res.status(400).json({message:'server error'}))
 })
 
 router.get('/waitrsBookStats',auth,(req,res)=>{
@@ -59,6 +73,7 @@ router.get('/getExcel/:state/:yearMonth/:userName',(req,res)=>{
         })
 })
 
+// Edit this end point - dose not have to have state.
 router.get('/myLog/:state/:yearMonth',auth,(req,res)=>{
     const yearMonth = req.params.yearMonth;
     const userName = req.body.userName;
@@ -67,7 +82,7 @@ router.get('/myLog/:state/:yearMonth',auth,(req,res)=>{
     const myTipsLogQuery = {name:userName,yearMonth:yearMonth}
     let totalTips = 0;
     let perHourAvrg = 0;
-    
+    console.log(yearMonth)
     MyTips.find(state === 'myTips'? myTipsLogQuery : waitrsBookLogQuery)
     .then(tips =>{
         tips.forEach(tip =>{
