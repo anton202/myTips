@@ -72,7 +72,7 @@ router.get('/getExcel/:state/:yearMonth/:userName',(req,res)=>{
         })
 })
 
-// Edit this end point - dose not have to have state.
+
 router.get('/myLog/:yearMonth',auth,(req,res)=>{
     const yearMonth = req.params.yearMonth;
     const userName = req.body.userName;
