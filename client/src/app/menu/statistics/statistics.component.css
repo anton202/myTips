@@ -3,7 +3,7 @@
 }
 
 mat-cell, mat-header-cell{
-  padding-right: 24px;
+  padding-right: 20px;
 }
 .expandTable{
   display: flex;
@@ -52,7 +52,7 @@ mat-cell, mat-header-cell{
     margin: auto;
   }
 
-  .chooseDate>button {
+  form>button {
     margin-right: 20px;
     width: 90px;
     height: 45px;
@@ -82,7 +82,7 @@ mat-cell, mat-header-cell{
   }
 
 @media screen and (max-width: 320px) {
-  .chooseDate>button{
+  form>button{
     width: 50px;
   }
 

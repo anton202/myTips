@@ -26,14 +26,20 @@ export class StatisticsComponent implements OnInit {
   ngOnInit() {
     this.getUserStats();
     this.getTotalPerHourAvrg();
-    this.getUserTips()
+    this.getUserThisMonthTips()
   }
 
-  onSubmit(form) {
-    const whosTips = form.whosTips;
+  public getUserTipsByYearMonth(form): void{
     const month = form.month;
-    const year = form.year | 2019;
-    this.router.navigate(['waitrs-book-log/' + whosTips + '/' + year + '-' + month]);
+    const year = form.year;
+    this.http.get<{tips,perHourAvrg,totalTips}>(environment.apiUrl + '/stats//myLog/' + year + '-' + month)
+      .subscribe(tips =>{
+        this.myTotalIncome = tips.totalTips;
+        this.myTotalPerHourAvrg = tips.perHourAvrg;
+        this.dataSource = tips.tips;
+        
+      })
+   // this.router.navigate(['waitrs-book-log/' + year + '-' + month]);
   }
 
   private getUserStats(): void {
@@ -57,11 +63,11 @@ export class StatisticsComponent implements OnInit {
         })
   }
 
-  private getUserTips(): void{
+  private getUserThisMonthTips(): void{
     this.http.get<[{}]>(environment.apiUrl + '/stats/thisMonthTips/'  + localStorage.getItem('userName'))
       .subscribe(tips =>{
         this.dataSource = tips;
-        console.log(tips)
+       
       })
   }
 

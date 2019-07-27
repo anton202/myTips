@@ -1,7 +1,7 @@
 <div class="container">
   <div class="personalTips">
     <span>סה"כ טיפים שלי החודש</span>
-    <span>{{myTotalIncome}}</span>
+    <span>{{myTotalIncome | number : '2.'}}</span>
     <span style="margin-top: 10px"> ממוצע לשעה החודש</span>
     <span>{{myTotalPerHourAvrg}}</span>
     <span style="margin-top: 10px">ממוצע כללי לשעה החודש</span>
@@ -9,9 +9,10 @@
   </div>
 
   <div class="chooseDate">
+    <form (ngSubmit)="getUserTipsByYearMonth(f.value)" #f="ngForm">
       <mat-form-field dir="rtl">
           <mat-label>חודש</mat-label>
-          <mat-select>
+          <mat-select name="month" ngModel>
             <mat-option *ngFor="let month of months" [value]="month.value">
               {{month.viewValue}}
             </mat-option>
@@ -20,14 +21,15 @@
 
         <mat-form-field dir="rtl">
             <mat-label>שנה</mat-label>
-            <mat-select>
+            <mat-select name="year" ngModel>
               <mat-option *ngFor="let year of years" [value]="year">
                 {{year}}
               </mat-option>
             </mat-select>
           </mat-form-field>
 
-          <button mat-raised-button color="primary" (click)="addColumn()">הצג</button>
+          <button mat-raised-button color="primary" type="submit">הצג</button>
+        </form>
   </div>
   
   <div class="table-container">
