@@ -16,7 +16,7 @@ export class StatisticsComponent implements OnInit {
   public myTotalIncome: number;
   public myTotalPerHourAvrg: number;
   public perHourAvrg: number;
-  public displayedColumns: string[] = ['תאריך', 'יום', 'סה"כ לשעה', 'סה"כ טיפים'];
+  public displayedColumns: string[] = ['תאריך', 'יום', 'משעה','עד שעה','סה"כ שעות','הפרשה למעסיק', 'סה"כ לשעה', 'סה"כ טיפים'];
   public dataSource: Array<object>;
   public months: Array<object> = months;
   public years: Array<number> = years;
@@ -39,7 +39,6 @@ export class StatisticsComponent implements OnInit {
         this.dataSource = tips.tips;
         
       })
-   // this.router.navigate(['waitrs-book-log/' + year + '-' + month]);
   }
 
   private getUserStats(): void {
@@ -66,6 +65,7 @@ export class StatisticsComponent implements OnInit {
   private getUserThisMonthTips(): void{
     this.http.get<[{}]>(environment.apiUrl + '/stats/thisMonthTips/'  + localStorage.getItem('userName'))
       .subscribe(tips =>{
+        console.log(tips)
         this.dataSource = tips;
        
       })

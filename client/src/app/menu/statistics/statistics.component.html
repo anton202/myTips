@@ -46,7 +46,27 @@
       <mat-cell *matCellDef="let element"> {{element.day}} </mat-cell>
     </ng-container>
 
+
+    <ng-container matColumnDef="משעה" >
+      <mat-header-cell *matHeaderCellDef class="expendedTable"> משעה</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.startTime}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="עד שעה" >
+      <mat-header-cell *matHeaderCellDef class="expendedTable"> עד שעה</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.startTime}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef='סה"כ שעות' >
+      <mat-header-cell *matHeaderCellDef class="expendedTable"> סה"כ שעות</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.startTime}} </mat-cell>
+    </ng-container>
     
+    <ng-container matColumnDef="הפרשה למעסיק" >
+      <mat-header-cell *matHeaderCellDef class="expendedTable"> הפרשה למעסיק</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.startTime}} </mat-cell>
+    </ng-container>
+
     <ng-container matColumnDef='סה"כ לשעה'>
       <mat-header-cell *matHeaderCellDef> סהכ לשעה </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.perHour}} </mat-cell>
