@@ -11,14 +11,12 @@ import { WaitrsBookLogComponent } from './waitrs-book-log/waitrs-book-log.compon
 import { StatisticsRoutingModule } from './statistics-routing.module';
 import { ReuseblePipe } from '../../reusblePipe.module'
 import { HighLightTipDirective } from './waitrs-book-log/highlightTip.directive';
-import { EpxandMinimizeTableDirective } from './epxand-minimize-table.directive'
 
 @NgModule({
     declarations:[
         StatisticsComponent,
         WaitrsBookLogComponent,
         HighLightTipDirective,
-        EpxandMinimizeTableDirective
     ],
     imports: [
         FormsModule,

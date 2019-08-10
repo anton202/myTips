@@ -49,22 +49,22 @@
 
     <ng-container matColumnDef="משעה" >
       <mat-header-cell *matHeaderCellDef class="expendedTable"> משעה</mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.startTime}} </mat-cell>
+      <mat-cell *matCellDef="let element" class="expendedTable"> {{element.startTime}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="עד שעה" >
       <mat-header-cell *matHeaderCellDef class="expendedTable"> עד שעה</mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.startTime}} </mat-cell>
+      <mat-cell *matCellDef="let element" class="expendedTable"> {{element.startTime}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef='סה"כ שעות' >
       <mat-header-cell *matHeaderCellDef class="expendedTable"> סה"כ שעות</mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.startTime}} </mat-cell>
+      <mat-cell *matCellDef="let element" class="expendedTable"> {{element.startTime}} </mat-cell>
     </ng-container>
     
     <ng-container matColumnDef="הפרשה למעסיק" >
       <mat-header-cell *matHeaderCellDef class="expendedTable"> הפרשה למעסיק</mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.startTime}} </mat-cell>
+      <mat-cell *matCellDef="let element" class="expendedTable"> {{element.startTime}} </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef='סה"כ לשעה'>
@@ -78,7 +78,7 @@
       <mat-cell *matCellDef="let element"> {{element.totalTip}} </mat-cell>
     </ng-container>
     
-    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
 </div>

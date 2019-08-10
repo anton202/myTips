@@ -16,7 +16,6 @@ import { SignInComponent } from './auth/sign-in/sign-in.component';
 import { MenuComponent } from './menu/menu.component';
 import { WaitersBookComponent } from './menu/waiters-book/waiters-book.component';
 import { ErrorMessageComponenet } from './material/errorMessage/errorMessage.component'
-import { DesktopComponent } from './desktop/desktop.component';
 import { ConfirmationDialog } from './material/confirmationDailog/confirmationDialog.component';
 import { InstructionMessaageComponent } from './material/tipCalculatorInstructionsMessage/instruction.component';
 import { NotEnoughTipError } from './material/notEnoughTipError/notEnoughTipError.component'
@@ -45,7 +44,6 @@ import { NavComponent } from './nav/nav.component';
     EditTipDirective,
     MenuExtendDirective,
     SettingsComponent,
-    DesktopComponent,
     ErrorMessageComponenet,
     ConfirmationDialog,
     InstructionMessaageComponent,

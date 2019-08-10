@@ -23,11 +23,7 @@ export class AppComponent implements OnInit {
     this.http.get(environment.apiUrl + '/user/isTokenValid')
       .subscribe(
         response => {
-          if(window.screen.width >= 1025){
-            this.router.navigate(['/desktop'])
-          }else{
             this.router.navigate(['/menu'])
-          }
         },
         error => {
           this.router.navigate(['/menu'])

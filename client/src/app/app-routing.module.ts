@@ -7,7 +7,7 @@ import { SignInComponent } from './auth/sign-in/sign-in.component';
 import { MenuComponent } from './menu/menu.component';
 import { WaitersBookComponent } from './menu/waiters-book/waiters-book.component';
 import { SettingsComponent } from './menu/settings/settings.component';
-import { DesktopComponent } from './desktop/desktop.component';
+
 
 const appRoutes:Routes = [{path:'',component: HomeComponent},
 {path:'statistics', loadChildren:() => import('./menu/statistics/statistics.module').then(m => m.StatisticsModule)},
@@ -17,7 +17,6 @@ const appRoutes:Routes = [{path:'',component: HomeComponent},
 {path:'menu', component: MenuComponent},
 {path:'waiters-book', component: WaitersBookComponent},
 {path:'settings', component:SettingsComponent},
-{path:'desktop', component:DesktopComponent}
 ]
 
 

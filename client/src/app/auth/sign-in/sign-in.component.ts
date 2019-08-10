@@ -20,13 +20,10 @@ export class SignInComponent implements OnInit {
    this.auth.login(form.value)
    .subscribe(
     response =>{ 
-      localStorage.setItem('token',response.token)
-      localStorage.setItem('userName',form.value.userName)
-      if(window.screen.width >= 1025){
-        this.router.navigate(['/desktop'])
-      }else{
-        this.router.navigate(['/menu']) 
-      }
+      localStorage.setItem('token',response.token);
+      localStorage.setItem('userName',form.value.userName);
+      this.router.navigate(['/menu']) ;
+      
     },
     error => this.errorMessage = error.error.message
   )
