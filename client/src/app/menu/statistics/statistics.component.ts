@@ -20,10 +20,12 @@ export class StatisticsComponent implements OnInit {
   public dataSource: Array<object>;
   public months: Array<object> = months;
   public years: Array<number> = years;
+  public isTableExpanded: boolean = false;
 
   constructor(private http: HttpClient, private router: Router, public dialog: MatDialog) { }
 
   ngOnInit() {
+    console.log(this.isTableExpanded)
     this.getUserStats();
     this.getTotalPerHourAvrg();
     this.getUserThisMonthTips()
@@ -69,6 +71,16 @@ export class StatisticsComponent implements OnInit {
         this.dataSource = tips;
        
       })
+  }
+
+  public expandTable(){
+   
+    if(!this.isTableExpanded){
+      this.isTableExpanded = true;   
+    }else{
+      this.isTableExpanded = false;
+    }
+    console.log(this.isTableExpanded)
   }
 
 

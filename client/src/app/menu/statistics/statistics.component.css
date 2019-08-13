@@ -22,11 +22,13 @@ mat-cell, mat-header-cell{
 
 .mat-cell{
   overflow: unset;
+  width: 50px;
 }
 
-.expandTable{
+.expandTableButton{
   display: flex;
   justify-content: center;
+  margin-top: 15px;
 }
 
 .chooseDate{
@@ -36,9 +38,8 @@ mat-cell, mat-header-cell{
   margin-top: 4%;
 }
 
-.expendedTable{
-  display:block;
-  display: flex;
+.expandedTable{
+  display: none;
 }
 
 .table-container {
