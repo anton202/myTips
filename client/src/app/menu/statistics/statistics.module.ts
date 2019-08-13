@@ -11,14 +11,14 @@ import { WaitrsBookLogComponent } from './waitrs-book-log/waitrs-book-log.compon
 import { StatisticsRoutingModule } from './statistics-routing.module';
 import { ReuseblePipe } from '../../reusblePipe.module'
 import { HighLightTipDirective } from './waitrs-book-log/highlightTip.directive';
-import { ExpandTableDirective } from './expandTableDirective/expand-table.directive';
+
 
 @NgModule({
     declarations:[
         StatisticsComponent,
         WaitrsBookLogComponent,
         HighLightTipDirective,
-        ExpandTableDirective,
+      
     ],
     imports: [
         FormsModule,
