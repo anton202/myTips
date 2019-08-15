@@ -9,84 +9,90 @@
   </div>
 
   <div class="chooseDate">
-    <form (ngSubmit)="getUserTipsByYearMonth(f.value)" #f="ngForm">
+    <form (ngSubmit)="getUserTipsByYearMonth()" [formGroup]="monthYearForm">
       <mat-form-field dir="rtl">
-          <mat-label>חודש</mat-label>
-          <mat-select name="month" ngModel>
-            <mat-option *ngFor="let month of months" [value]="month.value">
-              {{month.viewValue}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+        <mat-label>חודש</mat-label>
+        <mat-select name="month" formControlName="month">
+          <mat-option *ngFor="let month of months" [value]="month.value">
+            {{month.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-        <mat-form-field dir="rtl">
-            <mat-label>שנה</mat-label>
-            <mat-select name="year" ngModel>
-              <mat-option *ngFor="let year of years" [value]="year">
-                {{year}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+      <mat-form-field dir="rtl">
+        <mat-label>שנה</mat-label>
+        <mat-select name="year" formControlName="year">
+          <mat-option *ngFor="let year of years" [value]="year">
+            {{year}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-          <button mat-raised-button color="primary" type="submit">הצג</button>
-        </form>
+      <button mat-raised-button color="primary" type="submit">הצג</button>
+    </form>
   </div>
-  
+
   <div class="table-container">
-  <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-    
-    <ng-container matColumnDef="תאריך">
-      <mat-header-cell *matHeaderCellDef> תאריך </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.date}} </mat-cell>
-    </ng-container>
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-   
-    <ng-container matColumnDef="יום">
-      <mat-header-cell *matHeaderCellDef> יום </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.day}} </mat-cell>
-    </ng-container>
+      <ng-container matColumnDef="תאריך">
+        <mat-header-cell *matHeaderCellDef> תאריך </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.date}} </mat-cell>
+      </ng-container>
 
 
-    <ng-container matColumnDef="משעה"  >
-      <mat-header-cell *matHeaderCellDef [ngClass]="{expandedTable: !isTableExpanded}" > משעה</mat-header-cell>
-      <mat-cell *matCellDef="let element" [ngClass]="{expandedTable: !isTableExpanded}"> {{element.startTime}} </mat-cell>
-    </ng-container>
+      <ng-container matColumnDef="יום">
+        <mat-header-cell *matHeaderCellDef> יום </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.day}} </mat-cell>
+      </ng-container>
 
-    <ng-container matColumnDef="עד שעה" >
-      <mat-header-cell *matHeaderCellDef [ngClass]="{expandedTable: !isTableExpanded }"> עד שעה</mat-header-cell>
-      <mat-cell *matCellDef="let element" [ngClass]="{expandedTable: !isTableExpanded}"> {{element.endTime}} </mat-cell>
-    </ng-container>
 
-    <ng-container matColumnDef='סה"כ שעות' >
-      <mat-header-cell *matHeaderCellDef [ngClass]="{expandedTable: !isTableExpanded}"> סה"כ שעות</mat-header-cell>
-      <mat-cell *matCellDef="let element" [ngClass]="{expandedTable: !isTableExpanded}"> {{element.totalTime}} </mat-cell>
-    </ng-container>
-    
-    <ng-container matColumnDef="הפרשה למעסיק" >
-      <mat-header-cell *matHeaderCellDef [ngClass]="{expandedTable: !isTableExpanded}"> הפרשה למעסיק</mat-header-cell>
-      <mat-cell *matCellDef="let element" [ngClass]="{expandedTable: !isTableExpanded}"> {{element.moneyToGoverment}} </mat-cell>
-    </ng-container>
+      <ng-container matColumnDef="משעה">
+        <mat-header-cell *matHeaderCellDef [ngClass]="{expandedTable: !isTableExpanded}"> משעה</mat-header-cell>
+        <mat-cell *matCellDef="let element" [ngClass]="{expandedTable: !isTableExpanded}"> {{element.startTime}}
+        </mat-cell>
+      </ng-container>
 
-    <ng-container matColumnDef='סה"כ לשעה'>
-      <mat-header-cell *matHeaderCellDef> סהכ לשעה </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.perHour}} </mat-cell>
-    </ng-container>
+      <ng-container matColumnDef="עד שעה">
+        <mat-header-cell *matHeaderCellDef [ngClass]="{expandedTable: !isTableExpanded }"> עד שעה</mat-header-cell>
+        <mat-cell *matCellDef="let element" [ngClass]="{expandedTable: !isTableExpanded}"> {{element.endTime}}
+        </mat-cell>
+      </ng-container>
 
-    
-    <ng-container matColumnDef='סה"כ טיפים'>
-      <mat-header-cell *matHeaderCellDef> סה"כ טיפים </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.totalTip}} </mat-cell>
-    </ng-container>
-    
-    <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  </mat-table>
-</div>
+      <ng-container matColumnDef='סה"כ שעות'>
+        <mat-header-cell *matHeaderCellDef [ngClass]="{expandedTable: !isTableExpanded}"> סה"כ שעות</mat-header-cell>
+        <mat-cell *matCellDef="let element" [ngClass]="{expandedTable: !isTableExpanded}"> {{element.totalTime}}
+        </mat-cell>
+      </ng-container>
 
-  <div class="expandTableButton">
-      <button mat-raised-button color="primary" (click)="expandTable()" > {{isTableExpanded?'הצג טבלה מצומצמת':'הצג טבלה מורחבת'}} </button>
-    </div>
-  
+      <ng-container matColumnDef="הפרשה למעסיק">
+        <mat-header-cell *matHeaderCellDef [ngClass]="{expandedTable: !isTableExpanded}"> הפרשה למעסיק</mat-header-cell>
+        <mat-cell *matCellDef="let element" [ngClass]="{expandedTable: !isTableExpanded}"> {{element.moneyToGoverment}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef='סה"כ לשעה'>
+        <mat-header-cell *matHeaderCellDef> סהכ לשעה </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.perHour}} </mat-cell>
+      </ng-container>
+
+
+      <ng-container matColumnDef='סה"כ טיפים'>
+        <mat-header-cell *matHeaderCellDef> סה"כ טיפים </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.totalTip}} </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>
+
+  <div class="tableButtons">
+    <button mat-raised-button color="primary" (click)="expandTable()">
+      {{isTableExpanded?'הצג טבלה מצומצמת':'הצג טבלה מורחבת'}} </button>
+      <button mat-raised-button color="primary" (click)="showUserTipsOrAllWaitersTips()" >{{isAllTips?'הצג טיפים שלי':'הצג טיפים של כולם'}}</button>
+  </div>
+
   <!-- <div class="showTips">
     <span style="text-decoration:underline" >הצג טיפים:</span>
     <form (ngSubmit)="onSubmit(f.value)" #f="ngForm"> 

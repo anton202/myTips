@@ -25,9 +25,9 @@ mat-cell, mat-header-cell{
   width: 50px;
 }
 
-.expandTableButton{
+.tableButtons{
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   margin-top: 15px;
 }
 

@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material';
 import { environment } from '../../../environments/environment';
 import { ErrorMessageComponenet } from '../../material/errorMessage/errorMessage.component'
 import { months, years } from './date';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-statistics',
@@ -16,31 +17,64 @@ export class StatisticsComponent implements OnInit {
   public myTotalIncome: number;
   public myTotalPerHourAvrg: number;
   public perHourAvrg: number;
-  public displayedColumns: string[] = ['תאריך', 'יום', 'משעה','עד שעה','סה"כ שעות','הפרשה למעסיק', 'סה"כ לשעה', 'סה"כ טיפים'];
+  public displayedColumns: string[] = ['תאריך', 'יום', 'משעה', 'עד שעה', 'סה"כ שעות', 'הפרשה למעסיק', 'סה"כ לשעה', 'סה"כ טיפים'];
   public dataSource: Array<object>;
   public months: Array<object> = months;
   public years: Array<number> = years;
   public isTableExpanded: boolean = false;
+  public monthYearForm: FormGroup;
+  public isAllTips: boolean = false;
 
   constructor(private http: HttpClient, private router: Router, public dialog: MatDialog) { }
 
   ngOnInit() {
-    console.log(this.isTableExpanded)
+    this.initializeForm()
     this.getUserStats();
     this.getTotalPerHourAvrg();
     this.getUserThisMonthTips()
   }
 
-  public getUserTipsByYearMonth(form): void{
-    const month = form.month;
-    const year = form.year;
-    this.http.get<{tips,perHourAvrg,totalTips}>(environment.apiUrl + '/stats//myLog/' + year + '-' + month)
-      .subscribe(tips =>{
+  private initializeForm() {
+    this.monthYearForm = new FormGroup({
+      month: new FormControl(null),
+      year: new FormControl(null)
+    })
+  }
+
+  public showUserTipsOrAllWaitersTips(){
+    if(this.isAllTips){
+      this.isAllTips = false;
+      this.getUserTipsByYearMonth();
+    }else{
+      this.isAllTips = true;
+      this.getAllWaitersTips();
+
+    }
+  }
+
+  private getAllWaitersTips() {
+    this.http.get<{tips}>(environment.apiUrl + '/stats/allWaitersTips/' + this.monthYearForm.value.month + '/' + this.monthYearForm.value.year)
+      .subscribe(tips => {
+        console.log(tips)
+        this.dataSource = tips.tips;
+      },
+        error => this.handleError()
+      )
+  }
+
+  public getUserTipsByYearMonth(): void {
+    const month = this.monthYearForm.value.month;
+    const year = this.monthYearForm.value.year;
+  
+    this.http.get<{ tips, perHourAvrg, totalTips }>(environment.apiUrl + '/stats/myLog/' + year + '-' + month)
+      .subscribe(tips => {
+        console.log(tips)
         this.myTotalIncome = tips.totalTips;
         this.myTotalPerHourAvrg = tips.perHourAvrg;
         this.dataSource = tips.tips;
-        
       })
+
+      this.getTotalPerHourAvrg(month, year);
   }
 
   private getUserStats(): void {
@@ -54,8 +88,8 @@ export class StatisticsComponent implements OnInit {
         })
   }
 
-  private getTotalPerHourAvrg(): void {
-    this.http.get<{ totalTips, perHourAvrg }>(environment.apiUrl + '/stats/waitrsBookStats')
+  private getTotalPerHourAvrg(month?:string, year?:string): void {
+    this.http.get<{ totalTips, perHourAvrg }>(environment.apiUrl + '/stats/allWaitersTips/' + month + '/' + year)
       .subscribe(tips => {
         this.perHourAvrg = tips.perHourAvrg;
       },
@@ -64,25 +98,21 @@ export class StatisticsComponent implements OnInit {
         })
   }
 
-  private getUserThisMonthTips(): void{
-    this.http.get<[{}]>(environment.apiUrl + '/stats/thisMonthTips/'  + localStorage.getItem('userName'))
-      .subscribe(tips =>{
+  private getUserThisMonthTips(): void {
+    this.http.get<[{}]>(environment.apiUrl + '/stats/thisMonthTips/' + localStorage.getItem('userName'))
+      .subscribe(tips => {
         console.log(tips)
         this.dataSource = tips;
-       
       })
   }
 
-  public expandTable(){
-   
-    if(!this.isTableExpanded){
-      this.isTableExpanded = true;   
-    }else{
+  public expandTable() {
+    if (!this.isTableExpanded) {
+      this.isTableExpanded = true;
+    } else {
       this.isTableExpanded = false;
     }
-    console.log(this.isTableExpanded)
   }
-
 
   private handleError(): void {
     this.dialog.open(ErrorMessageComponenet, {

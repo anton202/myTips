@@ -38,11 +38,18 @@ router.get('/thisMonthTips/:id',(req,res)=>{
         .catch(error => res.status(400).json({message:'server error'}))
 })
 
-router.get('/waitrsBookStats',auth,(req,res)=>{
-    const date = new Date();
-    const yearMonth = date.getFullYear()+'-'+date.getMonth();
+router.get('/allWaitersTips/:month/:year',auth,(req,res)=>{
     let totalTips = 0;
     let perHourAvrg = 0;
+    let yearMonth = '';
+    const date = new Date();    
+    
+    if(!req.params.month || !req.params.month){
+     yearMonth = date.getFullYear()+'-'+date.getMonth();
+    }else if(req.params.month && req.params.year){
+        yearMonth = req.params.year + '-' + req.params.month;
+    }
+
     MyTips.find({yearMonth:yearMonth,waitrsBook:true})
     .then(tips =>{
         tips.forEach(tip =>{
@@ -51,6 +58,7 @@ router.get('/waitrsBookStats',auth,(req,res)=>{
         })
        
         res.status(200).json({
+            tips:tips,
             totalTips:Math.round(totalTips),
             perHourAvrg:perHourAvrg > 0?(perHourAvrg/tips.length).toFixed(2):0
     })

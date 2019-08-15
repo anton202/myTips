@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
+import { ReactiveFormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { MatTableModule } from '@angular/material/table';
 import {MatButtonModule} from '@angular/material/button';
@@ -21,7 +21,7 @@ import { HighLightTipDirective } from './waitrs-book-log/highlightTip.directive'
       
     ],
     imports: [
-        FormsModule,
+        ReactiveFormsModule,
         CommonModule,
         StatisticsRoutingModule,
         ReuseblePipe,
