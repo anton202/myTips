@@ -17,7 +17,7 @@ export class StatisticsComponent implements OnInit {
   public myTotalIncome: number;
   public myTotalPerHourAvrg: number;
   public perHourAvrg: number;
-  public displayedColumns: string[] = ['תאריך', 'יום', 'משעה', 'עד שעה', 'סה"כ שעות', 'הפרשה למעסיק', 'סה"כ לשעה', 'סה"כ טיפים'];
+  public displayedColumns: string[] = ['תאריך', 'שם', 'יום', 'משעה', 'עד שעה', 'סה"כ שעות', 'הפרשה למעסיק', 'סה"כ לשעה', 'סה"כ טיפים'];
   public dataSource: Array<object>;
   public months: Array<object> = months;
   public years: Array<number> = years;

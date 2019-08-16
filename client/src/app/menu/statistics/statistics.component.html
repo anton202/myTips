@@ -41,6 +41,11 @@
       </ng-container>
 
 
+      <ng-container matColumnDef="שם">
+        <mat-header-cell *matHeaderCellDef [ngClass]="{expandedTable: !isAllTips}"> שם </mat-header-cell>
+        <mat-cell *matCellDef="let element" [ngClass]="{expandedTable: !isAllTips}"> {{element.name}} </mat-cell>
+      </ng-container>
+
       <ng-container matColumnDef="יום">
         <mat-header-cell *matHeaderCellDef> יום </mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.day}} </mat-cell>
