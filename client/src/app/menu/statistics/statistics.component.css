@@ -1,7 +1,7 @@
 .container{
   height: 100%;
   width: 100%;
- 
+  
 }
 
 .personalTips {
@@ -44,9 +44,36 @@ mat-cell, mat-header-cell{
 
 .table-container {
   overflow: auto;
-  height: 45%;
-  width: 90%;
+  height: 100%;
+  width: 100%;
   margin: auto;
+  
+}
+
+.shadeContainer{
+  height: 45%;
+    position: relative;
+    width: 90%;
+    margin: auto;
+
+}
+
+.loading-shade {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  bottom: 56px;
+  right: 0;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+mat-table{
+  width: 100%;
 }
 
 
@@ -89,10 +116,15 @@ mat-cell, mat-header-cell{
     height: 45px;
   }
 
-  .table-container {
-    overflow: auto;
+  .shadeContainer{
     height: 35%;
     width: 90%;
+  }
+
+  .table-container {
+    overflow: auto;
+    
+    width: 100%;
   }
 
   mat-table{
@@ -105,13 +137,13 @@ mat-cell, mat-header-cell{
 }
 
 @media screen and (min-width: 375px) and (max-width: 667px){
-  .table-container{
+  .shadeContainer{
     height: 38%;
   }
   }
 
   @media screen and (min-width: 414px) and (max-width: 736px){
-    .table-container{
+    .shadeContainer{
       height: 45%;
     }
   }

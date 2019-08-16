@@ -24,6 +24,8 @@ export class StatisticsComponent implements OnInit {
   public isTableExpanded: boolean = false;
   public monthYearForm: FormGroup;
   public isAllTips: boolean = false;
+  public isLoadingTips: boolean;
+  public errorLoadingTips: boolean = false;
 
   constructor(private http: HttpClient, private router: Router, public dialog: MatDialog) { }
 
@@ -55,7 +57,7 @@ export class StatisticsComponent implements OnInit {
   private getAllWaitersTips() {
     this.http.get<{tips}>(environment.apiUrl + '/stats/allWaitersTips/' + this.monthYearForm.value.month + '/' + this.monthYearForm.value.year)
       .subscribe(tips => {
-        console.log(tips)
+        this.isLoadingTips = false;
         this.dataSource = tips.tips;
       },
         error => this.handleError()
@@ -65,14 +67,26 @@ export class StatisticsComponent implements OnInit {
   public getUserTipsByYearMonth(): void {
     const month = this.monthYearForm.value.month;
     const year = this.monthYearForm.value.year;
-  
-    this.http.get<{ tips, perHourAvrg, totalTips }>(environment.apiUrl + '/stats/myLog/' + year + '-' + month)
+    this.isLoadingTips = true;
+
+    // if show all tips button is clicked then fetch all usesrs tips by month and year.
+    if(this.isAllTips){
+      return this.getAllWaitersTips();
+    }
+
+    setTimeout(()=>{
+      this.http.get<{ tips, perHourAvrg, totalTips }>(environment.apiUrl + '/stats/myLog/' + year + '-' + month)
       .subscribe(tips => {
-        console.log(tips)
+        this.isLoadingTips = false;
         this.myTotalIncome = tips.totalTips;
         this.myTotalPerHourAvrg = tips.perHourAvrg;
         this.dataSource = tips.tips;
+      }, error =>{
+        this.isLoadingTips = false;
+        this.errorLoadingTips = true;
       })
+    },3000)
+    
 
       this.getTotalPerHourAvrg(month, year);
   }
@@ -99,10 +113,14 @@ export class StatisticsComponent implements OnInit {
   }
 
   private getUserThisMonthTips(): void {
+    this.isLoadingTips = true;
     this.http.get<[{}]>(environment.apiUrl + '/stats/thisMonthTips/' + localStorage.getItem('userName'))
       .subscribe(tips => {
-        console.log(tips)
+        this.isLoadingTips = false
         this.dataSource = tips;
+      },error =>{
+        this.isLoadingTips = false;
+        this.errorLoadingTips = true;
       })
   }
 

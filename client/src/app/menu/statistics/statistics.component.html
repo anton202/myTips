@@ -32,7 +32,15 @@
     </form>
   </div>
 
+  <div class="shadeContainer">
   <div class="table-container">
+    <div class="loading-shade" *ngIf="isLoadingTips">
+      <mat-spinner ></mat-spinner>
+      <div class="example-rate-limit-reached" *ngIf="errorLoadingTips">
+        משהו השתבש בעט טעינת הטיפים, נסה שוב.
+      </div>
+    </div>
+
     <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
       <ng-container matColumnDef="תאריך">
@@ -91,11 +99,13 @@
       <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
     </mat-table>
   </div>
+</div>
 
   <div class="tableButtons">
     <button mat-raised-button color="primary" (click)="expandTable()">
       {{isTableExpanded?'הצג טבלה מצומצמת':'הצג טבלה מורחבת'}} </button>
-      <button mat-raised-button color="primary" (click)="showUserTipsOrAllWaitersTips()" >{{isAllTips?'הצג טיפים שלי':'הצג טיפים של כולם'}}</button>
+    <button mat-raised-button color="primary"
+      (click)="showUserTipsOrAllWaitersTips()">{{isAllTips?'הצג טיפים שלי':'הצג טיפים של כולם'}}</button>
   </div>
 
   <!-- <div class="showTips">

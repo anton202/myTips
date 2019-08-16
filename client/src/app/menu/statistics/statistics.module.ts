@@ -2,8 +2,9 @@ import { NgModule } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { MatTableModule } from '@angular/material/table';
-import {MatButtonModule} from '@angular/material/button';
-import {MatSelectModule} from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 import { StatisticsComponent } from './statistics.component';
@@ -14,11 +15,11 @@ import { HighLightTipDirective } from './waitrs-book-log/highlightTip.directive'
 
 
 @NgModule({
-    declarations:[
+    declarations: [
         StatisticsComponent,
         WaitrsBookLogComponent,
         HighLightTipDirective,
-      
+
     ],
     imports: [
         ReactiveFormsModule,
@@ -27,10 +28,11 @@ import { HighLightTipDirective } from './waitrs-book-log/highlightTip.directive'
         ReuseblePipe,
         MatTableModule,
         MatButtonModule,
-        MatSelectModule
+        MatSelectModule,
+        MatProgressSpinnerModule
     ],
-    exports:[StatisticsComponent]
+    exports: [StatisticsComponent]
 })
-export class StatisticsModule{
+export class StatisticsModule {
 
 }
