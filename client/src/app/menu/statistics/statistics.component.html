@@ -28,7 +28,7 @@
         </mat-select>
       </mat-form-field>
 
-      <button mat-raised-button color="primary" type="submit">הצג</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!monthYearForm.valid">הצג</button>
     </form>
   </div>
 

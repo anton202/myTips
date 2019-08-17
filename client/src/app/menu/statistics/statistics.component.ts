@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 
@@ -37,11 +37,11 @@ export class StatisticsComponent implements OnInit {
     this.getTotalPerHourAvrg();
     this.getUserThisMonthTips()
   }
-  
+
   private initializeForm() {
     this.monthYearForm = new FormGroup({
-      month: new FormControl(null),
-      year: new FormControl(null)
+      month: new FormControl(null,Validators.required),
+      year: new FormControl(null,Validators.required)
     })
   }
 
@@ -69,7 +69,8 @@ export class StatisticsComponent implements OnInit {
     const month = this.monthYearForm.value.month;
     const year = this.monthYearForm.value.year;
     this.isLoadingTips = true;
-
+    
+    console.log(this.monthYearForm.value)
     // if show all tips button is clicked then fetch all usesrs tips by month and year.
     if (this.isAllTips) {
       return this.getAllWaitersTips();
