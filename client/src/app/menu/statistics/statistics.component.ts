@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 
 import { environment } from '../../../environments/environment';
 import { ErrorMessageComponenet } from '../../material/errorMessage/errorMessage.component'
 import { months, years } from './date';
-import { FormGroup, FormControl } from '@angular/forms';
+import { ConfirmationDialog } from '../../material/confirmationDailog/confirmationDialog.component';
+
 
 @Component({
   selector: 'app-statistics',
@@ -35,7 +37,7 @@ export class StatisticsComponent implements OnInit {
     this.getTotalPerHourAvrg();
     this.getUserThisMonthTips()
   }
-
+  
   private initializeForm() {
     this.monthYearForm = new FormGroup({
       month: new FormControl(null),
@@ -43,18 +45,18 @@ export class StatisticsComponent implements OnInit {
     })
   }
 
-  public showUserTipsOrAllWaitersTips(){
-    if(this.isAllTips){
+  public showUserTipsOrAllWaitersTips() {
+    if (this.isAllTips) {
       this.isAllTips = false;
       this.getUserTipsByYearMonth();
-    }else{
+    } else {
       this.isAllTips = true;
       this.getAllWaitersTips();
     }
   }
 
   private getAllWaitersTips() {
-    this.http.get<{tips}>(environment.apiUrl + '/stats/allWaitersTips/' + this.monthYearForm.value.month + '/' + this.monthYearForm.value.year)
+    this.http.get<{ tips }>(environment.apiUrl + '/stats/allWaitersTips/' + this.monthYearForm.value.month + '/' + this.monthYearForm.value.year)
       .subscribe(tips => {
         this.isLoadingTips = false;
         this.dataSource = tips.tips;
@@ -69,21 +71,21 @@ export class StatisticsComponent implements OnInit {
     this.isLoadingTips = true;
 
     // if show all tips button is clicked then fetch all usesrs tips by month and year.
-    if(this.isAllTips){
+    if (this.isAllTips) {
       return this.getAllWaitersTips();
     }
 
-      this.http.get<{ tips, perHourAvrg, totalTips }>(environment.apiUrl + '/stats/myLog/' + year + '-' + month)
+    this.http.get<{ tips, perHourAvrg, totalTips }>(environment.apiUrl + '/stats/myLog/' + year + '-' + month)
       .subscribe(tips => {
         this.isLoadingTips = false;
         this.myTotalIncome = tips.totalTips;
         this.myTotalPerHourAvrg = tips.perHourAvrg;
         this.dataSource = tips.tips;
-      }, error =>{
+      }, error => {
         this.isLoadingTips = false;
         this.errorLoadingTips = true;
       })
-      this.getTotalPerHourAvrg(month, year);
+    this.getTotalPerHourAvrg(month, year);
   }
 
   private getUserStats(): void {
@@ -97,7 +99,7 @@ export class StatisticsComponent implements OnInit {
         })
   }
 
-  private getTotalPerHourAvrg(month?:string, year?:string): void {
+  private getTotalPerHourAvrg(month?: string, year?: string): void {
     this.http.get<{ totalTips, perHourAvrg }>(environment.apiUrl + '/stats/allWaitersTips/' + month + '/' + year)
       .subscribe(tips => {
         this.perHourAvrg = tips.perHourAvrg;
@@ -113,10 +115,31 @@ export class StatisticsComponent implements OnInit {
       .subscribe(tips => {
         this.isLoadingTips = false
         this.dataSource = tips;
-      },error =>{
+      }, error => {
         this.isLoadingTips = false;
         this.errorLoadingTips = true;
       })
+  }
+
+
+  public deleteTip(data: { _id }): void {
+    const dialogRef = this.dialog.open(ConfirmationDialog);
+    dialogRef.afterClosed().subscribe(actionConfirmed => {
+      if (actionConfirmed) {
+        this.http.delete(environment.apiUrl + '/myTips/deleteTip/' + data._id)
+          .subscribe(() => {
+            // delteing tip on the user side (fetching tips from server is more complicated)
+            this.dataSource.forEach((tip: { _id }, index) => {
+              if (tip._id === data._id) {
+                this.dataSource.splice(index, 1)
+                let cloned = this.dataSource.slice();
+                this.dataSource = [...cloned];
+              }
+            })
+          },
+            error => this.handleError())
+      }
+    })
   }
 
   public expandTable() {
