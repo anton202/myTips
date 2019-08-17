@@ -17,7 +17,7 @@ export class StatisticsComponent implements OnInit {
   public myTotalIncome: number;
   public myTotalPerHourAvrg: number;
   public perHourAvrg: number;
-  public displayedColumns: string[] = ['תאריך', 'שם', 'יום', 'משעה', 'עד שעה', 'סה"כ שעות', 'הפרשה למעסיק', 'סה"כ לשעה', 'סה"כ טיפים'];
+  public displayedColumns: string[] = ['תאריך', 'שם', 'משעה', 'עד שעה', 'סה"כ שעות', 'הפרשה למעסיק', 'סה"כ לשעה', 'סה"כ טיפים'];
   public dataSource: Array<object>;
   public months: Array<object> = months;
   public years: Array<number> = years;
@@ -50,7 +50,6 @@ export class StatisticsComponent implements OnInit {
     }else{
       this.isAllTips = true;
       this.getAllWaitersTips();
-
     }
   }
 
@@ -74,7 +73,6 @@ export class StatisticsComponent implements OnInit {
       return this.getAllWaitersTips();
     }
 
-    setTimeout(()=>{
       this.http.get<{ tips, perHourAvrg, totalTips }>(environment.apiUrl + '/stats/myLog/' + year + '-' + month)
       .subscribe(tips => {
         this.isLoadingTips = false;
@@ -85,9 +83,6 @@ export class StatisticsComponent implements OnInit {
         this.isLoadingTips = false;
         this.errorLoadingTips = true;
       })
-    },3000)
-    
-
       this.getTotalPerHourAvrg(month, year);
   }
 
