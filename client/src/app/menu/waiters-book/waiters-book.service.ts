@@ -7,7 +7,7 @@ export class WaitrsBookService {
     constructor(private http: HttpClient){}
 
     getWorkersNames(){
-        return this.http.get(environment.apiUrl+'/user/getNames')
+        return this.http.get<Array<string>>(environment.apiUrl+'/user/getNames')
     }
 
 }

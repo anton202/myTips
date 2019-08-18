@@ -1,12 +1,15 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule,HTTP_INTERCEPTORS} from '@angular/common/http'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { RouterModule } from '@angular/router';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatDialogModule} from '@angular/material/dialog';
-import {MatButtonModule} from '@angular/material/button';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 
 import { AppComponent } from './app.component';
@@ -23,13 +26,13 @@ import { IncorrectTimeInputComponent } from './material/incorrectTimeInputsDialo
 
 
 import { EditTipDirective } from './directives/edit-tip.directive';
-import { AppRoutingModule} from './app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 import { MenuExtendDirective } from './directives/menu-extend.directive';
 import { StatisticsModule } from './menu/statistics/statistics.module';
 import { Auth } from './auth/auth.service';
 import { AuthInterceptor } from './auth.interceptor';
-import { SettingsComponent } from './menu/settings/settings.component'; 
-import { ReuseblePipe} from './reusblePipe.module';
+import { SettingsComponent } from './menu/settings/settings.component';
+import { ReuseblePipe } from './reusblePipe.module';
 import { ChartsModule } from '../../node_modules/ng2-charts';
 import { NavComponent } from './nav/nav.component';
 
@@ -55,6 +58,7 @@ import { NavComponent } from './nav/nav.component';
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     StatisticsModule,
     RouterModule,
@@ -63,9 +67,13 @@ import { NavComponent } from './nav/nav.component';
     BrowserAnimationsModule,
     MatDialogModule,
     MatButtonModule,
+    MatStepperModule,
+    MatInputModule,
+    MatSelectModule,
+    NgxMaterialTimepickerModule
   ],
-  entryComponents: [ErrorMessageComponenet,ConfirmationDialog,InstructionMessaageComponent,NotEnoughTipError,IncorrectTimeInputComponent],
-  providers: [Auth,{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },],
+  entryComponents: [ErrorMessageComponenet, ConfirmationDialog, InstructionMessaageComponent, NotEnoughTipError, IncorrectTimeInputComponent],
+  providers: [Auth, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

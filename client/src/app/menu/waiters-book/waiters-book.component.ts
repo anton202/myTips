@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 
 import { ErrorMessageComponenet } from '../../material/errorMessage/errorMessage.component';
@@ -27,146 +27,153 @@ export class WaitersBookComponent implements OnInit{
   moneyToGoverment;
   taxPerHour;
   barManTip = 0;
-  workersNames;
+  workersNames:Array<string>;
   todaysDate: string = new Date().toLocaleDateString();
   loadGif = false;
   isDataSendedToServer = false;
   @ViewChild('f',{ static: true }) waitrDataForm: NgForm
+  public calculateTipsForm: FormGroup;
 
   constructor(private waitrsBookService: WaitrsBookService, private http: HttpClient, public dialog: MatDialog) { }
 
   ngOnInit() {
+    this.initializeForms();
     this.waitrsBookService.getWorkersNames()
       .subscribe(workersNames => {
         this.workersNames = workersNames;
-        this.dialog.open(InstructionMessaageComponent,{
-          width:'340px'
-        })
       },
         error => {
           this.dialog.open(ErrorMessageComponenet,{
             width: '300px'
           })
         }
-      )      
+      )  
+         
   }
 
-  addWaitr(waitrData) {
-    const startTime = waitrData.startTime.split(':');
-    const endTime = waitrData.endTime.split(':');
+  private initializeForms(): void{
+    this.calculateTipsForm = new FormGroup({
+      totalTips: new FormControl(null,Validators.required),
 
-    const start = new Date();
-    const end = new Date();
+    })
+  }
 
-    start.setHours(parseInt(startTime[0], 10), parseInt(startTime[1], 10));
-    end.setHours(parseInt(endTime[0], 10), parseInt(endTime[1], 10));
+  // addWaitr(waitrData) {
+  //   const startTime = waitrData.startTime.split(':');
+  //   const endTime = waitrData.endTime.split(':');
 
-    if(end.getTime() - start.getTime() < 0){
-      this.dialog.open(IncorrectTimeInputComponent,{
-        width:'340px'
-      })
-    }else{
-      waitrData.totalTime = ((end.getTime() - start.getTime()) / (1000 * 60 * 60)).toFixed(2);
-      this.waitrsStack.push(waitrData)
+  //   const start = new Date();
+  //   const end = new Date();
+
+  //   start.setHours(parseInt(startTime[0], 10), parseInt(startTime[1], 10));
+  //   end.setHours(parseInt(endTime[0], 10), parseInt(endTime[1], 10));
+
+  //   if(end.getTime() - start.getTime() < 0){
+  //     this.dialog.open(IncorrectTimeInputComponent,{
+  //       width:'340px'
+  //     })
+  //   }else{
+  //     waitrData.totalTime = ((end.getTime() - start.getTime()) / (1000 * 60 * 60)).toFixed(2);
+  //     this.waitrsStack.push(waitrData)
   
-      this.waitrDataForm.reset()
-    }
-  }
+  //     this.waitrDataForm.reset()
+  //   }
+  // }
 
-  openDialog(index){
-    const dailogRef = this.dialog.open(ConfirmationDialog,{
-      width: '350px'
-    })
+  // openDialog(index){
+  //   const dailogRef = this.dialog.open(ConfirmationDialog,{
+  //     width: '350px'
+  //   })
 
-    dailogRef.afterClosed().subscribe(result =>{
-      if(result){
-      this.deleteWaitr(index)
-    }
-    })
-  }
+  //   dailogRef.afterClosed().subscribe(result =>{
+  //     if(result){
+  //     this.deleteWaitr(index)
+  //   }
+  //   })
+  // }
 
-  deleteWaitr(index) {
-    if (this.isDataSendedToServer) {
-      this.loadGif = true;
-      this.http.delete(environment.apiUrl + '/waitrsBook/deleteTip/' + JSON.stringify(this.waitrsStack[index]))
-        .subscribe(res => {
-          this.waitrsStack.splice(index, 1);
-          this.loadGif = false;
-        },
-          error =>{
-            this.dialog.open(ErrorMessageComponenet,{
-              width: '300px'
-            })
-          })
-      return
-    }
-    this.waitrsStack.splice(index, 1);
-  }
+  // deleteWaitr(index) {
+  //   if (this.isDataSendedToServer) {
+  //     this.loadGif = true;
+  //     this.http.delete(environment.apiUrl + '/waitrsBook/deleteTip/' + JSON.stringify(this.waitrsStack[index]))
+  //       .subscribe(res => {
+  //         this.waitrsStack.splice(index, 1);
+  //         this.loadGif = false;
+  //       },
+  //         error =>{
+  //           this.dialog.open(ErrorMessageComponenet,{
+  //             width: '300px'
+  //           })
+  //         })
+  //     return
+  //   }
+  //   this.waitrsStack.splice(index, 1);
+  // }
 
-  setYearMonth() {
-    const date = new Date();
-    const yearMonth = date.getFullYear() + '-' + date.getMonth();
-    return yearMonth.toString();
-  }
+  // setYearMonth() {
+  //   const date = new Date();
+  //   const yearMonth = date.getFullYear() + '-' + date.getMonth();
+  //   return yearMonth.toString();
+  // }
 
-  calculateTips(totalTip) {
-    this.loadGif = true;
-    let i = 0
-    let totalTime = 0;
-    let tipPerHour = 0;
-    let barManTip = 0;
-    let totalTax = 0;
+  // calculateTips(totalTip) {
+  //   this.loadGif = true;
+  //   let i = 0
+  //   let totalTime = 0;
+  //   let tipPerHour = 0;
+  //   let barManTip = 0;
+  //   let totalTax = 0;
 
-    function calculateTax(tax, i) {
-      this.waitrsStack[i].totalTip = Math.floor(this.waitrsStack[i].totalTime * tipPerHour);
-      this.waitrsStack[i].moneyToGoverment = Math.round(this.waitrsStack[i].totalTime * tax);
-      this.waitrsStack[i].totalTip -= this.waitrsStack[i].moneyToGoverment;
-      this.waitrsStack[i].perHour = Number((this.waitrsStack[i].totalTip / this.waitrsStack[i].totalTime).toFixed(2));
-    }
+  //   function calculateTax(tax, i) {
+  //     this.waitrsStack[i].totalTip = Math.floor(this.waitrsStack[i].totalTime * tipPerHour);
+  //     this.waitrsStack[i].moneyToGoverment = Math.round(this.waitrsStack[i].totalTime * tax);
+  //     this.waitrsStack[i].totalTip -= this.waitrsStack[i].moneyToGoverment;
+  //     this.waitrsStack[i].perHour = Number((this.waitrsStack[i].totalTip / this.waitrsStack[i].totalTime).toFixed(2));
+  //   }
 
-    //calculate total time worked by waitrs
-    for (i; i < this.waitrsStack.length; i++) {
-      totalTime += Number(this.waitrsStack[i].totalTime);
-    }
+  //   //calculate total time worked by waitrs
+  //   for (i; i < this.waitrsStack.length; i++) {
+  //     totalTime += Number(this.waitrsStack[i].totalTime);
+  //   }
 
-    barManTip = totalTip * 0.1; // 10% to barman
-    totalTip -= barManTip;
-    tipPerHour = Number((totalTip / totalTime).toFixed(2));
+  //   barManTip = totalTip * 0.1; // 10% to barman
+  //   totalTip -= barManTip;
+  //   tipPerHour = Number((totalTip / totalTime).toFixed(2));
 
-    //add properties to each waitr inside waitrsStack
-    for (let i = 0; i < this.waitrsStack.length; i++) {
-      if (this.waitrsStack.length > 1 && Number(totalTip.toFixed()) - Number((this.waitrsStack[i].totalTime * tipPerHour).toFixed()) < 0) {
-        this.dialog.open(NotEnoughTipError,{
-          width: '300px'
-        })
-      }
-      calculateTax.call(this, 6, i);
+  //   //add properties to each waitr inside waitrsStack
+  //   for (let i = 0; i < this.waitrsStack.length; i++) {
+  //     if (this.waitrsStack.length > 1 && Number(totalTip.toFixed()) - Number((this.waitrsStack[i].totalTime * tipPerHour).toFixed()) < 0) {
+  //       this.dialog.open(NotEnoughTipError,{
+  //         width: '300px'
+  //       })
+  //     }
+  //     calculateTax.call(this, 6, i);
 
-      this.waitrsStack[i].yearMonth = this.setYearMonth();
-      this.waitrsStack[i].waitrsBook = true;
+  //     this.waitrsStack[i].yearMonth = this.setYearMonth();
+  //     this.waitrsStack[i].waitrsBook = true;
 
-      totalTax += this.waitrsStack[i].moneyToGoverment;
-      totalTip -= this.waitrsStack[i].totalTip + this.waitrsStack[i].moneyToGoverment;
-    }
+  //     totalTax += this.waitrsStack[i].moneyToGoverment;
+  //     totalTip -= this.waitrsStack[i].totalTip + this.waitrsStack[i].moneyToGoverment;
+  //   }
 
-    //initializing properties to show in html file
-    this.totalTips = totalTip;
-    this.totalTime = totalTime;
-    this.tipPerHour = tipPerHour;
-    this.barManTip = barManTip;
-    this.totalTax = totalTax
+  //   //initializing properties to show in html file
+  //   this.totalTips = totalTip;
+  //   this.totalTime = totalTime;
+  //   this.tipPerHour = tipPerHour;
+  //   this.barManTip = barManTip;
+  //   this.totalTax = totalTax
    
-    // send all tips to server
-    this.http.post(environment.apiUrl + '/waitrsBook/saveWaitrsTips', this.waitrsStack)
-      .subscribe(() => {
-        this.loadGif = false;
-        this.isDataSendedToServer = true;
-      }, error => {
-        this.dialog.open(ErrorMessageComponenet,{
-          width: '300px'
-        })
-      })
-  }
+  //   // send all tips to server
+  //   this.http.post(environment.apiUrl + '/waitrsBook/saveWaitrsTips', this.waitrsStack)
+  //     .subscribe(() => {
+  //       this.loadGif = false;
+  //       this.isDataSendedToServer = true;
+  //     }, error => {
+  //       this.dialog.open(ErrorMessageComponenet,{
+  //         width: '300px'
+  //       })
+  //     })
+  // }
 
   
 

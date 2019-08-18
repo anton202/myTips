@@ -1,5 +1,40 @@
 <div class="container">
-  <p class="date">{{todaysDate | date:'d/M/y'}}</p>
+  <form [formGroup]="calculateTipsForm">
+    <mat-vertical-stepper linear #stepper>
+      <mat-step label='סה"כ טיפים' [stepControl]="calculateTipsForm">
+        <mat-form-field class="example-full-width">
+          <input matInput formControlName="totalTips">
+          <mat-hint>הזן את כמות הטיפים שעשית/ם במשמרת</mat-hint>
+        </mat-form-field>
+        <div class="nextButton">
+          <button mat-raised-button color="primary" matStepperNext >לשלב הבא</button>
+        </div>
+      </mat-step>
+      <mat-step label="הוסף מלצרים" [stepControl]="calculateTipsForm">
+        <mat-form-field>
+          <mat-label>בחר שם מלצר</mat-label>
+          <mat-select>
+            <mat-option *ngFor="let name of workersNames" [value]="name">
+              {{name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-label >שעת התחלת משמרת</mat-label>
+        <ngx-timepicker-field [format]="24" ></ngx-timepicker-field>
+        <mat-label id="endTime">שעת סיום משמרת</mat-label>
+        <ngx-timepicker-field [format]="24" ></ngx-timepicker-field>
+        <div class="addWaitrButton">
+            <button mat-raised-button >הוסף מלצר</button>
+        </div>
+      </mat-step>
+      <mat-step label="חשב טיפים">
+
+      </mat-step>
+    </mat-vertical-stepper>
+  </form>
+
+
+  <!-- <p class="date">{{todaysDate | date:'d/M/y'}}</p>
   
   <div class="waitrForm">
     <label for="totalTip">סה&#34;כ מזומן</label>
@@ -72,5 +107,5 @@
           </tbody>
         </table>
     </div>
-    </div>
-  </div>
+    </div> -->
+</div>
