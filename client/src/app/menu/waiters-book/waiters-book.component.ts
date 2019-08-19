@@ -6,10 +6,7 @@ import { ErrorMessageComponenet } from '../../material/errorMessage/errorMessage
 import { environment } from '../../../environments/environment';
 import { WaitrsBookService } from './waiters-book.service';
 import { HttpClient } from '@angular/common/http';
-import { ConfirmationDialog } from '../../material/confirmationDailog/confirmationDialog.component';
-import { InstructionMessaageComponent } from '../../material/tipCalculatorInstructionsMessage/instruction.component';
-import { NotEnoughTipError } from '../../material/notEnoughTipError/notEnoughTipError.component';
-import { IncorrectTimeInputComponent } from '../../material/incorrectTimeInputsDialog/incorrectTimeInput.component';
+
 
 
 @Component({
@@ -18,21 +15,11 @@ import { IncorrectTimeInputComponent } from '../../material/incorrectTimeInputsD
   styleUrls: ['./waiters-book.component.css'],
   providers: [WaitrsBookService]
 })
-export class WaitersBookComponent implements OnInit{
-  waitrsStack = [];
-  totalTips;
-  totalTax;
-  totalTime;
-  tipPerHour;
-  moneyToGoverment;
-  taxPerHour;
-  barManTip = 0;
-  workersNames:Array<string>;
-  todaysDate: string = new Date().toLocaleDateString();
-  loadGif = false;
-  isDataSendedToServer = false;
-  @ViewChild('f',{ static: true }) waitrDataForm: NgForm
+export class WaitersBookComponent implements OnInit {
+  private waitrsStack: Array<{}> = [];
+  public workersNames: Array<string>;
   public calculateTipsForm: FormGroup;
+  public isShiftTimeNotSet: boolean;
 
   constructor(private waitrsBookService: WaitrsBookService, private http: HttpClient, public dialog: MatDialog) { }
 
@@ -43,21 +30,39 @@ export class WaitersBookComponent implements OnInit{
         this.workersNames = workersNames;
       },
         error => {
-          this.dialog.open(ErrorMessageComponenet,{
+          this.dialog.open(ErrorMessageComponenet, {
             width: '300px'
           })
         }
-      )  
-         
+      )
+
   }
 
-  private initializeForms(): void{
+  private initializeForms(): void {
     this.calculateTipsForm = new FormGroup({
-      totalTips: new FormControl(null,Validators.required),
-
+      totalTips: new FormControl(null, Validators.required),
+      waitrsShift: new FormGroup({
+        waitrsName: new FormControl(null, Validators.required),
+        shiftStartTime: new FormControl(null,Validators.required),
+        shiftEndTime: new FormControl(null, Validators.required)
+      })
     })
   }
 
+  public addWaitr() {
+    const waitrsShistFG = this.calculateTipsForm.get('waitrsShift');
+
+    if(this.calculateTipsForm.get('waitrsShift').valid){
+    this.waitrsStack.push(this.calculateTipsForm.value);
+    this.calculateTipsForm.get('waitrsShift').reset();
+    this.isShiftTimeNotSet = false;
+    }
+
+    if(!waitrsShistFG.get('shiftStartTime').valid || !waitrsShistFG.get('shiftEndTime').valid){
+      this.isShiftTimeNotSet = true;
+    }
+    
+  }
   // addWaitr(waitrData) {
   //   const startTime = waitrData.startTime.split(':');
   //   const endTime = waitrData.endTime.split(':');
@@ -75,7 +80,7 @@ export class WaitersBookComponent implements OnInit{
   //   }else{
   //     waitrData.totalTime = ((end.getTime() - start.getTime()) / (1000 * 60 * 60)).toFixed(2);
   //     this.waitrsStack.push(waitrData)
-  
+
   //     this.waitrDataForm.reset()
   //   }
   // }
@@ -162,7 +167,7 @@ export class WaitersBookComponent implements OnInit{
   //   this.tipPerHour = tipPerHour;
   //   this.barManTip = barManTip;
   //   this.totalTax = totalTax
-   
+
   //   // send all tips to server
   //   this.http.post(environment.apiUrl + '/waitrsBook/saveWaitrsTips', this.waitrsStack)
   //     .subscribe(() => {
@@ -175,6 +180,6 @@ export class WaitersBookComponent implements OnInit{
   //     })
   // }
 
-  
+
 
 }

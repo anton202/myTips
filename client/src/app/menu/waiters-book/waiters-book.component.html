@@ -1,31 +1,33 @@
 <div class="container">
   <form [formGroup]="calculateTipsForm">
     <mat-vertical-stepper linear #stepper>
-      <mat-step label='סה"כ טיפים' [stepControl]="calculateTipsForm">
+      <mat-step label='סה"כ טיפים' [completed]="calculateTipsForm.get('totalTips').valid">
         <mat-form-field class="example-full-width">
           <input matInput formControlName="totalTips">
           <mat-hint>הזן את כמות הטיפים שעשית/ם במשמרת</mat-hint>
         </mat-form-field>
         <div class="nextButton">
-          <button mat-raised-button color="primary" matStepperNext >לשלב הבא</button>
+          <button mat-raised-button color="primary" matStepperNext type="button">לשלב הבא</button>
         </div>
       </mat-step>
-      <mat-step label="הוסף מלצרים" [stepControl]="calculateTipsForm">
+      <mat-step label="הוסף מלצרים" formGroupName="waitrsShift" [completed]="calculateTipsForm.get('waitrsShift').valid">
+       
         <mat-form-field>
           <mat-label>בחר שם מלצר</mat-label>
-          <mat-select>
+          <mat-select formControlName="waitrsName">
             <mat-option *ngFor="let name of workersNames" [value]="name">
               {{name}}
             </mat-option>
           </mat-select>
         </mat-form-field>
         <mat-label >שעת התחלת משמרת</mat-label>
-        <ngx-timepicker-field [format]="24" ></ngx-timepicker-field>
+        <ngx-timepicker-field [format]="24" formControlName="shiftStartTime"></ngx-timepicker-field>
         <mat-label id="endTime">שעת סיום משמרת</mat-label>
-        <ngx-timepicker-field [format]="24" ></ngx-timepicker-field>
+        <ngx-timepicker-field [format]="24" formControlName="shiftEndTime"></ngx-timepicker-field>
         <div class="addWaitrButton">
-            <button mat-raised-button >הוסף מלצר</button>
+            <button mat-raised-button (click)="addWaitr()" >הוסף מלצר</button>
         </div>
+        <p *ngIf="isShiftTimeNotSet">נא להוסיף שעת תחילת משמרת וסוף משמרת</p>
       </mat-step>
       <mat-step label="חשב טיפים">
 
