@@ -38,6 +38,19 @@ mat-vertical-stepper {
   background-color: #e0e0e0;
 }
 
+.addWaitrShiftHours{
+  margin-top:10px;
+  font-size: 14px;
+  color: red;
+}
+
+.waitrAdded{
+  margin-top:10px;
+  font-size: 14px;
+  color: green;
+  text-align: center;
+}
+
 @media screen and (min-width: 320px) and (max-width: 480px) {
   .container {
     width: 100%;
@@ -45,6 +58,10 @@ mat-vertical-stepper {
 
   .nextButton{
     margin-top: 20px;
+  }
+  
+  .nextButton>button{
+    width: 100%;
   }
   
   .totalTipsHours {

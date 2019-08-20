@@ -7,10 +7,10 @@
           <mat-hint>הזן את כמות הטיפים שעשית/ם במשמרת</mat-hint>
         </mat-form-field>
         <div class="nextButton">
-          <button mat-raised-button color="primary" matStepperNext type="button">לשלב הבא</button>
+          <button style="margin-top: 20px" mat-raised-button color="primary" matStepperNext type="button">לשלב הבא</button>
         </div>
       </mat-step>
-      <mat-step label="הוסף מלצרים" formGroupName="waitrsShift" [completed]="calculateTipsForm.get('waitrsShift').valid">
+      <mat-step label="הוסף מלצרים" formGroupName="waitrsShift" [completed]="waitrsStack.length > 0">
        
         <mat-form-field>
           <mat-label>בחר שם מלצר</mat-label>
@@ -27,7 +27,11 @@
         <div class="addWaitrButton">
             <button mat-raised-button (click)="addWaitr()" >הוסף מלצר</button>
         </div>
-        <p *ngIf="isShiftTimeNotSet">נא להוסיף שעת תחילת משמרת וסוף משמרת</p>
+        <p class="addWaitrShiftHours" *ngIf="isShiftTimeNotSet">נא להוסיף שעת תחילת משמרת וסוף משמרת</p>
+        <p class="waitrAdded" *ngIf="isWaitrAdded"> נוספ/ה בהצלחה {{waitrsStack[waitrsStack.length - 1].waitrsName}}</p>
+        <div class="nextButton">
+          <button mat-raised-button color="primary" matStepperNext type="button">לשלב הבא</button>
+        </div>
       </mat-step>
       <mat-step label="חשב טיפים">
 

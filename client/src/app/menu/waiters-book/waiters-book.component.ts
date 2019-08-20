@@ -7,8 +7,6 @@ import { environment } from '../../../environments/environment';
 import { WaitrsBookService } from './waiters-book.service';
 import { HttpClient } from '@angular/common/http';
 
-
-
 @Component({
   selector: 'app-waiters-book',
   templateUrl: './waiters-book.component.html',
@@ -19,7 +17,8 @@ export class WaitersBookComponent implements OnInit {
   private waitrsStack: Array<{}> = [];
   public workersNames: Array<string>;
   public calculateTipsForm: FormGroup;
-  public isShiftTimeNotSet: boolean;
+  public isShiftTimeNotSet: boolean = false;
+  public isWaitrAdded: boolean = false;
 
   constructor(private waitrsBookService: WaitrsBookService, private http: HttpClient, public dialog: MatDialog) { }
 
@@ -53,13 +52,16 @@ export class WaitersBookComponent implements OnInit {
     const waitrsShistFG = this.calculateTipsForm.get('waitrsShift');
 
     if(this.calculateTipsForm.get('waitrsShift').valid){
-    this.waitrsStack.push(this.calculateTipsForm.value);
-    this.calculateTipsForm.get('waitrsShift').reset();
+    this.waitrsStack.push(waitrsShistFG.value);
     this.isShiftTimeNotSet = false;
+    this.isWaitrAdded = true;
+    waitrsShistFG.get('waitrsName').reset();
+    console.log(this.waitrsStack)
     }
 
     if(!waitrsShistFG.get('shiftStartTime').valid || !waitrsShistFG.get('shiftEndTime').valid){
       this.isShiftTimeNotSet = true;
+      this.isWaitrAdded = false;
     }
     
   }

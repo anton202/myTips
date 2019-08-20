@@ -3,9 +3,9 @@ nav{
     justify-content: space-around;
     align-items: center;
     color: white;
-    height: 80px;
+    height: 60px;
     background-color: #42a5f5;
-    font-size: 24px;
+    font-size: 20px;
 }
 
 .icons{
@@ -17,7 +17,7 @@ nav{
 
 .icons>p{
     margin: 0;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 time{
@@ -27,6 +27,6 @@ time{
     
     i{
         
-        font-size: 40px;
+        font-size: 30px;
     }
 }
