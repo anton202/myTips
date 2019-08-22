@@ -14,11 +14,16 @@ import { HttpClient } from '@angular/common/http';
   providers: [WaitrsBookService]
 })
 export class WaitersBookComponent implements OnInit {
-  private waitrsStack: Array<{}> = [];
+  private waitrsStack: Array<object> = [];
   public workersNames: Array<string>;
   public calculateTipsForm: FormGroup;
   public isShiftTimeNotSet: boolean = false;
   public isWaitrAdded: boolean = false;
+  public calculatingTips: boolean = false;
+  public dataSoucre: Array<object> = []
+  public displayedColumns: Array<string> = ['סה"כ מזומן', 'הפרשה למעסיק', 'עד שעה', 'משעה', 'שם']
+  public barManTip: number;
+  public moneyToEmployer: number;
 
   constructor(private waitrsBookService: WaitrsBookService, private http: HttpClient, public dialog: MatDialog) { }
 
@@ -42,7 +47,7 @@ export class WaitersBookComponent implements OnInit {
       totalTips: new FormControl(null, Validators.required),
       waitrsShift: new FormGroup({
         waitrsName: new FormControl(null, Validators.required),
-        shiftStartTime: new FormControl(null,Validators.required),
+        shiftStartTime: new FormControl(null, Validators.required),
         shiftEndTime: new FormControl(null, Validators.required)
       })
     })
@@ -51,20 +56,38 @@ export class WaitersBookComponent implements OnInit {
   public addWaitr() {
     const waitrsShistFG = this.calculateTipsForm.get('waitrsShift');
 
-    if(this.calculateTipsForm.get('waitrsShift').valid){
-    this.waitrsStack.push(waitrsShistFG.value);
-    this.isShiftTimeNotSet = false;
-    this.isWaitrAdded = true;
-    waitrsShistFG.get('waitrsName').reset();
-    console.log(this.waitrsStack)
+    if (this.calculateTipsForm.get('waitrsShift').valid) {
+      this.waitrsStack.push(waitrsShistFG.value);
+      this.isShiftTimeNotSet = false;
+      this.isWaitrAdded = true;
+      waitrsShistFG.get('waitrsName').reset();
+      console.log(this.waitrsStack)
     }
 
-    if(!waitrsShistFG.get('shiftStartTime').valid || !waitrsShistFG.get('shiftEndTime').valid){
+    if (!waitrsShistFG.get('shiftStartTime').valid || !waitrsShistFG.get('shiftEndTime').valid) {
       this.isShiftTimeNotSet = true;
       this.isWaitrAdded = false;
     }
-    
+
   }
+
+
+  public calculateTips() {
+    const totalTip = this.calculateTipsForm.value.totalTips;
+    const waitrsStackClone = this.waitrsBookService.setwaitrsTotalTime(this.waitrsStack);
+    const totalTime = this.waitrsBookService.calculateTotalTime(waitrsStackClone);
+    
+    // subtructin from total tip - barMan tip and moneyToEmployer.
+    let totalTipMutated = totalTip;
+    totalTipMutated -= this.waitrsBookService.barManTip(+totalTip, 10)
+    totalTipMutated -= this.waitrsBookService.moneyToEmployer(totalTime, 6)
+
+    //setting barManTip and moneyToEmployer to show to the user.
+    this.barManTip = this.waitrsBookService.barManTip(+totalTip, 10);
+    this.moneyToEmployer = this.waitrsBookService.moneyToEmployer(totalTime, 6);
+
+  }
+
   // addWaitr(waitrData) {
   //   const startTime = waitrData.startTime.split(':');
   //   const endTime = waitrData.endTime.split(':');

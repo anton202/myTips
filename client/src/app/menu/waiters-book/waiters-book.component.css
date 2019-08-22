@@ -51,11 +51,22 @@ mat-vertical-stepper {
   text-align: center;
 }
 
+.calculateTipsStep{
+  direction: rtl;
+}
+
+
+
 @media screen and (min-width: 320px) and (max-width: 480px) {
   .container {
     width: 100%;
   }
 
+  .firstStep{
+    width: 100%;
+    text-align: center;
+  }
+ 
   .nextButton{
     margin-top: 20px;
   }
@@ -63,62 +74,56 @@ mat-vertical-stepper {
   .nextButton>button{
     width: 100%;
   }
-  
+
   .totalTipsHours {
     display: none;
   }
 
-  .notEnoughTips {
-    border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
-    border: solid 2px red;
-    color: red;
-  }
-
-  h2 {
-    display: inline-block;
-  }
-
-  .date {
-    margin-top: 0;
-  }
-
-  #menu {
-    margin-left: 100px;
-  }
-
-  img {
-    height: 20px;
+  .calculateTipsBtn{
     width: 100%;
   }
 
-  #endTimeLable {
-    margin-right: 120px;
-  }
-
-  #totalTip {
-    display: block;
-  }
-
-  table {
-    text-align: center;
-    /*position: absolute;
-  right: 0;*/
-    border-collapse: collapse;
-  }
-
-  .tipsTable>td,
-  th {
-    padding-left: 10px;
-  }
-
-  .sum {
-    margin-top: 25px;
-  }
-
-  .loader {
-    height: 100px;
-    width: 100px;
-    display: block;
+  mat-spinner{
     margin: auto;
+    margin-top: 50px;
   }
+
+  mat-list{
+    direction: rtl;
+   
+  }
+
+  .mat-list-base .mat-list-item{
+    font-size: 14px;
+    height: 30px;
+  }
+
+  th.mat-header-cell{
+    padding-left: 24px;
+    text-align: center;
+  }
+  
+  table{
+    margin-top: 20px;
+  }
+
+  
+}
+
+@media screen and (max-width: 320px) {
+ 
+  th.mat-header-cell{
+    padding-left: 14px;
+    text-align: center;
+  }
+
+  th.mat-header-cell:last-of-type{
+    padding-right: 0;
+  }
+
+  .mat-list-base .mat-list-item{
+    font-size: 12px;
+    height: 20px;
+  }
+
 }

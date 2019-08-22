@@ -9,7 +9,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatListModule } from '@angular/material/list';
+import { MatTableModule } from '@angular/material/table';
+
 
 
 import { AppComponent } from './app.component';
@@ -70,7 +74,10 @@ import { NavComponent } from './nav/nav.component';
     MatStepperModule,
     MatInputModule,
     MatSelectModule,
-    NgxMaterialTimepickerModule
+    NgxMaterialTimepickerModule,
+    MatProgressSpinnerModule,
+    MatListModule,
+    MatTableModule
   ],
   entryComponents: [ErrorMessageComponenet, ConfirmationDialog, InstructionMessaageComponent, NotEnoughTipError, IncorrectTimeInputComponent],
   providers: [Auth, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },],
