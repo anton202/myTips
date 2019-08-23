@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 
 import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
-import { wtfEndTimeRange } from '@angular/core';
 
 export class WaitrsBookService {
 
@@ -25,20 +24,14 @@ export class WaitrsBookService {
         return totalTimeInHours;
     }
 
-    public setwaitrsTotalTime(waitrsStack: Array<object>): Array<object> {
-        const waitrsStckClone = waitrsStack.slice();
-
-        waitrsStckClone.forEach((waitr: { shiftStartTime, shiftEndTime, totalTime }) => {
+    public setwaitrsTotalTime(waitrsStack: Array<object>): void {
+        waitrsStack.forEach((waitr: { shiftStartTime, shiftEndTime, totalTime }) => {
             waitr.totalTime = this.calculateWaitrsTotalTime(waitr.shiftStartTime, waitr.shiftEndTime)
-        })
-
-        return waitrsStckClone
+        })   
     }
 
     public calculateTotalTime(waitrsStack: Array<object>): number {
-        const waitrsStckClone = waitrsStack.slice();
-
-        const totalTime = waitrsStckClone.reduce((acc: number, waitr: { totalTime }) => {
+        const totalTime = waitrsStack.reduce((acc: number, waitr: { totalTime }) => {
             acc += waitr.totalTime
             return acc;
         }, 0)
@@ -50,7 +43,30 @@ export class WaitrsBookService {
         return +(((percentage * totalTip) / 100).toFixed(2));
     }
 
-    public moneyToEmployer(totalTime: number, rate: number): number { 
+    public moneyToEmployer(totalTime: number, rate: number): number {
         return totalTime * rate
     }
+
+    public tipPerHour(totalTip: number, totalTime: number): number {
+        return +((totalTip / totalTime).toFixed(2));
+    }
+
+    public setWaitrsPerHourTip(waitrs: any, totalTime: number, totalTip: number): void {
+        waitrs.forEach(waitr => {
+            waitr.tipPerHour = this.tipPerHour(totalTip, totalTime)
+        })
+    }
+
+    public setWaitrsTotalTip(waitrs: any): void {
+        waitrs.forEach(waitr => {
+            waitr.totalTip = +((waitr.totalTime * waitr.tipPerHour).toFixed(2))
+        })
+    }
+
+    public setWaitrsMoneyToEmployer(waitrs: any): void {
+        waitrs.forEach(waitr => {
+            waitr.moneyToEmployer = Math.floor(this.moneyToEmployer(waitr.totalTime, 6));
+        })
+    }
+
 }

@@ -70,7 +70,6 @@ export class StatisticsComponent implements OnInit {
     const year = this.monthYearForm.value.year;
     this.isLoadingTips = true;
     
-    console.log(this.monthYearForm.value)
     // if show all tips button is clicked then fetch all usesrs tips by month and year.
     if (this.isAllTips) {
       return this.getAllWaitersTips();
