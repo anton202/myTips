@@ -37,11 +37,12 @@
         <button class="calculateTipsBtn" mat-raised-button color="primary" (click)="calculateTips()">חשב טיפים</button>
         <mat-spinner *ngIf="calculatingTips"></mat-spinner>
         <mat-list>
-          <mat-list-item style="font-weight: bold">סה"כ לשעה אחרי הפרשה למעסיק: {{tipPerHour}} ש"ח</mat-list-item>
+          <mat-list-item style="font-weight: bold">סה"כ טיפ לשעה : {{tipPerHour}} ש"ח</mat-list-item>
           <mat-list-item>הפרשה למעסיק של כל המלצרים: {{moneyToEmployer}} ש"ח</mat-list-item>
           <mat-list-item>הפרשה לברמן: {{barManTip}} ש"ח</mat-list-item>
          </mat-list>
 
+         <div class="table-container">
          <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
           <ng-container matColumnDef="שם">
@@ -72,9 +73,10 @@
             <mat-cell *matCellDef="let element">{{element.totalTip}}  </mat-cell>
           </ng-container>
 
-          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
           <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </mat-table>
+      </div>
       </mat-step>
     </mat-vertical-stepper>
   </form>

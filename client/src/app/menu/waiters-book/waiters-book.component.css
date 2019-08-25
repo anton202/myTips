@@ -90,6 +90,7 @@ mat-vertical-stepper {
 
   mat-list{
     direction: rtl;
+    margin-bottom: 25px;
    
   }
 
@@ -98,32 +99,58 @@ mat-vertical-stepper {
     height: 30px;
   }
 
-  th.mat-header-cell{
-    padding-left: 24px;
+  mat-header-cell{
+    padding-left: 18px;
     text-align: center;
   }
   
-  table{
-    margin-top: 20px;
+ mat-table{
+   text-align: center !important;
+   width: 100%;
+ }
+
+  mat-cell:last-of-type{
+    padding-right: 0;
   }
 
+  mat-header-cell:last-of-type{
+    padding-right: 0;
+  }
+
+
+  .table-container{
+    height: 30vh;
+    overflow: auto;
+  }
   
 }
 
 @media screen and (max-width: 320px) {
  
-  th.mat-header-cell{
-    padding-left: 14px;
+  mat-header-cell{
+    padding-left: 8px;
     text-align: center;
   }
 
-  th.mat-header-cell:last-of-type{
+  mat-header-cell:last-of-type{
     padding-right: 0;
   }
 
+  mat-cell:first-of-type{
+    padding-left: 10px;
+  }
+
+  mat-header-cell:first-of-type{
+    padding-left: 0;
+  }
   .mat-list-base .mat-list-item{
     font-size: 12px;
     height: 20px;
+  }
+
+  .table-container{
+    height: 25vh;
+    
   }
 
 }
