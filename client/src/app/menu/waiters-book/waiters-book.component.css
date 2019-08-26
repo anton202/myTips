@@ -123,6 +123,12 @@ mat-vertical-stepper {
     overflow: auto;
   }
   
+  .recalculateTips{
+    text-align: center;
+    display: block;
+    direction: rtl;
+    margin-top: 30px;
+  }
 }
 
 @media screen and (max-width: 320px) {
@@ -137,6 +143,10 @@ mat-vertical-stepper {
   }
 
   mat-cell:first-of-type{
+    padding-left: 10px;
+  }
+
+  .mat-cell{
     padding-left: 10px;
   }
 

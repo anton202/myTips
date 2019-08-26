@@ -91,6 +91,7 @@ export class StatisticsComponent implements OnInit {
   private getUserStats(): void {
     this.http.get<{ myTotalIncome, myTotalPerHourAvrg }>(environment.apiUrl + '/stats/myStats/' + localStorage.getItem('userName'))
       .subscribe(myStats => {
+        console.log(myStats)
         this.myTotalIncome = myStats.myTotalIncome;
         this.myTotalPerHourAvrg = myStats.myTotalPerHourAvrg;
       },

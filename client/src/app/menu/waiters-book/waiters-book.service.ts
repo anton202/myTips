@@ -11,6 +11,10 @@ export class WaitrsBookService {
         return this.http.get<Array<string>>(environment.apiUrl + '/user/getNames')
     }
 
+    public sendDataToServer(waitrsStack): Observable<any>{
+        return this.http.post(environment.apiUrl + '/waitrsBook/saveWaitrsTips',waitrsStack)
+    }
+
     public calculateWaitrsTotalTime(startTime, endTime): number {
         const splitStartTime = startTime.split(':');
         const splitEndTime = endTime.split(':');

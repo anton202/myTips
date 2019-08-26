@@ -56,13 +56,13 @@
 
       <ng-container matColumnDef="משעה">
         <mat-header-cell *matHeaderCellDef [ngClass]="{expandedTable: !isTableExpanded}"> משעה</mat-header-cell>
-        <mat-cell *matCellDef="let element" [ngClass]="{expandedTable: !isTableExpanded}"> {{element.startTime}}
+        <mat-cell *matCellDef="let element" [ngClass]="{expandedTable: !isTableExpanded}"> {{element.shiftStartTime}}
         </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="עד שעה">
         <mat-header-cell *matHeaderCellDef [ngClass]="{expandedTable: !isTableExpanded }"> עד שעה</mat-header-cell>
-        <mat-cell *matCellDef="let element" [ngClass]="{expandedTable: !isTableExpanded}"> {{element.endTime}}
+        <mat-cell *matCellDef="let element" [ngClass]="{expandedTable: !isTableExpanded}"> {{element.shiftEndTime}}
         </mat-cell>
       </ng-container>
 
@@ -74,13 +74,13 @@
 
       <ng-container matColumnDef="הפרשה למעסיק">
         <mat-header-cell *matHeaderCellDef [ngClass]="{expandedTable: !isTableExpanded}"> הפרשה למעסיק</mat-header-cell>
-        <mat-cell *matCellDef="let element" [ngClass]="{expandedTable: !isTableExpanded}"> {{element.moneyToGoverment}}
+        <mat-cell *matCellDef="let element" [ngClass]="{expandedTable: !isTableExpanded}"> {{element.moneyToEmployer}}
         </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef='סה"כ לשעה'>
         <mat-header-cell *matHeaderCellDef> סהכ לשעה </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.perHour}} </mat-cell>
+        <mat-cell *matCellDef="let element"> {{element.tipPerHour}} </mat-cell>
       </ng-container>
 
 
@@ -102,34 +102,4 @@
       (click)="showUserTipsOrAllWaitersTips()">{{isAllTips?'הצג טיפים שלי':'הצג טיפים של כולם'}}</button>
   </div>
 
-  <!-- <div class="showTips">
-    <span style="text-decoration:underline" >הצג טיפים:</span>
-    <form (ngSubmit)="onSubmit(f.value)" #f="ngForm"> 
-      <input type="radio" id="myTips" value="myTips" name="whosTips" ngModel>
-      <label for="myTips" style="display:inline-block">טיפים שלי</label>
-      <input type="radio" id="allTips" value="allTips" name="whosTips" ngModel> 
-      <label for="allTips" style="display:inline-block">טיפים של כולם</label>
-      <label for="month">בחר חודש:</label>
-            <select dir="rtl" name="month" id="month" ngModel>
-              <option value="0">ינואר</option>
-              <option value="1">פברואר</option>
-              <option value="2">מרץ</option>
-              <option value="3">אפריל</option>
-              <option value="4">מאי</option>
-              <option value="5">יוני</option>
-              <option value="6">יולי</option>
-              <option value="7">אוגוסט</option>
-              <option value="8">ספטמבר</option>
-              <option value="9">אוקטובר</option>
-              <option value="10">נובמבר</option>
-              <option value="11">דצמבר</option>
-            </select>
-        
-        <div class="form-group">
-            <label for="year">הזן שנה:</label>
-            <input type="number"  name="year"  placeholder="2019" ngModel>
-        </div>
-        <button type="submit">הצג</button>
-    </form>
-  </div> -->
 </div>

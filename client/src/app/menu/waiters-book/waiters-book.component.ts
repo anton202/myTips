@@ -3,7 +3,6 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 
 import { ErrorMessageComponenet } from '../../material/errorMessage/errorMessage.component';
-import { environment } from '../../../environments/environment';
 import { WaitrsBookService } from './waiters-book.service';
 import { HttpClient } from '@angular/common/http';
 import { Waitr } from './waitrObj';
@@ -26,6 +25,8 @@ export class WaitersBookComponent implements OnInit {
   public barManTip: number;
   public moneyToEmployer: number;
   public tipPerHour: number
+  public isTipsCalculated: boolean = false;
+  public recalculatingTips: boolean = false;
 
   constructor(private waitrsBookService: WaitrsBookService, private http: HttpClient, public dialog: MatDialog) { }
 
@@ -41,7 +42,6 @@ export class WaitersBookComponent implements OnInit {
           })
         }
       )
-
   }
 
   private initializeForms(): void {
@@ -62,7 +62,7 @@ export class WaitersBookComponent implements OnInit {
     const shiftEndTime = waitrsShistFG.value.shiftEndTime;
 
     if (this.calculateTipsForm.get('waitrsShift').valid) {
-      this.waitrsStack.push(new Waitr(waitrName,shiftStartTime,shiftEndTime));
+      this.waitrsStack.push(new Waitr(waitrName, shiftStartTime, shiftEndTime));
       this.isShiftTimeNotSet = false;
       this.isWaitrAdded = true;
       waitrsShistFG.get('waitrsName').reset();
@@ -75,6 +75,26 @@ export class WaitersBookComponent implements OnInit {
 
   }
 
+  public deleteWaitr(waitrToDelete): void {
+    this.waitrsStack.forEach((waitr: { name }, index) => {
+      if (waitr.name === waitrToDelete.name) {
+        this.waitrsStack.splice(index, 1);
+      }
+    })
+    // rerender tips table
+    this.dataSource = [...this.waitrsStack];
+
+    //recalculate tips && display spinner and "recalculating tips" text while recalculating.
+    this.calculatingTips = true;
+    this.isTipsCalculated = false;
+    this.recalculatingTips = true
+    setTimeout(() => {
+      this.calculateTips();
+      this.calculatingTips = false;
+      this.isTipsCalculated = true;
+      this.recalculatingTips = false;
+    }, 2500)
+  }
 
   public calculateTips(): void {
     const totalTip = this.calculateTipsForm.value.totalTips;
@@ -96,7 +116,7 @@ export class WaitersBookComponent implements OnInit {
 
     //set all waitrs per hour tip.
     this.waitrsBookService.setWaitrsPerHourTip(waitrsStackClone, totalTime, totalTipMutated);
-    this.tipPerHour = this.waitrsBookService.tipPerHour(totalTipMutated,totalTime);
+    this.tipPerHour = this.waitrsBookService.tipPerHour(totalTipMutated, totalTime);
 
     //set all waitrs total tip.
     this.waitrsBookService.setWaitrsTotalTip(waitrsStackClone);
@@ -104,10 +124,25 @@ export class WaitersBookComponent implements OnInit {
     //set all waitrs money to employer.
     this.waitrsBookService.setWaitrsMoneyToEmployer(waitrsStackClone)
 
-    console.log(waitrsStackClone)
     //rendering the result to the table.
     this.dataSource = waitrsStackClone;
 
+    // show calculation to user.
+    this.isTipsCalculated = true;
+
+    //send calculated tips to the server.
+    this.saveCalculatedTips(waitrsStackClone);
+  }
+
+
+  private saveCalculatedTips(waitrsStack): void {
+    this.waitrsBookService.sendDataToServer(waitrsStack)
+      .subscribe(
+        () => { },
+        error => this.dialog.open(ErrorMessageComponenet, {
+          width: '300px'
+        })
+      )
   }
 
 }

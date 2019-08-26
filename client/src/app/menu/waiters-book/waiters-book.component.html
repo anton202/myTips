@@ -36,9 +36,11 @@
       <mat-step label="חשב טיפים" class="calculateTipsStep">
         <button class="calculateTipsBtn" mat-raised-button color="primary" (click)="calculateTips()">חשב טיפים</button>
         <mat-spinner *ngIf="calculatingTips"></mat-spinner>
+        <span class="recalculateTips" *ngIf="recalculatingTips">מחשב טיפים מחדש.......</span>
+        <div class="calculation" *ngIf="isTipsCalculated">
         <mat-list>
           <mat-list-item style="font-weight: bold">סה"כ טיפ לשעה : {{tipPerHour}} ש"ח</mat-list-item>
-          <mat-list-item>הפרשה למעסיק של כל המלצרים: {{moneyToEmployer}} ש"ח</mat-list-item>
+          <mat-list-item>סה"כ הפרשה למעסיק: {{moneyToEmployer}} ש"ח</mat-list-item>
           <mat-list-item>הפרשה לברמן: {{barManTip}} ש"ח</mat-list-item>
          </mat-list>
 
@@ -74,86 +76,12 @@
           </ng-container>
 
           <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="deleteWaitr(row)"></mat-row>
         </mat-table>
+      </div>
       </div>
       </mat-step>
     </mat-vertical-stepper>
   </form>
 
-
-  <!-- <p class="date">{{todaysDate | date:'d/M/y'}}</p>
-  
-  <div class="waitrForm">
-    <label for="totalTip">סה&#34;כ מזומן</label>
-    <input style="width:98%" type="number" name="totalTip" id="totalTip" #totalTip ngModel>
-
-    <form (ngSubmit)="addWaitr(f.value)" #f="ngForm">
-      <label for="waitrNamae">שם מלצר</label>
-      <select id="waitrName" style="display:block;width:100%" name="name" ngModel required>
-        <option dir="rtl" [value]="name" *ngFor="let name of workersNames">{{name}}</option>
-      </select>
-      <div class="lables">
-        <label for="startTime">משעה</label>
-        <label id="endTimeLable" for="endTime">עד שעה</label>
-      </div>
-
-      <input id="endTime" type="time" name="endTime" ngModel required>
-      <input id="startTime" type="time" name="startTime" ngModel required>
-
-      <button type="submit" [disabled]="!f.valid">הוסף מלצר</button>
-      <button type="button" [disabled]="loadGif" (click)="calculateTips(totalTip.value)">חשב טיפים</button>
-    </form>
-  </div>
-  
-  <div class="loader" *ngIf="loadGif">
-    <img class="loader" src="../../../assets/loading2.gif" alt="loading.gif">
-  </div>
-
-  <div *ngIf="waitrsStack.length > 0 && !loadGif" class="calculatedTips">
-   <div class="tips">
-    <table class="tipsTable" dir="rtl">
-      <thead>
-        <tr>
-          <th>שם</th>
-          <th>התחלה</th>
-          <th>סיום</th>
-          <th>סה&#34;כ שעות</th>
-          <th>הפרשה למעסיק</th>
-          <th>טיפים אחרי הפרשה למעסיק</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let waitr of waitrsStack; let i = index" (click)="openDialog(i)">
-          <td>{{waitr.name}} </td>
-        <td>{{waitr.startTime}}</td>
-        <td>{{waitr.endTime}}</td>
-        <td>{{waitr.totalTime}}</td>
-        <td>{{waitr.moneyToGoverment}}</td>
-        <td>{{waitr.totalTip}}</td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-    <div class="sum" >
-        <table dir="rtl">
-          <thead>
-            <tr>
-              <th>סה&#34;	כ שעות</th>
-              <th>סה&#34;כ הפרשה למעסיק</th>
-              <th>סה&#34;כ לשעה לפני הפרשה למעסיק</th>
-              <th>הפרשה 10% לברמן מהסכום {{totalTip.value}}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{{totalTime}}</td>
-              <td>{{totalTax}}</td>
-              <td>{{tipPerHour}}</td>
-              <td>{{barManTip > 0?barManTip.toFixed(2):""}}</td>
-            </tr>
-          </tbody>
-        </table>
-    </div>
-    </div> -->
 </div>
