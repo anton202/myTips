@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
+import { ConfirmationDialog } from '../../material/confirmationDailog/confirmationDialog.component';
+
 
 import { ErrorMessageComponenet } from '../../material/errorMessage/errorMessage.component';
 import { WaitrsBookService } from './waiters-book.service';
@@ -75,7 +77,17 @@ export class WaitersBookComponent implements OnInit {
 
   }
 
-  public deleteWaitr(waitrToDelete): void {
+
+  public confirmDeleteWaitr(waitrData){
+    const dialogRef = this.dialog.open(ConfirmationDialog);
+    dialogRef.afterClosed().subscribe(isActionConfirmed =>{
+      if(isActionConfirmed){
+        this.deleteWaitr(waitrData)
+      }
+    })
+  }
+
+  private deleteWaitr(waitrToDelete): void {
     this.waitrsStack.forEach((waitr: { name }, index) => {
       if (waitr.name === waitrToDelete.name) {
         this.waitrsStack.splice(index, 1);
