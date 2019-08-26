@@ -56,7 +56,11 @@ export class StatisticsComponent implements OnInit {
   }
 
   private getAllWaitersTips() {
-    this.http.get<{ tips }>(environment.apiUrl + '/stats/allWaitersTips/' + this.monthYearForm.value.month + '/' + this.monthYearForm.value.year)
+    const date =  new Date();
+    const month = this.monthYearForm.value.month | date.getMonth();
+    const year = this.monthYearForm.value.year | date.getFullYear();
+
+    this.http.get<{ tips }>(environment.apiUrl + '/stats/allWaitersTips/' + month + '/' + year)
       .subscribe(tips => {
         this.isLoadingTips = false;
         this.dataSource = tips.tips;
@@ -72,7 +76,7 @@ export class StatisticsComponent implements OnInit {
     
     // if show all tips button is clicked then fetch all usesrs tips by month and year.
     if (this.isAllTips) {
-      return this.getAllWaitersTips();
+     this.getAllWaitersTips();
     }
 
     this.http.get<{ tips, perHourAvrg, totalTips }>(environment.apiUrl + '/stats/myLog/' + year + '-' + month)
@@ -103,6 +107,7 @@ export class StatisticsComponent implements OnInit {
   private getTotalPerHourAvrg(month?: string, year?: string): void {
     this.http.get<{ totalTips, perHourAvrg }>(environment.apiUrl + '/stats/allWaitersTips/' + month + '/' + year)
       .subscribe(tips => {
+        console.log(tips)
         this.perHourAvrg = tips.perHourAvrg;
       },
         error => {
