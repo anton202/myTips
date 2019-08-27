@@ -77,7 +77,6 @@ export class WaitersBookComponent implements OnInit {
 
   }
 
-
   public confirmDeleteWaitr(waitrData){
     const dialogRef = this.dialog.open(ConfirmationDialog);
     dialogRef.afterClosed().subscribe(isActionConfirmed =>{

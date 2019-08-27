@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material';
 
 
-import { environment } from '../../../environments/environment';
-import { ErrorMessageComponenet } from '../../material/errorMessage/errorMessage.component'
+import { environment } from '../../environments/environment';
+import { ErrorMessageComponenet } from '../material/errorMessage/errorMessage.component'
 
 
 @Component({
