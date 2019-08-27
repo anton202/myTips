@@ -57,7 +57,7 @@ router.get('/allWaitersTips/:month/:year', auth, (req, res) => {
         yearMonth = date.getFullYear() + '-' + date.getMonth();
     } else if (req.params.month && req.params.year) {
         yearMonth = req.params.year + '-' + req.params.month;
-        console.log(yearMonth)
+       
     }
 
     MyTips.find({

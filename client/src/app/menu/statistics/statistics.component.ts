@@ -70,10 +70,11 @@ export class StatisticsComponent implements OnInit {
   }
 
   public getUserTipsByYearMonth(): void {
-    const month = this.monthYearForm.value.month;
-    const year = this.monthYearForm.value.year;
+    const date =  new Date();
+    const month = this.monthYearForm.value.month || date.getMonth();
+    const year = this.monthYearForm.value.year || date.getFullYear();
     this.isLoadingTips = true;
-    
+   
     // if show all tips button is clicked then fetch all usesrs tips by month and year.
     if (this.isAllTips) {
      this.getAllWaitersTips();
@@ -95,7 +96,6 @@ export class StatisticsComponent implements OnInit {
   private getUserStats(): void {
     this.http.get<{ myTotalIncome, myTotalPerHourAvrg }>(environment.apiUrl + '/stats/myStats/' + localStorage.getItem('userName'))
       .subscribe(myStats => {
-        console.log(myStats)
         this.myTotalIncome = myStats.myTotalIncome;
         this.myTotalPerHourAvrg = myStats.myTotalPerHourAvrg;
       },
@@ -104,10 +104,9 @@ export class StatisticsComponent implements OnInit {
         })
   }
 
-  private getTotalPerHourAvrg(month?: string, year?: string): void {
+  private getTotalPerHourAvrg(month?: any, year?: any): void {
     this.http.get<{ totalTips, perHourAvrg }>(environment.apiUrl + '/stats/allWaitersTips/' + month + '/' + year)
       .subscribe(tips => {
-        console.log(tips)
         this.perHourAvrg = tips.perHourAvrg;
       },
         error => {
