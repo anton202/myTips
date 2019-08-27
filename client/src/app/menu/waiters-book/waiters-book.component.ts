@@ -77,10 +77,10 @@ export class WaitersBookComponent implements OnInit {
 
   }
 
-  public confirmDeleteWaitr(waitrData){
+  public confirmDeleteWaitr(waitrData) {
     const dialogRef = this.dialog.open(ConfirmationDialog);
-    dialogRef.afterClosed().subscribe(isActionConfirmed =>{
-      if(isActionConfirmed){
+    dialogRef.afterClosed().subscribe(isActionConfirmed => {
+      if (isActionConfirmed) {
         this.deleteWaitr(waitrData)
       }
     })
@@ -92,8 +92,6 @@ export class WaitersBookComponent implements OnInit {
         this.waitrsStack.splice(index, 1);
       }
     })
-    // rerender tips table
-    this.dataSource = [...this.waitrsStack];
 
     //recalculate tips && display spinner and "recalculating tips" text while recalculating.
     this.calculatingTips = true;
@@ -101,10 +99,16 @@ export class WaitersBookComponent implements OnInit {
     this.recalculatingTips = true
     setTimeout(() => {
       this.calculateTips();
-      this.calculatingTips = false;
-      this.isTipsCalculated = true;
-      this.recalculatingTips = false;
-    }, 2500)
+      // rerender tips table
+      this.dataSource = [...this.waitrsStack];
+      if (this.waitrsStack.length <= 0) {
+        this.isTipsCalculated = false;
+      } else {
+        this.isTipsCalculated = true;
+      }
+        this.calculatingTips = false;
+        this.recalculatingTips = false;
+    }, 2000)
   }
 
   public calculateTips(): void {
