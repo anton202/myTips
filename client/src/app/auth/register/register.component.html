@@ -1,10 +1,29 @@
-<div class="main">
-  <h2>הירשם:</h2>
-  <form (ngSubmit)="onSignUp(f)" #f="ngForm">
-    <input type="text" name="userName" placeholder="שם" required ngModel>
+<div class="main" *ngIf="!creatingUser">
+  <h1>הירשם:</h1>
+  <form (ngSubmit)="onSignUp(f)" #f="ngForm" dir="rtl">
+      <mat-form-field>
+          <input matInput type="text" name="userName"  placeholder="שם" required  ngModel >
+        </mat-form-field>
+    
     <p *ngIf="userAlreadyExist">השם הזה כבר קיים במערכת, בחר שם אחר</p>
-    <input type="password" name="password" placeholder="סיסמא" required ngModel>
-    <button [disabled]="!f.valid" type="submit">צור משתמש</button>
+
+    <mat-form-field>
+        <input matInput type="password" name="password" placeholder="סיסמא" required ngModel>
+      </mat-form-field>
+
+   <button mat-raised-button color="primary" type="submit" [disabled]="!f.valid">צור משתמש</button>
   </form>
-    <p *ngIf="userCreated">המשתמש נוצר בהצלחה</p>
+</div>
+
+<div class="registrationProcess" *ngIf="creatingUser">
+    <mat-spinner></mat-spinner>
+
+    <div class="progress">
+        <ul>
+            <li role="listitem" *ngIf="creatingUser">יוצר משתמש.....</li>
+            <li role="listitem" class="actionSucceded" *ngIf="userCreated">משתמש נוצר בהצלחה.</li>
+            <li role="listitem" *ngIf="logingIn">מתחבר למערכת....</li>
+            <li role="listitem" class="actionSucceded" *ngIf="sucessfullyLogdIn">ההתחברות בוצעה בהצלחה.</li>
+        </ul>
+    </div>
 </div>

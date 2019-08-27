@@ -1,9 +1,15 @@
 <div class="main">
-    <h2>כניסה למערכת</h2>
+    <h1>כניסה למערכת</h1>
     <form (ngSubmit)="onSignIn(f)" #f="ngForm" dir="rtl">
-      <input type="text" name="userName"  placeholder="שם" required  ngModel dir="rtl">
-      <input type="password" name="password" placeholder="סיסמא" required ngModel dir="rtl">
-      <button type="submit" [disabled]="!f.valid">כנס</button>
+        <mat-form-field>
+            <input matInput type="text" name="userName"  placeholder="שם" required  ngModel >
+          </mat-form-field>
+     
+          <mat-form-field>
+              <input matInput type="password" name="password" placeholder="סיסמא" required ngModel>
+            </mat-form-field>
+      <button mat-raised-button color="primary" type="submit" [disabled]="!f.valid">התחבר</button>
     </form>
+    <p class="logedIn" *ngIf="seccessfullyLogedIn">התחברתה בהצלחה</p>
     <p>{{errorMessage}}</p>
   </div>

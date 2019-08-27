@@ -1,0 +1,36 @@
+.main{
+    direction: rtl;
+}
+
+mat-form-field{
+    width: 100%;
+}
+
+button{
+    width: 100%;
+}
+
+.registrationProcess{
+    width: 260px;
+    height: 350px;
+}
+mat-spinner{
+    margin: auto;
+}
+
+ul{
+    direction: rtl;
+    margin-top: 30px;
+    padding: 10px;
+}
+
+.actionSucceded{
+    color: green;
+}
+
+@media screen and (max-width: 320px) {
+    .registrationProcess{
+        width: 220px;
+        height: 350px;
+    }
+}

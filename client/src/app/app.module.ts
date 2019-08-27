@@ -16,6 +16,7 @@ import { MatTableModule } from '@angular/material/table';
 
 
 
+
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { SignInComponent } from './auth/sign-in/sign-in.component';
@@ -49,9 +50,7 @@ import { NavComponent } from './nav/nav.component';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-   
     RouterModule,
-    
     BrowserAnimationsModule,
     MatDialogModule,
     MatButtonModule,
