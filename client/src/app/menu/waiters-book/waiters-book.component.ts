@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
+import { HttpClient } from '@angular/common/http';
+
 import { ConfirmationDialog } from '../../material/confirmationDailog/confirmationDialog.component';
-
-
 import { ErrorMessageComponenet } from '../../material/errorMessage/errorMessage.component';
 import { WaitrsBookService } from './waiters-book.service';
-import { HttpClient } from '@angular/common/http';
 import { Waitr } from './waitrObj';
+import { SignInComponent } from '../../auth/sign-in/sign-in.component';
 
 @Component({
   selector: 'app-waiters-book',
@@ -149,7 +149,6 @@ export class WaitersBookComponent implements OnInit {
     this.saveCalculatedTips(waitrsStackClone);
   }
 
-
   private saveCalculatedTips(waitrsStack): void {
     this.waitrsBookService.sendDataToServer(waitrsStack)
       .subscribe(
@@ -158,6 +157,12 @@ export class WaitersBookComponent implements OnInit {
           width: '300px'
         })
       )
+  }
+
+  public isUserLogedIn():void{
+    if(!localStorage.getItem('userName')){
+      this.dialog.open(SignInComponent)
+    }
   }
 
 }

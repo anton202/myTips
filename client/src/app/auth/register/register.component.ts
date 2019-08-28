@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Auth } from '../auth.service';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-register',
@@ -13,8 +14,9 @@ export class RegisterComponent implements OnInit {
   public userCreated: boolean = false;
   public logingIn: boolean = false;
   public sucessfullyLogdIn: boolean = false;
+  public progressBarComplition: number = 0;
 
-  constructor(private auth: Auth) { }
+  constructor(private auth: Auth, private dialogRef: MatDialogRef<RegisterComponent>) { }
 
   ngOnInit() {
   }
@@ -26,10 +28,10 @@ export class RegisterComponent implements OnInit {
     .subscribe(
       (res) => { 
         this.creatingUser = true;
-
+        this.progressBarComplition = 25;
         setTimeout((form)=>{
           this.userCreated = true;
-          console.log(form)
+          this.progressBarComplition = 50;
           this.logIn(form);
         },1500,form.value)
         
@@ -50,8 +52,12 @@ export class RegisterComponent implements OnInit {
           localStorage.setItem('token', response.token);
           localStorage.setItem('userName', logInData.userName);
           this.logingIn = true;
-          setTimeout(()=>this.sucessfullyLogdIn = true,1500)
-         
+          this.progressBarComplition = 75;
+          setTimeout(()=>{
+            this.sucessfullyLogdIn = true
+            this.progressBarComplition = 100;
+          },1500)
+         setTimeout(()=> this.dialogRef.close(logInData.userName),3500)
         },
         error => console.log(error)
       )

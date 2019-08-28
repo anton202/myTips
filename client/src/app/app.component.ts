@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+
 import { HttpClient } from '@angular/common/http';
 
 import { environment } from '../environments/environment'
@@ -11,7 +11,7 @@ import { environment } from '../environments/environment'
 })
 export class AppComponent implements OnInit {
 
-  constructor(private router: Router, private http: HttpClient) { }
+  constructor( private http: HttpClient) { }
 
   ngOnInit() {
     const token = localStorage.getItem('token');
@@ -22,11 +22,8 @@ export class AppComponent implements OnInit {
     }
     this.http.get(environment.apiUrl + '/user/isTokenValid')
       .subscribe(
-        response => {
-            this.router.navigate(['/menu'])
-        },
+        response => {},
         error => {
-          this.router.navigate(['/menu'])
           localStorage.removeItem('token');
           localStorage.removeItem('userName');
         }

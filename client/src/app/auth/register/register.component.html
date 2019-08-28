@@ -16,7 +16,7 @@
 </div>
 
 <div class="registrationProcess" *ngIf="creatingUser">
-    <mat-spinner></mat-spinner>
+    <mat-progress-bar mode="buffer" [value]="progressBarComplition"></mat-progress-bar>
 
     <div class="progress">
         <ul>

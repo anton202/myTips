@@ -13,6 +13,7 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 
 
@@ -60,9 +61,10 @@ import { NavComponent } from './nav/nav.component';
     NgxMaterialTimepickerModule,
     MatProgressSpinnerModule,
     MatListModule,
-    MatTableModule
+    MatTableModule,
+    MatProgressBarModule
   ],
-  entryComponents: [ErrorMessageComponenet, ConfirmationDialog],
+  entryComponents: [ErrorMessageComponenet, ConfirmationDialog, RegisterComponent, SignInComponent],
   providers: [Auth, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },],
   bootstrap: [AppComponent]
 })

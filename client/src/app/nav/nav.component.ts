@@ -9,20 +9,25 @@ import { SignInComponent } from '../auth/sign-in/sign-in.component';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
-  date:Date = new Date();
-  currentDate = this.date.getDate() + '.' + (this.date.getMonth() + 1) + '.' + this.date.getFullYear();
+  private date: Date = new Date();
+  public currentDate: string = this.date.getDate() + '.' + (this.date.getMonth() + 1) + '.' + this.date.getFullYear();
+  public userName = localStorage.getItem('userName');
 
   constructor(private dialog: MatDialog) { }
 
   ngOnInit() {
   }
 
-  public register():void{
-    this.dialog.open(RegisterComponent);
+  public register(): void {
+    const dialogRef = this.dialog.open(RegisterComponent);
+    dialogRef.afterClosed()
+      .subscribe(userName => this.userName = userName)
   }
 
-  public logIn(): void{
-    this.dialog.open(SignInComponent)
+  public logIn(): void {
+   const dialogRef = this.dialog.open(SignInComponent);
+   dialogRef.afterClosed()
+    .subscribe(userName => this.userName = userName)
   }
 
 }

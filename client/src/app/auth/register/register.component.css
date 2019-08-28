@@ -12,7 +12,7 @@ button{
 
 .registrationProcess{
     width: 260px;
-    height: 350px;
+    height: 200px;
 }
 mat-spinner{
     margin: auto;
@@ -31,6 +31,10 @@ ul{
 @media screen and (max-width: 320px) {
     .registrationProcess{
         width: 220px;
-        height: 350px;
+        height: 200px;
+    }
+
+    ul{
+        margin-top: 0;
     }
 }

@@ -7,7 +7,7 @@
           <mat-hint>הזן את כמות הטיפים שעשית/ם במשמרת</mat-hint>
         </mat-form-field>
         <div class="nextButton">
-          <button style="margin-top: 20px" mat-raised-button color="primary" matStepperNext type="button">לשלב הבא</button>
+          <button (click)="isUserLogedIn()" style="margin-top: 20px" mat-raised-button color="primary" matStepperNext type="button">לשלב הבא</button>
         </div>
       </mat-step>
       <mat-step label="הוסף מלצרים" formGroupName="waitrsShift" [completed]="waitrsStack.length > 0">

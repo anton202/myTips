@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material';
-
-import { ErrorMessageComponenet } from '../material/errorMessage/errorMessage.component'
 import { environment } from '../../environments/environment';
 
 @Component({
@@ -26,23 +24,12 @@ isTodaysTips = false;
         localStorage.removeItem('token');
         localStorage.removeItem('userName');
       })
-      this.http.get<[]>(environment.apiUrl+'/waitrsBook/getTodaysTips')
-      .subscribe(tips =>{
-        this.todaysTips = tips
-        if(tips.length > 0){
-        this.isTodaysTips = true;
-        }
-      },error => {
-        this.dialog.open(ErrorMessageComponenet,{
-          width: '300px'
-        })
-      })
-  }
+    }
 
   logOut(){
     localStorage.removeItem('token');
     localStorage.removeItem('userName');
-    this.router.navigate(['/home']);
+    this.router.navigate(['/menu']);
   }
 
 }
