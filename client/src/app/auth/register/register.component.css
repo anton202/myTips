@@ -29,6 +29,9 @@ ul{
 }
 
 @media screen and (max-width: 320px) {
+    h1{
+        font-size: 1.5em;
+    }
     .registrationProcess{
         width: 220px;
         height: 200px;

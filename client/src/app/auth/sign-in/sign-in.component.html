@@ -10,6 +10,7 @@
             </mat-form-field>
       <button mat-raised-button color="primary" type="submit" [disabled]="!f.valid">התחבר</button>
     </form>
+    <button class="createUser" mat-button (click)="openRegisterDialog()">צור משתמש חדש</button>
     <p class="logedIn" *ngIf="seccessfullyLogedIn">התחברתה בהצלחה</p>
-    <p>{{errorMessage}}</p>
+    <p *ngIf="errorMessage">{{errorMessage}}</p>
   </div>

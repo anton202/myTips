@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MatDialog } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
 
 import { Auth } from '../auth.service';
-import { Store } from '@ngrx/store';
 import * as authActions from '../store/auth.actions'
+import { RegisterComponent } from '../register/register.component';
 
 @Component({
   selector: 'app-sign-in',
@@ -14,12 +15,12 @@ import * as authActions from '../store/auth.actions'
 export class SignInComponent implements OnInit {
   errorMessage
   public seccessfullyLogedIn: boolean = false;
-  constructor( private auth: Auth, private dialogRef: MatDialogRef<SignInComponent>, private store: Store<{auth:{user}}>) { }
+  constructor( private auth: Auth, private dialogRef: MatDialogRef<SignInComponent>, private store: Store<{auth:{user}}>, private dialog: MatDialog) { }
 
   ngOnInit() {
   }
 
-  onSignIn(form: NgForm) {
+  public onSignIn(form: NgForm): void{
     form.value.userName = form.value.userName.toLowerCase()
     this.auth.login(form.value)
       .subscribe(
@@ -33,5 +34,10 @@ export class SignInComponent implements OnInit {
         error => this.errorMessage = error.error.message
       )
   }
+
+public openRegisterDialog(): void{
+  this.dialogRef.close();
+  this.dialog.open(RegisterComponent)
+}
 
 }
