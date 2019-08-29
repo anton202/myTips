@@ -1,7 +1,7 @@
 <div class="container">
   <form [formGroup]="calculateTipsForm">
     <mat-vertical-stepper linear #stepper>
-      <mat-step label='סה"כ טיפים' [completed]="calculateTipsForm.get('totalTips').valid">
+      <mat-step label='סה"כ טיפים' [completed]="isUserLogdIn">
         <mat-form-field class="firstStep">
           <input matInput formControlName="totalTips">
           <mat-hint>הזן את כמות הטיפים שעשית/ם במשמרת</mat-hint>

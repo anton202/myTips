@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { RegisterComponent } from '../auth/register/register.component';
 import { SignInComponent } from '../auth/sign-in/sign-in.component';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-nav',
@@ -11,23 +12,25 @@ import { SignInComponent } from '../auth/sign-in/sign-in.component';
 export class NavComponent implements OnInit {
   private date: Date = new Date();
   public currentDate: string = this.date.getDate() + '.' + (this.date.getMonth() + 1) + '.' + this.date.getFullYear();
-  public userName = localStorage.getItem('userName');
+  public userName: string;
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog, private store: Store<{ auth: { user } }>) { }
 
   ngOnInit() {
+    this.store.select('auth')
+      .subscribe(user => {
+        this.userName = user.user;
+      })
   }
 
   public register(): void {
-    const dialogRef = this.dialog.open(RegisterComponent);
-    dialogRef.afterClosed()
-      .subscribe(userName => this.userName = userName)
+    this.dialog.open(RegisterComponent);
+
   }
 
   public logIn(): void {
-   const dialogRef = this.dialog.open(SignInComponent);
-   dialogRef.afterClosed()
-    .subscribe(userName => this.userName = userName)
+    this.dialog.open(SignInComponent);
+
   }
 
 }

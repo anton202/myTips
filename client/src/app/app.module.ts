@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StoreModule } from '@ngrx/store';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatStepperModule } from '@angular/material/stepper';
@@ -31,6 +32,7 @@ import { Auth } from './auth/auth.service';
 import { AuthInterceptor } from './auth.interceptor';
 import { SettingsComponent } from './settings/settings.component';
 import { NavComponent } from './nav/nav.component';
+import { authReducer } from './auth/store/auth.reducer';
 
 @NgModule({
   declarations: [
@@ -62,7 +64,8 @@ import { NavComponent } from './nav/nav.component';
     MatProgressSpinnerModule,
     MatListModule,
     MatTableModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    StoreModule.forRoot({auth:authReducer})
   ],
   entryComponents: [ErrorMessageComponenet, ConfirmationDialog, RegisterComponent, SignInComponent],
   providers: [Auth, { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },],

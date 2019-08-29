@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Auth } from '../auth.service';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
+import * as authActions from '../store/auth.actions';
 
 @Component({
   selector: 'app-register',
@@ -16,14 +18,13 @@ export class RegisterComponent implements OnInit {
   public sucessfullyLogdIn: boolean = false;
   public progressBarComplition: number = 0;
 
-  constructor(private auth: Auth, private dialogRef: MatDialogRef<RegisterComponent>) { }
+  constructor(private auth: Auth, private dialogRef: MatDialogRef<RegisterComponent>, private store: Store<{auth:{user}}>) { }
 
   ngOnInit() {
   }
 
  public onSignUp(form: NgForm): void{
     form.value.userName = form.value.userName.toLowerCase();
-    console.log(form.value)
     this.auth.register(form.value)
     .subscribe(
       (res) => { 
@@ -56,8 +57,9 @@ export class RegisterComponent implements OnInit {
           setTimeout(()=>{
             this.sucessfullyLogdIn = true
             this.progressBarComplition = 100;
+            this.store.dispatch(new authActions.Login(logInData.userName))
           },1500)
-         setTimeout(()=> this.dialogRef.close(logInData.userName),3500)
+         setTimeout(()=> this.dialogRef.close(),3500)
         },
         error => console.log(error)
       )

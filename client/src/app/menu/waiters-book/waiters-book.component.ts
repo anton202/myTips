@@ -8,6 +8,7 @@ import { ErrorMessageComponenet } from '../../material/errorMessage/errorMessage
 import { WaitrsBookService } from './waiters-book.service';
 import { Waitr } from './waitrObj';
 import { SignInComponent } from '../../auth/sign-in/sign-in.component';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-waiters-book',
@@ -29,15 +30,22 @@ export class WaitersBookComponent implements OnInit {
   public tipPerHour: number
   public isTipsCalculated: boolean = false;
   public recalculatingTips: boolean = false;
+  public isUserLogdIn: string;
 
-  constructor(private waitrsBookService: WaitrsBookService, private http: HttpClient, public dialog: MatDialog) { }
+  constructor(private waitrsBookService: WaitrsBookService, private http: HttpClient, public dialog: MatDialog, private store: Store<{auth:{user}}>) { }
 
   ngOnInit() {
     this.initializeForms();
+    this.store.select('auth')
+      .subscribe(user =>{
+        this.isUserLogdIn = user.user;
+      })
+  }
+
+  private getWaitrsNames(): void {
     this.waitrsBookService.getWorkersNames()
-      .subscribe(workersNames => {
-        this.workersNames = workersNames;
-      },
+      .subscribe(
+        workersNames => this.workersNames = workersNames,
         error => {
           this.dialog.open(ErrorMessageComponenet, {
             width: '300px'
@@ -106,8 +114,8 @@ export class WaitersBookComponent implements OnInit {
       } else {
         this.isTipsCalculated = true;
       }
-        this.calculatingTips = false;
-        this.recalculatingTips = false;
+      this.calculatingTips = false;
+      this.recalculatingTips = false;
     }, 2000)
   }
 
@@ -159,10 +167,12 @@ export class WaitersBookComponent implements OnInit {
       )
   }
 
-  public isUserLogedIn():void{
-    if(!localStorage.getItem('userName')){
-      this.dialog.open(SignInComponent)
+  public isUserLogedIn(): void {
+    if (!this.isUserLogdIn) {
+     this.dialog.open(SignInComponent);
+    }else{
+      this.getWaitrsNames();
     }
-  }
-
+    }
+  
 }

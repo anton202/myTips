@@ -3,6 +3,8 @@ import { NgForm } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 
 import { Auth } from '../auth.service';
+import { Store } from '@ngrx/store';
+import * as authActions from '../store/auth.actions'
 
 @Component({
   selector: 'app-sign-in',
@@ -12,7 +14,7 @@ import { Auth } from '../auth.service';
 export class SignInComponent implements OnInit {
   errorMessage
   public seccessfullyLogedIn: boolean = false;
-  constructor( private auth: Auth, private dialogRef: MatDialogRef<SignInComponent>) { }
+  constructor( private auth: Auth, private dialogRef: MatDialogRef<SignInComponent>, private store: Store<{auth:{user}}>) { }
 
   ngOnInit() {
   }
@@ -24,8 +26,9 @@ export class SignInComponent implements OnInit {
         response => {
           localStorage.setItem('token', response.token);
           localStorage.setItem('userName', form.value.userName);
+          this.store.dispatch(new authActions.Login(form.value.userName))
           this.seccessfullyLogedIn = true;
-          setTimeout(()=> this.dialogRef.close(form.value.userName),1500)
+          setTimeout(()=> this.dialogRef.close(),1500)
         },
         error => this.errorMessage = error.error.message
       )
