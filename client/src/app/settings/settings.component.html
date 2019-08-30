@@ -1,12 +1,20 @@
 <div class="container">
-  <div class="deleteUser">
+<h3>מחק עובד מהמערכת</h3>  
    <form (ngSubmit)="deleteWorker(f.value)" #f="ngForm">
-    מחק עובד:
-    <select name="workers" ngModel >
-      <option [value]="name" *ngFor="let name of workersNames">{{name}}</option>
-    </select>
-    <button type="submit">מחק</button>
+      <mat-form-field>
+          <mat-select name="workers" ngModel>
+            <mat-option *ngFor="let name of workersNames" [value]="name">
+              {{name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>      
+    <button type="submit" mat-raised-button color="warn">מחק</button>
   </form>
-  </div>
-  
+  <p *ngIf="deletedWaitr">{{deletedWaitr}} נמחק מהמערכת</p>
 </div>
+
+
+
+  <!-- <select name="workers" ngModel >
+      <option [value]="name" *ngFor="let name of workersNames">{{name}}</option>
+    </select> -->

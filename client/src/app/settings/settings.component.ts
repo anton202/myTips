@@ -13,31 +13,33 @@ import { ErrorMessageComponenet } from '../material/errorMessage/errorMessage.co
   styleUrls: ['./settings.component.css']
 })
 export class SettingsComponent implements OnInit {
-workersNames;
+ public workersNames: string[];
+ public deletedWaitr: string;
 
-  constructor(private http: HttpClient,public dialog: MatDialog) { }
+  constructor(private http: HttpClient, public dialog: MatDialog) { }
 
   ngOnInit() {
-   this.getNames()
+    this.getNames()
   }
 
-  deleteWorker(workerName){
-    this.http.delete(environment.apiUrl+'/user/deleteUser/'+workerName.workers)
-    .subscribe(response =>{
-      this.getNames()
-    },
-  error => {
-    this.dialog.open(ErrorMessageComponenet,{
-      width: '300px'
-    })
-  })
+  public deleteWorker(workerName): void{
+    this.http.delete(environment.apiUrl + '/user/deleteUser/' + workerName.workers)
+      .subscribe(response => {
+        this.getNames()
+        this.deletedWaitr = workerName.workers;
+      },
+        error => {
+          this.dialog.open(ErrorMessageComponenet, {
+            width: '300px'
+          })
+        })
   }
 
-getNames(){
-  this.http.get(environment.apiUrl+'/user/getNames')
-  .subscribe(names =>{
-    this.workersNames = names;
-  })
-}
+  private getNames(): void{
+    this.http.get<string[]>(environment.apiUrl + '/user/getNames')
+      .subscribe(names => {
+        this.workersNames = names;
+      })
+  }
 
 }

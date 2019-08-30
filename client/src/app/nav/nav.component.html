@@ -1,20 +1,19 @@
 <nav>
-
   <div class="icons">
-    <a routerLink="/userArea" *ngIf="userName">
-      <i class="material-icons">
-        person_outline
-      </i>
-      {{userName}}
-    </a>
+    <i class="material-icons">
+      person_outline
+    </i>
+    <a routerLink="/userArea" *ngIf="userName">{{userName}}</a>
     <p *ngIf="!userName"><span (click)="logIn()">התחבר</span><span (click)="register()">/הירשם</span></p>
   </div>
   <time>{{currentDate}}</time>
   <div class="icons">
-    <i class="material-icons">
-      settings
-    </i>
-    <p>הגדרות</p>
+    
+      <i class="material-icons" (click)="openSettings()">
+        settings
+      </i>
+      <p>הגדרות</p>
+   
   </div>
 
 </nav>
