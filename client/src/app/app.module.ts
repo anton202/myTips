@@ -33,6 +33,7 @@ import { AuthInterceptor } from './auth.interceptor';
 import { SettingsComponent } from './settings/settings.component';
 import { NavComponent } from './nav/nav.component';
 import { authReducer } from './auth/store/auth.reducer';
+import { UserAreaComponent } from './user-area/user-area.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { authReducer } from './auth/store/auth.reducer';
     ErrorMessageComponenet,
     ConfirmationDialog,
     NavComponent,
-    StatisticsComponent
+    StatisticsComponent,
+    UserAreaComponent
   ],
   imports: [
     BrowserModule,

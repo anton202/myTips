@@ -7,9 +7,11 @@ import { MenuComponent } from './menu/menu.component';
 import { WaitersBookComponent } from './menu/waiters-book/waiters-book.component';
 import { SettingsComponent } from './settings/settings.component';
 import { StatisticsComponent } from './menu/statistics/statistics.component';
+import { UserAreaComponent } from './user-area/user-area.component';
 
 
 const appRoutes:Routes = [{path:'',component: MenuComponent},
+{path:'userArea', component: UserAreaComponent},
 {path:'statistics', component: StatisticsComponent},
 {path:'register', component:RegisterComponent},
 {path:'sign-in',component: SignInComponent},
