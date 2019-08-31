@@ -1,15 +1,18 @@
-import { Component } from "@angular/core";
-import {MatDialog, MatDialogRef} from '@angular/material';
+import { Component, Inject} from "@angular/core";
+import { MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+
 
 @Component({
-selector: 'error-message-dialog',
-templateUrl: './errorMessage.component.html'
+    selector: 'error-message-dialog',
+    templateUrl: './errorMessage.component.html',
+    styleUrls: ['./errorMessage.component.css']
 })
-export class ErrorMessageComponenet{
+export class ErrorMessageComponenet {
 
-    constructor(public dialogRef: MatDialogRef<ErrorMessageComponenet>,){}
+    constructor(public dialogRef: MatDialogRef<ErrorMessageComponenet>, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
-    onClick(){
+    onClick() {
         this.dialogRef.close()
     }
 }

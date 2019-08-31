@@ -55,7 +55,38 @@ mat-vertical-stepper {
   direction: rtl;
 }
 
+mat-form-field {
+  width: 50%;
+  text-align: center;
+}
 
+.nextButton button{
+  margin-top: 20px;
+  width: 30%;
+  display: block;
+  margin-left: 10%;
+}
+
+mat-hint{
+  width: 100%;
+  text-align: center;
+}
+
+.nextButton .secondStep{
+  margin-left: 0%;
+  width: 100%;
+}
+
+mat-list{
+  direction: rtl;
+  margin-top: 50px;
+}
+
+.calculateTipsBtn{
+  width: 50%;
+  margin: auto;
+  display: block;
+}
 
 @media screen and (min-width: 320px) and (max-width: 480px) {
   .container {
@@ -73,6 +104,7 @@ mat-vertical-stepper {
   
   .nextButton>button{
     width: 100%;
+    margin-left: 0;
   }
 
   .totalTipsHours {
@@ -89,9 +121,8 @@ mat-vertical-stepper {
   }
 
   mat-list{
-    direction: rtl;
+    margin-top: 0;
     margin-bottom: 25px;
-   
   }
 
   .mat-list-base .mat-list-item{
@@ -129,6 +160,11 @@ mat-vertical-stepper {
     direction: rtl;
     margin-top: 30px;
   }
+
+  .selectWaitr{
+    width: 100%;
+  }
+
 }
 
 @media screen and (max-width: 320px) {

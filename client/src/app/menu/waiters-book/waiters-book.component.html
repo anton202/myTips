@@ -1,7 +1,7 @@
 <div class="container">
   <form [formGroup]="calculateTipsForm">
     <mat-vertical-stepper linear #stepper>
-      <mat-step label='סה"כ טיפים' [completed]="isUserLogdIn">
+      <mat-step label='סה"כ טיפים' [completed]="isUserLogdIn && calculateTipsForm.get('totalTips').valid">
         <mat-form-field class="firstStep">
           <input matInput formControlName="totalTips">
           <mat-hint>הזן את כמות הטיפים שעשית/ם במשמרת</mat-hint>
@@ -12,7 +12,7 @@
       </mat-step>
       <mat-step label="הוסף מלצרים" formGroupName="waitrsShift" [completed]="waitrsStack.length > 0">
        
-        <mat-form-field>
+        <mat-form-field class="selectWaitr">
           <mat-label>בחר שם מלצר</mat-label>
           <mat-select formControlName="waitrsName">
             <mat-option *ngFor="let name of workersNames" [value]="name">
@@ -29,8 +29,8 @@
         </div>
         <p class="addWaitrShiftHours" *ngIf="isShiftTimeNotSet">נא להוסיף שעת תחילת משמרת וסוף משמרת</p>
         <p class="waitrAdded" *ngIf="isWaitrAdded"> נוספ/ה בהצלחה {{waitrsStack[waitrsStack.length - 1].name}}</p>
-        <div class="nextButton">
-          <button mat-raised-button color="primary" matStepperNext type="button">לשלב הבא</button>
+        <div class="nextButton ">
+          <button class="secondStep" mat-raised-button color="primary" matStepperNext type="button">לשלב הבא</button>
         </div>
       </mat-step>
       <mat-step label="חשב טיפים" class="calculateTipsStep">

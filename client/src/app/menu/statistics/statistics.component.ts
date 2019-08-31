@@ -157,7 +157,10 @@ export class StatisticsComponent implements OnInit {
 
   private handleError(): void {
     this.dialog.open(ErrorMessageComponenet, {
-      width: '300px'
+      width: '300px',
+      data: 'עליך להתחבר או להרשם כדי לראות את הטיפים שלך'
     })
   }
+
+  
 }

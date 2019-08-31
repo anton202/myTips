@@ -1,7 +1,17 @@
 button{
-    width: 70%;
+    width: 40%;
     margin: auto;
     height: 50px;
-    margin-top: 50%;
+    margin-top: 20%;
     display: block;
+}
+
+@media screen and (min-width: 320px) and (max-width: 480px){
+    button{
+        width: 70%;
+        margin: auto;
+        height: 50px;
+        margin-top: 50%;
+        display: block;
+    }
 }

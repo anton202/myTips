@@ -46,11 +46,7 @@ export class WaitersBookComponent implements OnInit {
     this.waitrsBookService.getWorkersNames()
       .subscribe(
         workersNames => this.workersNames = workersNames,
-        error => {
-          this.dialog.open(ErrorMessageComponenet, {
-            width: '300px'
-          })
-        }
+        error => this.handelError('משהו השתבש כשניסינו לדלות את השמות של המלצרים מהשרת, נסה שוב.')
       )
   }
 
@@ -161,9 +157,7 @@ export class WaitersBookComponent implements OnInit {
     this.waitrsBookService.sendDataToServer(waitrsStack)
       .subscribe(
         () => { },
-        error => this.dialog.open(ErrorMessageComponenet, {
-          width: '300px'
-        })
+        error => this.handelError('משהו השתבש כשניסינו לשמור את הטיפים על השרת, נסה שוב.')
       )
   }
 
@@ -175,4 +169,10 @@ export class WaitersBookComponent implements OnInit {
     }
     }
   
+    private handelError(errorMessage: string): void{
+      this.dialog.open(ErrorMessageComponenet, {
+        width: '300px',
+        data: errorMessage
+      })
+    }
 }

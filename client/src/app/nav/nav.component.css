@@ -12,7 +12,7 @@ nav{
     display: flex;
     flex-direction: column;
     align-items: center;
-    
+  
 }
 
 .icons>p,a{
@@ -28,13 +28,10 @@ a i.material-icons{
     display: block;
 }
 
-#settings{
-    text-align: center
+.settings{
+   cursor: pointer;
 }
 
-#settings>p{
-    margin:0;
-}
 
 span{
     font-size: 14px;
