@@ -17,7 +17,7 @@ import { Store } from '@ngrx/store';
   providers: [WaitrsBookService]
 })
 export class WaitersBookComponent implements OnInit {
-  private waitrsStack: Array<object> = [];
+  public waitrsStack: Array<object> = [];
   public workersNames: Array<string>;
   public calculateTipsForm: FormGroup;
   public isShiftTimeNotSet: boolean = false;
