@@ -47,19 +47,11 @@ router.get('/thisMonthTips/:id', (req, res) => {
         }))
 })
 
-router.get('/allWaitersTips/:month/:year', auth, (req, res) => {
+router.get('/allWaitersTips/:yearMonth', auth, (req, res) => {
     let totalTips = 0;
     let perHourAvrg = 0;
-    let yearMonth = '';
-    const date = new Date();
-
-    if (req.params.month === 'undefined' || req.params.year === 'undefined' ) {
-        yearMonth = date.getFullYear() + '-' + date.getMonth();
-    } else if (req.params.month && req.params.year) {
-        yearMonth = req.params.year + '-' + req.params.month;
-       
-    }
-
+    const yearMonth = req.params.yearMonth
+    
     MyTips.find({
             yearMonth: yearMonth
         })

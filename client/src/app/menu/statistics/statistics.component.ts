@@ -57,10 +57,10 @@ export class StatisticsComponent implements OnInit {
 
   private getAllWaitersTips() {
     const date =  new Date();
-    const month = this.monthYearForm.value.month | date.getMonth();
-    const year = this.monthYearForm.value.year | date.getFullYear();
-
-    this.http.get<{ tips }>(environment.apiUrl + '/stats/allWaitersTips/' + month + '/' + year)
+    const month = this.monthYearForm.value.month || date.getMonth();
+    const year = this.monthYearForm.value.year || date.getFullYear();
+   
+    this.http.get<{ tips }>(environment.apiUrl + '/stats/allWaitersTips/' + year + '-' + month)
       .subscribe(tips => {
         this.isLoadingTips = false;
         this.dataSource = tips.tips;
@@ -90,7 +90,7 @@ export class StatisticsComponent implements OnInit {
         this.isLoadingTips = false;
         this.errorLoadingTips = true;
       })
-    this.getTotalPerHourAvrg(month, year);
+    this.getTotalPerHourAvrg();
   }
 
   private getUserStats(): void {
@@ -104,8 +104,12 @@ export class StatisticsComponent implements OnInit {
         })
   }
 
-  private getTotalPerHourAvrg(month?: any, year?: any): void {
-    this.http.get<{ totalTips, perHourAvrg }>(environment.apiUrl + '/stats/allWaitersTips/' + month + '/' + year)
+  private getTotalPerHourAvrg(): void {
+    const date =  new Date();
+    const month = this.monthYearForm.value.month || date.getMonth();
+    const year = this.monthYearForm.value.year || date.getFullYear();
+
+    this.http.get<{ totalTips, perHourAvrg }>(environment.apiUrl + '/stats/allWaitersTips/' + year + '-' + month)
       .subscribe(tips => {
         this.perHourAvrg = tips.perHourAvrg;
       },
@@ -125,7 +129,6 @@ export class StatisticsComponent implements OnInit {
         this.errorLoadingTips = true;
       })
   }
-
 
   public deleteTip(data: { _id }): void {
     const dialogRef = this.dialog.open(ConfirmationDialog);
