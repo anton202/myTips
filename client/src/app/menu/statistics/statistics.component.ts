@@ -79,18 +79,19 @@ export class StatisticsComponent implements OnInit {
     if (this.isAllTips) {
      this.getAllWaitersTips();
     }
-
+    
+    this.getTotalPerHourAvrg();
     this.http.get<{ tips, perHourAvrg, totalTips }>(environment.apiUrl + '/stats/myLog/' + year + '-' + month)
       .subscribe(tips => {
         this.isLoadingTips = false;
         this.myTotalIncome = tips.totalTips;
         this.myTotalPerHourAvrg = tips.perHourAvrg;
+        if(this.isAllTips) return;
         this.dataSource = tips.tips;
       }, error => {
         this.isLoadingTips = false;
         this.errorLoadingTips = true;
       })
-    this.getTotalPerHourAvrg();
   }
 
   private getUserStats(): void {
