@@ -6,7 +6,9 @@
     <a routerLink="/userArea" *ngIf="userName">{{userName}}</a>
     <p *ngIf="!userName"><span (click)="logIn()">התחבר</span><span (click)="register()">/הירשם</span></p>
   </div>
-  <time>{{currentDate}}</time>
+  <a routerLink="/menu">
+    <time>{{currentDate}}</time>
+  </a>
   <div class="icons">
       <i  class="material-icons settings" (click)="openSettings()">
         settings
