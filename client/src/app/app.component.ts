@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-
 import { environment } from '../environments/environment'
 
 @Component({
@@ -11,30 +9,7 @@ import { environment } from '../environments/environment'
 })
 export class AppComponent implements OnInit {
 
-  constructor(private router: Router, private http: HttpClient) { }
+  constructor( private http: HttpClient) { }
 
-  ngOnInit() {
-    const token = localStorage.getItem('token');
-
-    if (!token) {
-      localStorage.removeItem('userName')
-      return;
-    }
-    this.http.get(environment.apiUrl + '/user/isTokenValid')
-      .subscribe(
-        response => {
-          if(window.screen.width >= 1025){
-            this.router.navigate(['/desktop'])
-          }else{
-            this.router.navigate(['/menu'])
-          }
-        },
-        error => {
-          this.router.navigate(['/menu'])
-          localStorage.removeItem('token');
-          localStorage.removeItem('userName');
-        }
-      )
-
-  }
+  ngOnInit() {}
 }

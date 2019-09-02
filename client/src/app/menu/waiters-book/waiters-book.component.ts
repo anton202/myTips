@@ -1,16 +1,14 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material';
-
-import { ErrorMessageComponenet } from '../../material/errorMessage/errorMessage.component';
-import { environment } from '../../../environments/environment';
-import { WaitrsBookService } from './waiters-book.service';
 import { HttpClient } from '@angular/common/http';
-import { ConfirmationDialog } from '../../material/confirmationDailog/confirmationDialog.component';
-import { InstructionMessaageComponent } from '../../material/tipCalculatorInstructionsMessage/instruction.component';
-import { NotEnoughTipError } from '../../material/notEnoughTipError/notEnoughTipError.component';
-import { IncorrectTimeInputComponent } from '../../material/incorrectTimeInputsDialog/incorrectTimeInput.component';
 
+import { ConfirmationDialog } from '../../material/confirmationDailog/confirmationDialog.component';
+import { ErrorMessageComponenet } from '../../material/errorMessage/errorMessage.component';
+import { WaitrsBookService } from './waiters-book.service';
+import { Waitr } from './waitrObj';
+import { SignInComponent } from '../../auth/sign-in/sign-in.component';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-waiters-book',
@@ -18,158 +16,163 @@ import { IncorrectTimeInputComponent } from '../../material/incorrectTimeInputsD
   styleUrls: ['./waiters-book.component.css'],
   providers: [WaitrsBookService]
 })
-export class WaitersBookComponent implements OnInit, OnDestroy {
-  waitrsStack = [];
-  totalTips;
-  totalTax;
-  totalTime;
-  tipPerHour;
-  moneyToGoverment;
-  taxPerHour;
-  barManTip = 0;
-  workersNames;
-  todaysDate: string = new Date().toLocaleDateString();
-  loadGif = false;
-  isDataSendedToServer = false;
-  @ViewChild('f') waitrDataForm: NgForm
+export class WaitersBookComponent implements OnInit {
+  public waitrsStack: Array<object> = [];
+  public workersNames: Array<string>;
+  public calculateTipsForm: FormGroup;
+  public isShiftTimeNotSet: boolean = false;
+  public isWaitrAdded: boolean = false;
+  public calculatingTips: boolean = false;
+  public dataSource: Array<object>;
+  public displayedColumns: Array<string> = ['סה"כ מזומן', 'הפרשה למעסיק', 'עד שעה', 'משעה', 'שם']
+  public barManTip: number;
+  public moneyToEmployer: number;
+  public tipPerHour: number
+  public isTipsCalculated: boolean = false;
+  public recalculatingTips: boolean = false;
+  public isUserLogdIn: string;
 
-  constructor(private waitrsBookService: WaitrsBookService, private http: HttpClient, public dialog: MatDialog) { }
+  constructor(private waitrsBookService: WaitrsBookService, private http: HttpClient, public dialog: MatDialog, private store: Store<{auth:{user}}>) { }
 
   ngOnInit() {
+    this.initializeForms();
+    this.store.select('auth')
+      .subscribe(user =>{
+        this.isUserLogdIn = user.user;
+      })
+  }
+
+  private getWaitrsNames(): void {
     this.waitrsBookService.getWorkersNames()
-      .subscribe(workersNames => {
-        this.workersNames = workersNames;
-        this.dialog.open(InstructionMessaageComponent,{
-          width:'340px'
-        })
-      },
-        error => {
-          this.dialog.open(ErrorMessageComponenet,{
-            width: '300px'
-          })
-        }
-      )      
+      .subscribe(
+        workersNames => this.workersNames = workersNames,
+        error => this.handelError('משהו השתבש כשניסינו לדלות את השמות של המלצרים מהשרת, נסה שוב.')
+      )
   }
 
-  addWaitr(waitrData) {
-    const startTime = waitrData.startTime.split(':');
-    const endTime = waitrData.endTime.split(':');
-
-    const start = new Date();
-    const end = new Date();
-
-    start.setHours(parseInt(startTime[0], 10), parseInt(startTime[1], 10));
-    end.setHours(parseInt(endTime[0], 10), parseInt(endTime[1], 10));
-
-    if(end.getTime() - start.getTime() < 0){
-      this.dialog.open(IncorrectTimeInputComponent,{
-        width:'340px'
+  private initializeForms(): void {
+    this.calculateTipsForm = new FormGroup({
+      totalTips: new FormControl(null, Validators.required),
+      waitrsShift: new FormGroup({
+        waitrsName: new FormControl(null, Validators.required),
+        shiftStartTime: new FormControl(null, Validators.required),
+        shiftEndTime: new FormControl(null, Validators.required)
       })
-    }else{
-      waitrData.totalTime = ((end.getTime() - start.getTime()) / (1000 * 60 * 60)).toFixed(2);
-      this.waitrsStack.push(waitrData)
-  
-      this.waitrDataForm.reset()
-    }
-  }
-
-  openDialog(index){
-    const dailogRef = this.dialog.open(ConfirmationDialog,{
-      width: '350px'
-    })
-
-    dailogRef.afterClosed().subscribe(result =>{
-      if(result){
-      this.deleteWaitr(index)
-    }
     })
   }
 
-  deleteWaitr(index) {
-    if (this.isDataSendedToServer) {
-      this.loadGif = true;
-      this.http.delete(environment.apiUrl + '/waitrsBook/deleteTip/' + JSON.stringify(this.waitrsStack[index]))
-        .subscribe(res => {
-          this.waitrsStack.splice(index, 1);
-          this.loadGif = false;
-        },
-          error =>{
-            this.dialog.open(ErrorMessageComponenet,{
-              width: '300px'
-            })
-          })
-      return
+  public addWaitr(): void {
+    const waitrsShistFG = this.calculateTipsForm.get('waitrsShift');
+    const waitrName = waitrsShistFG.value.waitrsName;
+    const shiftStartTime = waitrsShistFG.value.shiftStartTime;
+    const shiftEndTime = waitrsShistFG.value.shiftEndTime;
+
+    if (this.calculateTipsForm.get('waitrsShift').valid) {
+      this.waitrsStack.push(new Waitr(waitrName, shiftStartTime, shiftEndTime));
+      this.isShiftTimeNotSet = false;
+      this.isWaitrAdded = true;
+      waitrsShistFG.get('waitrsName').reset();
     }
-    this.waitrsStack.splice(index, 1);
+
+    if (!waitrsShistFG.get('shiftStartTime').valid || !waitrsShistFG.get('shiftEndTime').valid) {
+      this.isShiftTimeNotSet = true;
+      this.isWaitrAdded = false;
+    }
+
   }
 
-  setYearMonth() {
-    const date = new Date();
-    const yearMonth = date.getFullYear() + '-' + date.getMonth();
-    return yearMonth.toString();
-  }
-
-  calculateTips(totalTip) {
-    this.loadGif = true;
-    let i = 0
-    let totalTime = 0;
-    let tipPerHour = 0;
-    let barManTip = 0;
-    let totalTax = 0;
-
-    function calculateTax(tax, i) {
-      this.waitrsStack[i].totalTip = Math.floor(this.waitrsStack[i].totalTime * tipPerHour);
-      this.waitrsStack[i].moneyToGoverment = Math.round(this.waitrsStack[i].totalTime * tax);
-      this.waitrsStack[i].totalTip -= this.waitrsStack[i].moneyToGoverment;
-      this.waitrsStack[i].perHour = Number((this.waitrsStack[i].totalTip / this.waitrsStack[i].totalTime).toFixed(2));
-    }
-
-    //calculate total time worked by waitrs
-    for (i; i < this.waitrsStack.length; i++) {
-      totalTime += Number(this.waitrsStack[i].totalTime);
-    }
-
-    barManTip = totalTip * 0.1; // 10% to barman
-    totalTip -= barManTip;
-    tipPerHour = Number((totalTip / totalTime).toFixed(2));
-
-    //add properties to each waitr inside waitrsStack
-    for (let i = 0; i < this.waitrsStack.length; i++) {
-      if (this.waitrsStack.length > 1 && Number(totalTip.toFixed()) - Number((this.waitrsStack[i].totalTime * tipPerHour).toFixed()) < 0) {
-        this.dialog.open(NotEnoughTipError,{
-          width: '300px'
-        })
+  public confirmDeleteWaitr(waitrData) {
+    const dialogRef = this.dialog.open(ConfirmationDialog);
+    dialogRef.afterClosed().subscribe(isActionConfirmed => {
+      if (isActionConfirmed) {
+        this.deleteWaitr(waitrData)
       }
-      calculateTax.call(this, 6, i);
+    })
+  }
 
-      this.waitrsStack[i].yearMonth = this.setYearMonth();
-      this.waitrsStack[i].waitrsBook = true;
+  private deleteWaitr(waitrToDelete): void {
+    this.waitrsStack.forEach((waitr: { name }, index) => {
+      if (waitr.name === waitrToDelete.name) {
+        this.waitrsStack.splice(index, 1);
+      }
+    })
 
-      totalTax += this.waitrsStack[i].moneyToGoverment;
-      totalTip -= this.waitrsStack[i].totalTip + this.waitrsStack[i].moneyToGoverment;
+    //recalculate tips && display spinner and "recalculating tips" text while recalculating.
+    this.calculatingTips = true;
+    this.isTipsCalculated = false;
+    this.recalculatingTips = true
+    setTimeout(() => {
+      this.calculateTips();
+      // rerender tips table
+      this.dataSource = [...this.waitrsStack];
+      if (this.waitrsStack.length <= 0) {
+        this.isTipsCalculated = false;
+      } else {
+        this.isTipsCalculated = true;
+      }
+      this.calculatingTips = false;
+      this.recalculatingTips = false;
+    }, 2000)
+  }
+
+  public calculateTips(): void {
+    const totalTip = this.calculateTipsForm.value.totalTips;
+    const waitrsStackClone = this.waitrsStack.slice();
+    let totalTipMutated = totalTip;
+
+    // calculating each waitr total time that he worked,
+    // and then calculating the total time. 
+    this.waitrsBookService.setwaitrsTotalTime(waitrsStackClone);
+    const totalTime = this.waitrsBookService.calculateTotalTime(waitrsStackClone);
+
+    // subtructing from total tip - barMan tip and moneyToEmployer.
+    totalTipMutated -= this.waitrsBookService.barManTip(+totalTip, 10)
+    totalTipMutated -= this.waitrsBookService.moneyToEmployer(totalTime, 6)
+
+    //setting barManTip and moneyToEmployer to show to the user.
+    this.barManTip = this.waitrsBookService.barManTip(+totalTip, 10);
+    this.moneyToEmployer = Math.floor(this.waitrsBookService.moneyToEmployer(totalTime, 6));
+
+    //set all waitrs per hour tip.
+    this.waitrsBookService.setWaitrsPerHourTip(waitrsStackClone, totalTime, totalTipMutated);
+    this.tipPerHour = this.waitrsBookService.tipPerHour(totalTipMutated, totalTime);
+
+    //set all waitrs total tip.
+    this.waitrsBookService.setWaitrsTotalTip(waitrsStackClone);
+
+    //set all waitrs money to employer.
+    this.waitrsBookService.setWaitrsMoneyToEmployer(waitrsStackClone)
+
+    //rendering the result to the table.
+    this.dataSource = waitrsStackClone;
+
+    // show calculation to user.
+    this.isTipsCalculated = true;
+
+    //send calculated tips to the server.
+    this.saveCalculatedTips(waitrsStackClone);
+  }
+
+  private saveCalculatedTips(waitrsStack): void {
+    this.waitrsBookService.sendDataToServer(waitrsStack)
+      .subscribe(
+        () => { },
+        error => this.handelError('משהו השתבש כשניסינו לשמור את הטיפים על השרת, נסה שוב.')
+      )
+  }
+
+  public isUserLogedIn(): void {
+    if (!this.isUserLogdIn) {
+     this.dialog.open(SignInComponent);
+    }else{
+      this.getWaitrsNames();
     }
-
-    //initializing properties to show in html file
-    this.totalTips = totalTip;
-    this.totalTime = totalTime;
-    this.tipPerHour = tipPerHour;
-    this.barManTip = barManTip;
-    this.totalTax = totalTax
-   
-    // send all tips to server
-    this.http.post(environment.apiUrl + '/waitrsBook/saveWaitrsTips', this.waitrsStack)
-      .subscribe(() => {
-        this.loadGif = false;
-        this.isDataSendedToServer = true;
-      }, error => {
-        this.dialog.open(ErrorMessageComponenet,{
-          width: '300px'
-        })
+    }
+  
+    private handelError(errorMessage: string): void{
+      this.dialog.open(ErrorMessageComponenet, {
+        width: '300px',
+        data: errorMessage
       })
-  }
-
-  ngOnDestroy() {
-    
-  }
-
+    }
 }

@@ -1,18 +1,34 @@
-.myTips{
-    position: sticky;
-    top: 10px;
+main{
+    height: 100%
 }
 
-/* @media screen and (min-width:1025px){
-    .myTips{
-        display: none;
+.buttons{
+    margin-top: 15%;
+  }
+  button {
+    display: block;
+    margin: auto;
+    margin-bottom: 60px;
+    height: 100px;
+    width: 350px;
+    font-size: 40px;
+  }
+  
+  
+  
+  @media screen and (min-width: 320px) and (max-width: 480px) {
+  .buttons{
+      margin-top: 40%;
+  }
+    button {
+      display: block;
+      margin: auto;
+      margin-bottom: 60px;
+      height: 70px;
+      width: 250px;
+      font-size: 30px;
     }
-}
-
-
-@media screen and (min-width: 320px) and (max-width: 480px){
-.desktop{
-    display: none;
-}
-
-} */
+  
+  
+  }
+  

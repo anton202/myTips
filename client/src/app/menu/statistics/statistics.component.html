@@ -1,38 +1,105 @@
-<div class="container" dir="rtl">
+<div class="container">
   <div class="personalTips">
-    <span id="myTotal">סה"כ טיפים שלי החודש: {{myTotalIncome}} ש"ח</span>
-    <span> ממוצע שלי לשעה החודש: {{myTotalPerHourAvrg}} ש"ח</span>
-    <span>ממוצע כללי לשעה החודש: {{perHourAvrg}} ש"ח</span>
+    <span>סה"כ טיפים שלי החודש</span>
+    <span>{{myTotalIncome | number : '2.'}}</span>
+    <span style="margin-top: 10px"> ממוצע לשעה החודש</span>
+    <span>{{myTotalPerHourAvrg}}</span>
+    <span style="margin-top: 10px">ממוצע כללי לשעה החודש</span>
+    <span>{{perHourAvrg}}</span>
   </div>
-  
-  <div class="showTips">
-    <span style="text-decoration:underline" >הצג טיפים:</span>
-    <form (ngSubmit)="onSubmit(f.value)" #f="ngForm"> 
-      <input type="radio" id="myTips" value="myTips" name="whosTips" ngModel>
-      <label for="myTips" style="display:inline-block">טיפים שלי</label>
-      <input type="radio" id="allTips" value="allTips" name="whosTips" ngModel> 
-      <label for="allTips" style="display:inline-block">טיפים של כולם</label>
-      <label for="month">בחר חודש:</label>
-            <select dir="rtl" name="month" id="month" ngModel>
-              <option value="0">ינואר</option>
-              <option value="1">פברואר</option>
-              <option value="2">מרץ</option>
-              <option value="3">אפריל</option>
-              <option value="4">מאי</option>
-              <option value="5">יוני</option>
-              <option value="6">יולי</option>
-              <option value="7">אוגוסט</option>
-              <option value="8">ספטמבר</option>
-              <option value="9">אוקטובר</option>
-              <option value="10">נובמבר</option>
-              <option value="11">דצמבר</option>
-            </select>
-        
-        <div class="form-group">
-            <label for="year">הזן שנה:</label>
-            <input type="number"  name="year"  placeholder="2019" ngModel>
-        </div>
-        <button type="submit">הצג</button>
+
+  <div class="chooseDate">
+    <form (ngSubmit)="getUserTipsByYearMonth()" [formGroup]="monthYearForm">
+      <mat-form-field dir="rtl">
+        <mat-label>חודש</mat-label>
+        <mat-select name="month" formControlName="month">
+          <mat-option *ngFor="let month of months" [value]="month.value">
+            {{month.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field dir="rtl">
+        <mat-label>שנה</mat-label>
+        <mat-select name="year" formControlName="year">
+          <mat-option *ngFor="let year of years" [value]="year">
+            {{year}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit" [disabled]="!monthYearForm.valid">הצג</button>
     </form>
   </div>
+
+  <div class="shadeContainer">
+  <div class="table-container">
+    <div class="loading-shade" *ngIf="isLoadingTips">
+      <mat-spinner ></mat-spinner>
+      <div class="example-rate-limit-reached" *ngIf="errorLoadingTips">
+        משהו השתבש בעט טעינת הטיפים, נסה שוב.
+      </div>
+    </div>
+
+    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <ng-container matColumnDef="תאריך">
+        <mat-header-cell *matHeaderCellDef> תאריך </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.date}} </mat-cell>
+      </ng-container>
+
+
+      <ng-container matColumnDef="שם">
+        <mat-header-cell *matHeaderCellDef [ngClass]="{expandedTable: !isAllTips}"> שם </mat-header-cell>
+        <mat-cell *matCellDef="let element" [ngClass]="{expandedTable: !isAllTips}"> {{element.name}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="משעה">
+        <mat-header-cell *matHeaderCellDef [ngClass]="{expandedTable: !isTableExpanded}"> משעה</mat-header-cell>
+        <mat-cell *matCellDef="let element" [ngClass]="{expandedTable: !isTableExpanded}"> {{element.shiftStartTime}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="עד שעה">
+        <mat-header-cell *matHeaderCellDef [ngClass]="{expandedTable: !isTableExpanded }"> עד שעה</mat-header-cell>
+        <mat-cell *matCellDef="let element" [ngClass]="{expandedTable: !isTableExpanded}"> {{element.shiftEndTime}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef='סה"כ שעות'>
+        <mat-header-cell *matHeaderCellDef [ngClass]="{expandedTable: !isTableExpanded}"> סה"כ שעות</mat-header-cell>
+        <mat-cell *matCellDef="let element" [ngClass]="{expandedTable: !isTableExpanded}"> {{element.totalTime}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="הפרשה למעסיק">
+        <mat-header-cell *matHeaderCellDef [ngClass]="{expandedTable: !isTableExpanded}"> הפרשה למעסיק</mat-header-cell>
+        <mat-cell *matCellDef="let element" [ngClass]="{expandedTable: !isTableExpanded}"> {{element.moneyToEmployer}}
+        </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef='סה"כ לשעה'>
+        <mat-header-cell *matHeaderCellDef> סהכ לשעה </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.tipPerHour}} </mat-cell>
+      </ng-container>
+
+
+      <ng-container matColumnDef='סה"כ טיפים'>
+        <mat-header-cell *matHeaderCellDef> סה"כ טיפים </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.totalTip}} </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="deleteTip(row)"></mat-row>
+    </mat-table>
+  </div>
+</div>
+
+  <div class="tableButtons">
+    <button mat-raised-button color="primary" (click)="expandTable()">
+      {{isTableExpanded?'הצג טבלה מצומצמת':'הצג טבלה מורחבת'}} </button>
+    <button mat-raised-button color="primary"
+      (click)="showUserTipsOrAllWaitersTips()">{{isAllTips?'הצג טיפים שלי':'הצג טיפים של כולם'}}</button>
+  </div>
+
 </div>

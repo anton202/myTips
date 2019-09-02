@@ -1,76 +1,87 @@
 <div class="container">
-  <p class="date">{{todaysDate | date:'d/M/y'}}</p>
-  
-  <div class="waitrForm">
-    <label for="totalTip">סה&#34;כ מזומן</label>
-    <input style="width:98%" type="number" name="totalTip" id="totalTip" #totalTip ngModel>
+  <form [formGroup]="calculateTipsForm">
+    <mat-vertical-stepper linear #stepper>
+      <mat-step label='סה"כ טיפים' [completed]="isUserLogdIn && calculateTipsForm.get('totalTips').valid">
+        <mat-form-field class="firstStep">
+          <input matInput formControlName="totalTips">
+          <mat-hint>הזן את כמות הטיפים שעשית/ם במשמרת</mat-hint>
+        </mat-form-field>
+        <div class="nextButton">
+          <button (click)="isUserLogedIn()" style="margin-top: 20px" mat-raised-button color="primary" matStepperNext type="button">לשלב הבא</button>
+        </div>
+      </mat-step>
+      <mat-step label="הוסף מלצרים" formGroupName="waitrsShift" [completed]="waitrsStack.length > 0">
+       
+        <mat-form-field class="selectWaitr">
+          <mat-label>בחר שם מלצר</mat-label>
+          <mat-select formControlName="waitrsName">
+            <mat-option *ngFor="let name of workersNames" [value]="name">
+              {{name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-label >שעת התחלת משמרת</mat-label>
+        <ngx-timepicker-field [format]="24" formControlName="shiftStartTime"></ngx-timepicker-field>
+        <mat-label id="endTime">שעת סיום משמרת</mat-label>
+        <ngx-timepicker-field [format]="24" formControlName="shiftEndTime"></ngx-timepicker-field>
+        <div class="addWaitrButton">
+            <button mat-raised-button (click)="addWaitr()" >הוסף מלצר</button>
+        </div>
+        <p class="addWaitrShiftHours" *ngIf="isShiftTimeNotSet">נא להוסיף שעת תחילת משמרת וסוף משמרת</p>
+        <p class="waitrAdded" *ngIf="isWaitrAdded"> נוספ/ה בהצלחה {{waitrsStack[waitrsStack.length - 1].name}}</p>
+        <div class="nextButton ">
+          <button class="secondStep" mat-raised-button color="primary" matStepperNext type="button">לשלב הבא</button>
+        </div>
+      </mat-step>
+      <mat-step label="חשב טיפים" class="calculateTipsStep">
+        <button class="calculateTipsBtn" mat-raised-button color="primary" (click)="calculateTips()">חשב טיפים</button>
+        <mat-spinner *ngIf="calculatingTips"></mat-spinner>
+        <span class="recalculateTips" *ngIf="recalculatingTips">מחשב טיפים מחדש.......</span>
+        <div class="calculation" *ngIf="isTipsCalculated">
+        <mat-list>
+          <mat-list-item style="font-weight: bold">סה"כ טיפ לשעה : {{tipPerHour}} ש"ח</mat-list-item>
+          <mat-list-item>סה"כ הפרשה למעסיק: {{moneyToEmployer}} ש"ח</mat-list-item>
+          <mat-list-item>הפרשה לברמן: {{barManTip}} ש"ח</mat-list-item>
+         </mat-list>
 
-    <form (ngSubmit)="addWaitr(f.value)" #f="ngForm">
-      <label for="waitrNamae">שם מלצר</label>
-      <select id="waitrName" style="display:block;width:100%" name="name" ngModel required>
-        <option dir="rtl" [value]="name" *ngFor="let name of workersNames">{{name}}</option>
-      </select>
-      <div class="lables">
-        <label for="startTime">משעה</label>
-        <label id="endTimeLable" for="endTime">עד שעה</label>
+         <div class="table-container">
+         <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+          <ng-container matColumnDef="שם">
+            <mat-header-cell *matHeaderCellDef> שם </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+          </ng-container>
+        
+          <ng-container matColumnDef="משעה">
+            <mat-header-cell *matHeaderCellDef> משעה</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.shiftStartTime}} </mat-cell>
+          </ng-container>
+        
+          
+          <ng-container matColumnDef="עד שעה">
+            <mat-header-cell *matHeaderCellDef> עד שעה</mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.shiftEndTime}} </mat-cell>
+          </ng-container>
+        
+          
+          <ng-container matColumnDef="הפרשה למעסיק">
+            <mat-header-cell *matHeaderCellDef> הפרשה למעסיק </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.moneyToEmployer}} </mat-cell>
+          </ng-container>
+        
+           
+          <ng-container matColumnDef='סה"כ מזומן'>
+            <mat-header-cell *matHeaderCellDef> סה"כ מזומן </mat-header-cell>
+            <mat-cell *matCellDef="let element">{{element.totalTip}}  </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="confirmDeleteWaitr(row)"></mat-row>
+        </mat-table>
       </div>
+      </div>
+      </mat-step>
+    </mat-vertical-stepper>
+  </form>
 
-      <input id="endTime" type="time" name="endTime" ngModel required>
-      <input id="startTime" type="time" name="startTime" ngModel required>
-
-      <button type="submit" [disabled]="!f.valid">הוסף מלצר</button>
-      <button type="button" [disabled]="loadGif" (click)="calculateTips(totalTip.value)">חשב טיפים</button>
-    </form>
-  </div>
-  
-  <div class="loader" *ngIf="loadGif">
-    <img class="loader" src="../../../assets/loading2.gif" alt="loading.gif">
-  </div>
-
-  <div *ngIf="waitrsStack.length > 0 && !loadGif" class="calculatedTips">
-   <div class="tips">
-    <table class="tipsTable" dir="rtl">
-      <thead>
-        <tr>
-          <th>שם</th>
-          <th>התחלה</th>
-          <th>סיום</th>
-          <th>סה&#34;כ שעות</th>
-          <th>הפרשה למעסיק</th>
-          <th>טיפים אחרי הפרשה למעסיק</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let waitr of waitrsStack; let i = index" (click)="openDialog(i)">
-          <td>{{waitr.name}} </td>
-        <td>{{waitr.startTime}}</td>
-        <td>{{waitr.endTime}}</td>
-        <td>{{waitr.totalTime}}</td>
-        <td>{{waitr.moneyToGoverment}}</td>
-        <td>{{waitr.totalTip}}</td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-    <div class="sum" >
-        <table dir="rtl">
-          <thead>
-            <tr>
-              <th>סה&#34;	כ שעות</th>
-              <th>סה&#34;כ הפרשה למעסיק</th>
-              <th>סה&#34;כ לשעה לפני הפרשה למעסיק</th>
-              <th>הפרשה 10% לברמן מהסכום {{totalTip.value}}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{{totalTime}}</td>
-              <td>{{totalTax}}</td>
-              <td>{{tipPerHour}}</td>
-              <td>{{barManTip > 0?barManTip.toFixed(2):""}}</td>
-            </tr>
-          </tbody>
-        </table>
-    </div>
-    </div>
-  </div>
+</div>

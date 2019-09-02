@@ -17,7 +17,7 @@ const corsOptions = {
 mongoose.connect('mongodb://localhost/myTips', { useNewUrlParser: true });
 
 app.use(bodyParser.json());
-app.use(cors(corsOptions))
+app.use(cors())
 app.use(express.static(path.join('../client/dist')))
 
 

@@ -1,9 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 body{
-    font-family: 'Gaegu', cursive;
-    color: #016270;
-}
+    direction: rtl;
+    height: 100vh;
+    margin: 0;
+    background-color: #e0e0e0;
+    overflow:hidden;
+    font-family: 'Rubik', sans-serif;
+  }
 
 a{
   text-decoration: none;

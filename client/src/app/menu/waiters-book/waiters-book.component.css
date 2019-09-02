@@ -1,167 +1,202 @@
 .container {
   width: 70%;
   margin: auto;
-  text-align: right;
+  
 }
 
-img{
-  width: 100%;
-  height: 50px;
-}
-
-h2{
-  display: inline-block;
-}
-
-#menu{
-margin-left: 600px;
-}
-
-input,select {
-  outline: none;
-  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
-  border: solid 2px #016270;
-  font-family: 'Gaegu', cursive;
-  color:#016270;
-  padding-left: 5px;
-  height: 40px;
-  font-size: 18px;
-  text-align: center;
-  margin-bottom: 25px;
-  background-color: transparent;
-  width: 150px;
-  display: inline-block;
-  width: 45%
-}
-
-form{
-  width: 60%;
-  margin: auto;
-}
-
-button{
-  outline: none;
-  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
-  border: solid 2px #016270;
-  font-family: 'Gaegu', cursive;
-  color:#016270;
-  padding-left: 5px;
-  height: 40px;
-  font-size: 18px;
-  text-align: center;
-  margin-bottom: 25px;
-  background-color: transparent;
+mat-label{
+  font-size: 14px;
   display: block;
+}
+
+#endTime{
+  margin-top: 20px;
+}
+
+.addWaitrButton{
+  margin-top: 20px;
+}
+
+.addWaitrButton>button{
   width: 100%;
 }
 
-.totalTipsHours{
+.totalTipsHours {
   display: none;
 }
 
-#endTimeLabel{
+#endTimeLabel {
   margin-left: 200px;
 }
 
-#totalTip{
+#totalTip {
   display: inline-block;
 }
 
-@media screen and (min-width: 320px) and (max-width: 480px){
-.container{
+mat-vertical-stepper {
+  direction: ltr;
+  background-color: #e0e0e0;
+}
+
+.addWaitrShiftHours{
+  margin-top:10px;
+  font-size: 14px;
+  color: red;
+}
+
+.waitrAdded{
+  margin-top:10px;
+  font-size: 14px;
+  color: green;
+  text-align: center;
+}
+
+.calculateTipsStep{
+  direction: rtl;
+}
+
+mat-form-field {
+  width: 50%;
+  text-align: center;
+}
+
+.nextButton button{
+  margin-top: 20px;
+  width: 30%;
+  display: block;
+  margin-left: 10%;
+}
+
+mat-hint{
+  width: 100%;
+  text-align: center;
+}
+
+.nextButton .secondStep{
+  margin-left: 0%;
   width: 100%;
 }
 
-form {
-  width:100%;
-  margin: 0;
-}
-    input,select {
-        outline: none;
-        border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
-        border: solid 2px #016270;
-        font-family: 'Gaegu', cursive;
-        color:#016270;
-        padding-left: 5px;
-        height: 40px;
-        font-size: 18px;
-        text-align: center;
-        margin-bottom: 25px;
-        background-color: transparent;
-        width: 150px;
-        display: inline-block;
-      }
-
-      button{
-        outline: none;
-        border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
-        border: solid 2px #016270;
-        font-family: 'Gaegu', cursive;
-        color:#016270;
-        padding-left: 5px;
-        height: 40px;
-        font-size: 18px;
-        text-align: center;
-        margin-bottom: 25px;
-        background-color: transparent;
-        display: block;
-        width: 100%;
-      }
-
-      .totalTipsHours{
-        display: none;
-      }
-
-      .notEnoughTips{
-        border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
-        border: solid 2px red;
-        color: red;
-      }
-
-      h2 {
-        display: inline-block;
-      }
-
-      .date {
-        margin-top: 0;
-      }
-
-      #menu{
-        margin-left: 100px;
-      }
-
-    img{
-      height: 20px;
-      width: 100%;
-  }
-
-  #endTimeLable{
-    margin-right: 120px;
-  }
-
-  #totalTip{
-    display: block;
-  }
-
-table{
-  text-align: center;
-  /*position: absolute;
-  right: 0;*/
-  border-collapse: collapse;
+mat-list{
+  direction: rtl;
+  margin-top: 50px;
 }
 
-.tipsTable > td,th{
-  padding-left: 10px;
-}
-
-.sum{
-  margin-top: 25px;
-}
-
-.loader{
-  height: 100px;
-  width: 100px;
-  display: block;
+.calculateTipsBtn{
+  width: 50%;
   margin: auto;
+  display: block;
 }
+
+@media screen and (min-width: 320px) and (max-width: 480px) {
+  .container {
+    width: 100%;
+  }
+
+  .firstStep{
+    width: 100%;
+    text-align: center;
+  }
+ 
+  .nextButton{
+    margin-top: 20px;
+  }
+  
+  .nextButton>button{
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .totalTipsHours {
+    display: none;
+  }
+
+  .calculateTipsBtn{
+    width: 100%;
+  }
+
+  mat-spinner{
+    margin: auto;
+    margin-top: 50px;
+  }
+
+  mat-list{
+    margin-top: 0;
+    margin-bottom: 25px;
+  }
+
+  .mat-list-base .mat-list-item{
+    font-size: 14px;
+    height: 30px;
+  }
+
+  mat-header-cell{
+    padding-left: 18px;
+    text-align: center;
+  }
+  
+ mat-table{
+   text-align: center !important;
+   width: 100%;
+ }
+
+  mat-cell:last-of-type{
+    padding-right: 0;
+  }
+
+  mat-header-cell:last-of-type{
+    padding-right: 0;
+  }
+
+
+  .table-container{
+    height: 30vh;
+    overflow: auto;
+  }
+  
+  .recalculateTips{
+    text-align: center;
+    display: block;
+    direction: rtl;
+    margin-top: 30px;
+  }
+
+  .selectWaitr{
+    width: 100%;
+  }
+
+}
+
+@media screen and (max-width: 320px) {
+ 
+  mat-header-cell{
+    padding-left: 8px;
+    text-align: center;
+  }
+
+  mat-header-cell:last-of-type{
+    padding-right: 0;
+  }
+
+  mat-cell:first-of-type{
+    padding-left: 10px;
+  }
+
+  .mat-cell{
+    padding-left: 10px;
+  }
+
+  mat-header-cell:first-of-type{
+    padding-left: 0;
+  }
+  .mat-list-base .mat-list-item{
+    font-size: 12px;
+    height: 20px;
+  }
+
+  .table-container{
+    height: 25vh;
+    
+  }
+
 }

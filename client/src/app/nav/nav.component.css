@@ -1,0 +1,51 @@
+nav{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: white;
+    height: 60px;
+    background-color: #42a5f5;
+    font-size: 20px;
+}
+
+.icons{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  
+}
+
+.icons>p,a{
+    margin: 0;
+    font-size: 14px;
+}
+
+a{
+    color: white;
+}
+
+a i.material-icons{
+    display: block;
+}
+
+.settings{
+   cursor: pointer;
+}
+
+
+span{
+    font-size: 14px;
+    cursor: pointer;
+}
+
+a time{
+    margin-left: 5%;
+    font-size: 20px;
+}
+@media screen and (min-width: 320px) and (max-width: 480px) {
+    
+    i{
+        
+        font-size: 30px;
+    }
+}
