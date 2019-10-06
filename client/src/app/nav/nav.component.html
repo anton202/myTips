@@ -1,20 +1,22 @@
-<nav>
-  <div class="icons">
+<nav class="nav">
+  <div class="nav__user-actions">
     <i class="material-icons">
       person_outline
     </i>
-    <a routerLink="/userArea" *ngIf="userName">{{userName}}</a>
-    <p *ngIf="!userName"><span (click)="logIn()">התחבר</span><span (click)="register()">/הירשם</span></p>
+    <a class="nav__link" routerLink="/userArea" *ngIf="userName">{{userName}}</a>
+    <div *ngIf="!userName">
+      <span class="nav__link" (click)="logIn()">התחבר</span>
+      <span class="nav__link" (click)="register()">/הירשם</span>
+    </div>
   </div>
-  <a routerLink="/menu">
-    <time>{{currentDate}}</time>
+  <a class="nav__date" routerLink="/menu">
+    <time class="nav__current-date">{{currentDate}}</time>
   </a>
-  <div class="icons">
-      <i  class="material-icons settings" (click)="openSettings()">
-        settings
-      </i>
-      <p>הגדרות</p>
-   
+  <div class="nav__user-actions">
+    <i class="material-icons " (click)="openSettings()">
+      settings
+    </i>
+    <span class="nav__link">הגדרות</span>
   </div>
 
 </nav>

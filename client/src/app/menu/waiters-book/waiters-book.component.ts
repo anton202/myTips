@@ -13,7 +13,7 @@ import { Store } from '@ngrx/store';
 @Component({
   selector: 'app-waiters-book',
   templateUrl: './waiters-book.component.html',
-  styleUrls: ['./waiters-book.component.css'],
+  styleUrls: ['./waiters-book.component.scss'],
   providers: [WaitrsBookService]
 })
 export class WaitersBookComponent implements OnInit {

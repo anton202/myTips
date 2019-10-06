@@ -1,5 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+html{
+  font-size: 62.5%;
+}
+
 body{
     direction: rtl;
     height: 100vh;

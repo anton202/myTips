@@ -1,0 +1,12 @@
+@mixin responsive($breakpoint){
+    @if $breakpoint == break1 {
+        @media(min-width: 37.5em){@content}; // 600px
+    }
+    @if $breakpoint == break2 {
+        @media(min-width: 56.25em){@content}; // 900px
+    }
+    @if $breakpoint == break3 {
+        @media(min-width: 75em){@content}; // 1200px
+    }
+
+}

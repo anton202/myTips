@@ -1,0 +1,42 @@
+@import "../sass/abstract/mixins";
+
+.settings {
+  width: 90%;
+  margin: auto;
+
+  @include responsive(break1) {
+    width: 40%;
+    margin: auto;
+  }
+
+  &__heading {
+    text-align: center;
+  }
+
+  &__form {
+    @include responsive(break1) {
+      width: 80%;
+      margin: auto;
+    }
+  }
+
+  &__select-waitr-name {
+    display: block;
+  }
+
+  &__btn {
+    width: 50%;
+    margin: auto;
+    display: block;
+    height: 50px;
+
+    @include responsive(break1) {
+      width: 70%;
+    }
+  }
+
+  &__success-message {
+    text-align: center;
+    color: green;
+  }
+}

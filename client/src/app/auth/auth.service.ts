@@ -14,7 +14,6 @@ export class Auth{
     }
 
     login(data){
-      console.log(data)
        return this.http.post<{token:string}>(environment.apiUrl+'/user/login',data)
       
   }    

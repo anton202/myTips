@@ -1,16 +1,16 @@
-<div class="container">
-<h3>מחק מלצר שלא עובד יותר</h3>  
-   <form (ngSubmit)="deleteWorker(f.value)" #f="ngForm">
-      <mat-form-field>
+<div class="settings">
+<h3 class="settings__heading">מחק מלצר שלא עובד יותר</h3>  
+   <form class="settings__form" (ngSubmit)="deleteWorker(f.value)" #f="ngForm">
+      <mat-form-field class="settings__select-waitr-name">
           <mat-select name="workers" ngModel>
             <mat-option *ngFor="let name of workersNames" [value]="name">
               {{name}}
             </mat-option>
           </mat-select>
         </mat-form-field>      
-    <button type="submit" mat-raised-button color="warn">מחק</button>
+    <button class="settings__btn" type="submit" mat-raised-button color="warn">מחק</button>
   </form>
-  <p *ngIf="deletedWaitr">{{deletedWaitr}} נמחק מהמערכת</p>
+  <p class="settings__success-message" *ngIf="deletedWaitr">{{deletedWaitr}} נמחק מהמערכת</p>
 </div>
 
 

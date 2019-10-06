@@ -6,7 +6,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 @Component({
     selector: 'error-message-dialog',
     templateUrl: './errorMessage.component.html',
-    styleUrls: ['./errorMessage.component.css']
+    styleUrls: ['./errorMessage.component.scss']
 })
 export class ErrorMessageComponenet {
 

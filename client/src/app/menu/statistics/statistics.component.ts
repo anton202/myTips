@@ -13,7 +13,7 @@ import { ConfirmationDialog } from '../../material/confirmationDailog/confirmati
 @Component({
   selector: 'app-statistics',
   templateUrl: './statistics.component.html',
-  styleUrls: ['./statistics.component.css']
+  styleUrls: ['./statistics.component.scss']
 })
 export class StatisticsComponent implements OnInit {
   public myTotalIncome: number;
