@@ -15,9 +15,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
-
-
-
+import {MatRippleModule} from '@angular/material/core';
 
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './auth/register/register.component';
@@ -66,6 +64,7 @@ import { UserAreaComponent } from './user-area/user-area.component';
     MatProgressSpinnerModule,
     MatListModule,
     MatTableModule,
+    MatRippleModule,
     MatProgressBarModule,
     StoreModule.forRoot({auth:authReducer})
   ],
