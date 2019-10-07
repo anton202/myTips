@@ -1,18 +1,25 @@
 @import '../sass/abstract/mixins';
 
-button{
-    width: 40%;
-    margin: auto;
-    height: 50px;
-    margin-top: 20%;
-    display: block;
+.user-area{
+    display: flex;
+    height: 80vh;
+    justify-content: center;
+    align-items: center;
 
-    @include responsive(phone){
+    &__logout{
         width: 70%;
-        margin: auto;
         height: 50px;
-        margin-top: 50%;
         display: block;
+        font-size: 3rem;
+    
+        @include responsive(break1){
+            width: 40%;
+            height: 50px;
+            display: block;
+        }
     }
+
 }
+
+
 

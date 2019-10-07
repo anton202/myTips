@@ -1,9 +1,19 @@
+@import '../sass/abstract/mixins';
+
 .nav {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  height: 60px;
+  height: 10vh;
   background-color: #42a5f5;
+
+  @include responsive(break1){
+    height: 8vh;
+  }
+
+  @include responsive(break3){
+    height: 6vh;
+  }
 
   .material-icons {
     color: white;

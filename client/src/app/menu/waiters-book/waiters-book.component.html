@@ -7,11 +7,12 @@
           <mat-hint>הזן את כמות הטיפים שעשית/ם במשמרת</mat-hint>
         </mat-form-field>
         <div class="nextButton">
-          <button (click)="isUserLogedIn()" style="margin-top: 20px" mat-raised-button color="primary" matStepperNext type="button">לשלב הבא</button>
+          <button (click)="isUserLogedIn()" style="margin-top: 20px" mat-raised-button color="primary" matStepperNext
+            type="button">לשלב הבא</button>
         </div>
       </mat-step>
       <mat-step label="הוסף מלצרים" formGroupName="waitrsShift" [completed]="waitrsStack.length > 0">
-       
+
         <mat-form-field class="selectWaitr">
           <mat-label>בחר שם מלצר</mat-label>
           <mat-select formControlName="waitrsName">
@@ -20,12 +21,12 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-label >שעת התחלת משמרת</mat-label>
+        <mat-label>שעת התחלת משמרת</mat-label>
         <ngx-timepicker-field [format]="24" formControlName="shiftStartTime"></ngx-timepicker-field>
         <mat-label id="endTime">שעת סיום משמרת</mat-label>
         <ngx-timepicker-field [format]="24" formControlName="shiftEndTime"></ngx-timepicker-field>
         <div class="addWaitrButton">
-            <button mat-raised-button (click)="addWaitr()" >הוסף מלצר</button>
+          <button mat-raised-button (click)="addWaitr()">הוסף מלצר</button>
         </div>
         <p class="addWaitrShiftHours" *ngIf="isShiftTimeNotSet">נא להוסיף שעת תחילת משמרת וסוף משמרת</p>
         <p class="waitrAdded" *ngIf="isWaitrAdded"> נוספ/ה בהצלחה {{waitrsStack[waitrsStack.length - 1].name}}</p>
@@ -38,48 +39,48 @@
         <mat-spinner *ngIf="calculatingTips"></mat-spinner>
         <span class="recalculateTips" *ngIf="recalculatingTips">מחשב טיפים מחדש.......</span>
         <div class="calculation" *ngIf="isTipsCalculated">
-        <mat-list>
-          <mat-list-item style="font-weight: bold">סה"כ טיפ לשעה : {{tipPerHour}} ש"ח</mat-list-item>
-          <mat-list-item>סה"כ הפרשה למעסיק: {{moneyToEmployer}} ש"ח</mat-list-item>
-          <mat-list-item>הפרשה לברמן: {{barManTip}} ש"ח</mat-list-item>
-         </mat-list>
+          <mat-list>
+            <mat-list-item style="font-weight: bold">סה"כ טיפ לשעה : {{tipPerHour}} ש"ח</mat-list-item>
+            <mat-list-item>סה"כ הפרשה למעסיק: {{moneyToEmployer}} ש"ח</mat-list-item>
+            <mat-list-item>הפרשה לברמן: {{barManTip}} ש"ח</mat-list-item>
+          </mat-list>
 
-         <div class="table-container">
-         <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+          <div class="table-container">
+            <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-          <ng-container matColumnDef="שם">
-            <mat-header-cell *matHeaderCellDef> שם </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
-          </ng-container>
-        
-          <ng-container matColumnDef="משעה">
-            <mat-header-cell *matHeaderCellDef> משעה</mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.shiftStartTime}} </mat-cell>
-          </ng-container>
-        
-          
-          <ng-container matColumnDef="עד שעה">
-            <mat-header-cell *matHeaderCellDef> עד שעה</mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.shiftEndTime}} </mat-cell>
-          </ng-container>
-        
-          
-          <ng-container matColumnDef="הפרשה למעסיק">
-            <mat-header-cell *matHeaderCellDef> הפרשה למעסיק </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.moneyToEmployer}} </mat-cell>
-          </ng-container>
-        
-           
-          <ng-container matColumnDef='סה"כ מזומן'>
-            <mat-header-cell *matHeaderCellDef> סה"כ מזומן </mat-header-cell>
-            <mat-cell *matCellDef="let element">{{element.totalTip}}  </mat-cell>
-          </ng-container>
+              <ng-container matColumnDef="שם">
+                <mat-header-cell *matHeaderCellDef> שם </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+              </ng-container>
 
-          <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="confirmDeleteWaitr(row)"></mat-row>
-        </mat-table>
-      </div>
-      </div>
+              <ng-container matColumnDef="משעה">
+                <mat-header-cell *matHeaderCellDef> משעה</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.shiftStartTime}} </mat-cell>
+              </ng-container>
+
+
+              <ng-container matColumnDef="עד שעה">
+                <mat-header-cell *matHeaderCellDef> עד שעה</mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.shiftEndTime}} </mat-cell>
+              </ng-container>
+
+
+              <ng-container matColumnDef="הפרשה למעסיק">
+                <mat-header-cell *matHeaderCellDef> הפרשה למעסיק </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.moneyToEmployer}} </mat-cell>
+              </ng-container>
+
+
+              <ng-container matColumnDef='סה"כ מזומן'>
+                <mat-header-cell *matHeaderCellDef> סה"כ מזומן </mat-header-cell>
+                <mat-cell *matCellDef="let element">{{element.totalTip}} </mat-cell>
+              </ng-container>
+
+              <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="confirmDeleteWaitr(row)"></mat-row>
+            </mat-table>
+          </div>
+        </div>
       </mat-step>
     </mat-vertical-stepper>
   </form>
