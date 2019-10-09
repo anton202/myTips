@@ -1,202 +1,221 @@
-.container {
-  width: 70%;
-  margin: auto;
-  
-}
+// .calculateTips {
+//   width: 70%;
+//   margin: auto;
 
-mat-label{
-  font-size: 14px;
-  display: block;
-}
+// }
 
-#endTime{
-  margin-top: 20px;
-}
+// mat-label{
+//   font-size: 14px;
+//   display: block;
+// }
 
-.addWaitrButton{
-  margin-top: 20px;
-}
+// #endTime{
+//   margin-top: 20px;
+// }
 
-.addWaitrButton>button{
+// .calculateTips__addWaitrBtn{
+//   margin-top: 2rem;
+//   width: 100%;
+// }
+
+// .totalTipsHours {
+//   display: none;
+// }
+
+// #endTimeLabel {
+//   margin-left: 200px;
+// }
+
+// #totalTip {
+//   display: inline-block;
+// }
+
+// mat-vertical-stepper {
+//   direction: ltr;
+//   background-color: #e0e0e0;
+// }
+
+// .addWaitrShiftHours{
+//   margin-top:10px;
+//   font-size: 14px;
+//   color: red;
+// }
+
+// .waitrAdded{
+//   margin-top:10px;
+//   font-size: 14px;
+//   color: green;
+//   text-align: center;
+// }
+
+// .calculateTipsStep{
+//   direction: rtl;
+// }
+
+// mat-form-field {
+//   width: 50%;
+//   text-align: center;
+// }
+
+// .nextButton button{
+//   margin-top: 20px;
+//   width: 30%;
+//   display: block;
+//   margin-left: 10%;
+// }
+
+// mat-hint{
+//   width: 100%;
+//   text-align: center;
+// }
+
+// .nextButton .secondStep{
+//   margin-left: 0%;
+//   width: 100%;
+// }
+
+// mat-list{
+//   direction: rtl;
+//   margin-top: 50px;
+// }
+
+// .calculateTipsBtn{
+//   width: 50%;
+//   margin: auto;
+//   display: block;
+// }
+
+.calculate-tips {
   width: 100%;
-}
-
-.totalTipsHours {
-  display: none;
-}
-
-#endTimeLabel {
-  margin-left: 200px;
-}
-
-#totalTip {
-  display: inline-block;
-}
-
-mat-vertical-stepper {
-  direction: ltr;
-  background-color: #e0e0e0;
-}
-
-.addWaitrShiftHours{
-  margin-top:10px;
-  font-size: 14px;
-  color: red;
-}
-
-.waitrAdded{
-  margin-top:10px;
-  font-size: 14px;
-  color: green;
-  text-align: center;
-}
-
-.calculateTipsStep{
+  height: 100%;
   direction: rtl;
-}
+  font-size: 1.7rem;
+  overflow: auto;
 
-mat-form-field {
-  width: 50%;
-  text-align: center;
-}
-
-.nextButton button{
-  margin-top: 20px;
-  width: 30%;
-  display: block;
-  margin-left: 10%;
-}
-
-mat-hint{
-  width: 100%;
-  text-align: center;
-}
-
-.nextButton .secondStep{
-  margin-left: 0%;
-  width: 100%;
-}
-
-mat-list{
-  direction: rtl;
-  margin-top: 50px;
-}
-
-.calculateTipsBtn{
-  width: 50%;
-  margin: auto;
-  display: block;
-}
-
-@media screen and (min-width: 320px) and (max-width: 480px) {
-  .container {
-    width: 100%;
+  .mat-stepper-vertical {
+    background-color: #e0e0e0;
   }
 
-  .firstStep{
+  &__totalTip {
     width: 100%;
     text-align: center;
   }
- 
-  .nextButton{
-    margin-top: 20px;
-  }
-  
-  .nextButton>button{
-    width: 100%;
-    margin-left: 0;
-  }
 
-  .totalTipsHours {
-    display: none;
-  }
-
-  .calculateTipsBtn{
+  &__next-btn,
+  &__add-waitr-btn,
+  &__calculate-btn {
+    margin-top: 2rem;
     width: 100%;
   }
 
-  mat-spinner{
+  &__selectWaitr {
+    width: 100%;
+    text-align: right;
+  }
+
+  &__timePicker {
+    direction: ltr;
+  }
+
+  &__time-picker-label{
+    display: block;
+    margin-top: 2rem;
+  }
+
+  &__status-message {
+    text-align: center;
+  }
+
+  &__status-message--red {
+    color: red;
+  }
+
+  &__status-message--green {
+    color: green;
+  }
+
+  &__spinner {
     margin: auto;
-    margin-top: 50px;
+    margin-top: 5rem;
   }
 
-  mat-list{
-    margin-top: 0;
-    margin-bottom: 25px;
-  }
-
-  .mat-list-base .mat-list-item{
-    font-size: 14px;
-    height: 30px;
-  }
-
-  mat-header-cell{
-    padding-left: 18px;
-    text-align: center;
-  }
-  
- mat-table{
-   text-align: center !important;
-   width: 100%;
- }
-
-  mat-cell:last-of-type{
-    padding-right: 0;
-  }
-
-  mat-header-cell:last-of-type{
-    padding-right: 0;
-  }
-
-
-  .table-container{
-    height: 30vh;
-    overflow: auto;
-  }
-  
-  .recalculateTips{
+  &__recalculateTips {
     text-align: center;
     display: block;
     direction: rtl;
-    margin-top: 30px;
+    margin-top: 3rem;
   }
 
-  .selectWaitr{
-    width: 100%;
+  &__calculated-tips {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 50vh;
   }
 
-}
+  .mat-list-base .mat-list-item {
+    font-size: 1.4rem;
+    height: 3rem;
+    padding: 0;
+  }
 
-@media screen and (max-width: 320px) {
- 
-  mat-header-cell{
-    padding-left: 8px;
+  &__tips-destrebution-table-container {
+    height: 30vh;
+    overflow: auto;
+    width: 90%;
+    margin: auto;
+    align-self: center;
+
+    mat-table {
+      text-align: center !important;
+      direction: ltr;
+    }
+  }
+
+  mat-header-cell {
+    padding-left: 1.8rem;
     text-align: center;
   }
 
-  mat-header-cell:last-of-type{
+  mat-cell:last-of-type {
     padding-right: 0;
   }
 
-  mat-cell:first-of-type{
-    padding-left: 10px;
+  mat-header-cell:last-of-type {
+    padding-right: 0;
   }
-
-  .mat-cell{
-    padding-left: 10px;
-  }
-
-  mat-header-cell:first-of-type{
-    padding-left: 0;
-  }
-  .mat-list-base .mat-list-item{
-    font-size: 12px;
-    height: 20px;
-  }
-
-  .table-container{
-    height: 25vh;
-    
-  }
-
 }
+
+// @media screen and (max-width: 320px) {
+
+//   mat-header-cell{
+//     padding-left: 8px;
+//     text-align: center;
+//   }
+
+//   mat-header-cell:last-of-type{
+//     padding-right: 0;
+//   }
+
+//   mat-cell:first-of-type{
+//     padding-left: 10px;
+//   }
+
+//   .mat-cell{
+//     padding-left: 10px;
+//   }
+
+//   mat-header-cell:first-of-type{
+//     padding-left: 0;
+//   }
+//   .mat-list-base .mat-list-item{
+//     font-size: 12px;
+//     height: 20px;
+//   }
+
+//   .table-container{
+//     height: 25vh;
+
+//   }
+
+// }
