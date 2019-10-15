@@ -1,89 +1,4 @@
-// .calculateTips {
-//   width: 70%;
-//   margin: auto;
-
-// }
-
-// mat-label{
-//   font-size: 14px;
-//   display: block;
-// }
-
-// #endTime{
-//   margin-top: 20px;
-// }
-
-// .calculateTips__addWaitrBtn{
-//   margin-top: 2rem;
-//   width: 100%;
-// }
-
-// .totalTipsHours {
-//   display: none;
-// }
-
-// #endTimeLabel {
-//   margin-left: 200px;
-// }
-
-// #totalTip {
-//   display: inline-block;
-// }
-
-// mat-vertical-stepper {
-//   direction: ltr;
-//   background-color: #e0e0e0;
-// }
-
-// .addWaitrShiftHours{
-//   margin-top:10px;
-//   font-size: 14px;
-//   color: red;
-// }
-
-// .waitrAdded{
-//   margin-top:10px;
-//   font-size: 14px;
-//   color: green;
-//   text-align: center;
-// }
-
-// .calculateTipsStep{
-//   direction: rtl;
-// }
-
-// mat-form-field {
-//   width: 50%;
-//   text-align: center;
-// }
-
-// .nextButton button{
-//   margin-top: 20px;
-//   width: 30%;
-//   display: block;
-//   margin-left: 10%;
-// }
-
-// mat-hint{
-//   width: 100%;
-//   text-align: center;
-// }
-
-// .nextButton .secondStep{
-//   margin-left: 0%;
-//   width: 100%;
-// }
-
-// mat-list{
-//   direction: rtl;
-//   margin-top: 50px;
-// }
-
-// .calculateTipsBtn{
-//   width: 50%;
-//   margin: auto;
-//   display: block;
-// }
+@import '../../sass/abstract/mixins';
 
 .calculate-tips {
   width: 100%;
@@ -91,6 +6,21 @@
   direction: rtl;
   font-size: 1.7rem;
   overflow: auto;
+
+  @include responsive(break1){
+    width: 70vw;
+    margin: auto;
+  }
+
+  @include responsive(break2){
+    width: 50vw;
+    margin: auto;
+  }
+
+  @include responsive(break3){
+    width: 30vw;
+    margin: auto;
+  }
 
   .mat-stepper-vertical {
     background-color: #e0e0e0;
@@ -117,7 +47,7 @@
     direction: ltr;
   }
 
-  &__time-picker-label{
+  &__time-picker-label {
     display: block;
     margin-top: 2rem;
   }
@@ -134,16 +64,14 @@
     color: green;
   }
 
-  &__spinner {
-    margin: auto;
-    margin-top: 5rem;
+  &__calculating {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
-  &__recalculateTips {
-    text-align: center;
-    display: block;
-    direction: rtl;
-    margin-top: 3rem;
+  &__spinner {
+    margin-top: 5rem;
   }
 
   &__calculated-tips {
@@ -185,37 +113,3 @@
     padding-right: 0;
   }
 }
-
-// @media screen and (max-width: 320px) {
-
-//   mat-header-cell{
-//     padding-left: 8px;
-//     text-align: center;
-//   }
-
-//   mat-header-cell:last-of-type{
-//     padding-right: 0;
-//   }
-
-//   mat-cell:first-of-type{
-//     padding-left: 10px;
-//   }
-
-//   .mat-cell{
-//     padding-left: 10px;
-//   }
-
-//   mat-header-cell:first-of-type{
-//     padding-left: 0;
-//   }
-//   .mat-list-base .mat-list-item{
-//     font-size: 12px;
-//     height: 20px;
-//   }
-
-//   .table-container{
-//     height: 25vh;
-
-//   }
-
-// }

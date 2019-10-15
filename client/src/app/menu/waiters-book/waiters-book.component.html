@@ -12,7 +12,7 @@
           type="button">לשלב הבא</button>
     </mat-step>
 
-    <mat-step label="הוסף מלצרים"  [completed]="waitrsStack.length > 0">
+    <mat-step label="הוסף את כל המלצרים שעבדו במשמרת"  [completed]="waitrsStack.length > 0">
       <form [formGroup]="waitrShift">
         <mat-form-field class="calculate-tips__selectWaitr">
           <mat-label>בחר שם מלצר</mat-label>
@@ -67,18 +67,15 @@
               <mat-cell *matCellDef="let element"> {{element.shiftStartTime}} </mat-cell>
             </ng-container>
 
-
             <ng-container matColumnDef="עד שעה">
               <mat-header-cell *matHeaderCellDef> עד שעה</mat-header-cell>
               <mat-cell *matCellDef="let element"> {{element.shiftEndTime}} </mat-cell>
             </ng-container>
 
-
             <ng-container matColumnDef="הפרשה למעסיק">
               <mat-header-cell *matHeaderCellDef> הפרשה למעסיק </mat-header-cell>
               <mat-cell *matCellDef="let element"> {{element.moneyToEmployer}} </mat-cell>
             </ng-container>
-
 
             <ng-container matColumnDef='סה"כ מזומן'>
               <mat-header-cell *matHeaderCellDef> סה"כ מזומן </mat-header-cell>
@@ -91,5 +88,4 @@
         </div>
     </div>
     
-
 </div>
