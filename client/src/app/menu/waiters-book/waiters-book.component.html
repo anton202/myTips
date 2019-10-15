@@ -1,18 +1,18 @@
 <div class="calculate-tips">
 
   <mat-vertical-stepper linear #stepper>
-    <mat-step  label='סה"כ טיפים' [completed]="isUserLogdIn && totalAmount.get('totalTips').valid">
+    <mat-step label='סה"כ טיפים' [completed]="isUserLogdIn && totalAmount.get('totalTips').valid">
       <form [formGroup]="totalAmount">
         <mat-form-field class="calculate-tips__totalTip">
           <input type="number" matInput formControlName="totalTips">
           <mat-hint>הזן את כמות הטיפים שעשית/ם במשמרת</mat-hint>
         </mat-form-field>
       </form>
-        <button class="calculate-tips__next-btn" (click)="isUserLogedIn()"  mat-raised-button color="primary" matStepperNext
-          type="button">לשלב הבא</button>
+      <button class="calculate-tips__next-btn" (click)="isUserLogedIn()" mat-raised-button color="primary"
+        matStepperNext type="button">לשלב הבא</button>
     </mat-step>
 
-    <mat-step label="הוסף את כל המלצרים שעבדו במשמרת"  [completed]="waitrsStack.length > 0">
+    <mat-step label="הוסף את כל המלצרים שעבדו במשמרת" [completed]="waitrsStack.length > 0">
       <form [formGroup]="waitrShift">
         <mat-form-field class="calculate-tips__selectWaitr">
           <mat-label>בחר שם מלצר</mat-label>
@@ -23,69 +23,75 @@
           </mat-select>
         </mat-form-field>
         <mat-label>שעת התחלת משמרת</mat-label>
-        <ngx-timepicker-field class="calculate-tips__timePicker" [format]="24" formControlName="shiftStartTime"></ngx-timepicker-field>
+        <ngx-timepicker-field class="calculate-tips__timePicker" [format]="24" formControlName="shiftStartTime">
+        </ngx-timepicker-field>
         <mat-label class="calculate-tips__time-picker-label" id="endTime">שעת סיום משמרת</mat-label>
-        <ngx-timepicker-field class="calculate-tips__timePicker" [format]="24" formControlName="shiftEndTime"></ngx-timepicker-field>
+        <ngx-timepicker-field class="calculate-tips__timePicker" [format]="24" formControlName="shiftEndTime">
+        </ngx-timepicker-field>
       </form>
-      
-        <button class="calculate-tips__add-waitr-btn" mat-raised-button (click)="addWaitr()">הוסף מלצר</button>
-        <button  class="calculate-tips__next-btn" mat-raised-button color="primary" matStepperNext type="button">לשלב הבא</button>
-    
-      <p class="calculate-tips__status-message calculate-tips__status-message--red" *ngIf="isShiftTimeNotSet">נא להוסיף שעת תחילת משמרת וסוף משמרת</p>
-      <p class="calculate-tips__status-message calculate-tips__status-message--green" *ngIf="isWaitrAdded">  {{waitrsStack[waitrsStack.length - 1].name}} נוספ/ה בהצלחה</p>
-    
+
+      <button class="calculate-tips__add-waitr-btn" mat-raised-button (click)="addWaitr()">הוסף מלצר</button>
+      <button class="calculate-tips__next-btn" mat-raised-button color="primary" matStepperNext type="button">לשלב
+        הבא</button>
+
+      <p class="calculate-tips__status-message calculate-tips__status-message--red" *ngIf="isShiftTimeNotSet">נא להוסיף
+        שעת תחילת משמרת וסוף משמרת</p>
+      <p class="calculate-tips__status-message calculate-tips__status-message--green" *ngIf="isWaitrAdded">
+        {{waitrsStack[waitrsStack.length - 1].name}} נוספ/ה בהצלחה</p>
+
     </mat-step>
 
     <mat-step label="חשב טיפים">
-      <button class="calculate-tips__calculate-btn" mat-raised-button color="primary" (click)="calculateTips()">חשב טיפים</button>
+      <button class="calculate-tips__calculate-btn" mat-raised-button color="primary" (click)="calculateTips()">חשב
+        טיפים</button>
     </mat-step>
   </mat-vertical-stepper>
 
   <div class="calculate-tips__calculating" *ngIf="calculatingTips">
-      <mat-spinner class="calculate-tips__spinner"></mat-spinner>
-      <span class="calculate-tips__recalculate-tips" *ngIf="recalculatingTips">מחשב טיפים מחדש.......</span>
+    <mat-spinner class="calculate-tips__spinner"></mat-spinner>
+    <span class="calculate-tips__recalculate-tips" *ngIf="recalculatingTips">מחשב טיפים מחדש.......</span>
   </div>
 
   <div class="calculate-tips__calculated-tips" *ngIf="isTipsCalculated">
-     
-        <mat-list class="calculate-tips__tips-destrebution-list">
-          <mat-list-item style="font-weight: bold">סה"כ טיפ לשעה : {{tipPerHour}} ש"ח</mat-list-item>
-          <mat-list-item>סה"כ הפרשה למעסיק: {{moneyToEmployer}} ש"ח</mat-list-item>
-          <mat-list-item>הפרשה לברמן: {{barManTip}} ש"ח</mat-list-item>
-        </mat-list>
 
-        <div class="calculate-tips__tips-destrebution-table-container">
-          <mat-table class="calculate-tips__tips-destrebution-table" [dataSource]="dataSource" class="mat-elevation-z8">
+    <mat-list class="calculate-tips__tips-destrebution-list">
+      <mat-list-item style="font-weight: bold">סה"כ טיפ לשעה : {{tipPerHour}} ש"ח</mat-list-item>
+      <mat-list-item>סה"כ הפרשה למעסיק: {{moneyToEmployer}} ש"ח</mat-list-item>
+      <mat-list-item>הפרשה לברמן: {{barManTip}} ש"ח</mat-list-item>
+    </mat-list>
 
-            <ng-container matColumnDef="שם">
-              <mat-header-cell *matHeaderCellDef> שם </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
-            </ng-container>
+    <div class="calculate-tips__tips-destrebution-table-container">
+      <mat-table class="calculate-tips__tips-destrebution-table" [dataSource]="dataSource" class="mat-elevation-z8">
 
-            <ng-container matColumnDef="משעה">
-              <mat-header-cell *matHeaderCellDef> משעה</mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element.shiftStartTime}} </mat-cell>
-            </ng-container>
+        <ng-container matColumnDef="שם">
+          <mat-header-cell *matHeaderCellDef> שם </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+        </ng-container>
 
-            <ng-container matColumnDef="עד שעה">
-              <mat-header-cell *matHeaderCellDef> עד שעה</mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element.shiftEndTime}} </mat-cell>
-            </ng-container>
+        <ng-container matColumnDef="משעה">
+          <mat-header-cell *matHeaderCellDef> משעה</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.shiftStartTime}} </mat-cell>
+        </ng-container>
 
-            <ng-container matColumnDef="הפרשה למעסיק">
-              <mat-header-cell *matHeaderCellDef> הפרשה למעסיק </mat-header-cell>
-              <mat-cell *matCellDef="let element"> {{element.moneyToEmployer}} </mat-cell>
-            </ng-container>
+        <ng-container matColumnDef="עד שעה">
+          <mat-header-cell *matHeaderCellDef> עד שעה</mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.shiftEndTime}} </mat-cell>
+        </ng-container>
 
-            <ng-container matColumnDef='סה"כ מזומן'>
-              <mat-header-cell *matHeaderCellDef> סה"כ מזומן </mat-header-cell>
-              <mat-cell *matCellDef="let element">{{element.totalTip}} </mat-cell>
-            </ng-container>
+        <ng-container matColumnDef="הפרשה למעסיק">
+          <mat-header-cell *matHeaderCellDef> הפרשה למעסיק </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.moneyToEmployer}} </mat-cell>
+        </ng-container>
 
-            <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="confirmDeleteWaitr(row)"></mat-row>
-          </mat-table>
-        </div>
+        <ng-container matColumnDef='סה"כ מזומן'>
+          <mat-header-cell *matHeaderCellDef> סה"כ מזומן </mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.totalTip}} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="confirmDeleteWaitr(row)"></mat-row>
+      </mat-table>
     </div>
-    
+  </div>
+
 </div>

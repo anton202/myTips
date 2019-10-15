@@ -1,4 +1,4 @@
-<div class="settings">
+<!-- <div class="settings">
 <h3 class="settings__heading">מחק מלצר שלא עובד יותר</h3>  
    <form class="settings__form" (ngSubmit)="deleteWorker(f.value)" #f="ngForm">
       <mat-form-field class="settings__select-waitr-name">
@@ -11,6 +11,36 @@
     <button class="settings__btn" type="submit" mat-raised-button color="warn">מחק</button>
   </form>
   <p class="settings__success-message" *ngIf="deletedWaitr">{{deletedWaitr}} נמחק מהמערכת</p>
+</div> -->
+
+<div class="container">
+  <header>
+    <h1>הגדרות</h1>
+  </header>
+  <div class="mony-allocation-container">
+    <div class="mony-allocation">
+      <form >
+        <input type="text" placeholder="שם ההפרשה">
+        <input type="number" name="" id="" placeholder="סכום ההפרשה">
+        <select name="" id="">
+          <option value="%">%</option>
+          <option value="שח">ש"ח</option>
+        </select>
+      </form>
+    </div>
+  </div>
+  <div class="new-money-allocation">
+      <form >
+          <input type="text" placeholder="שם ההפרשה">
+          <input type="number" name="" id="" placeholder="סכום ההפרשה">
+          <select name="" id="">
+            <option value="%">%</option>
+            <option value="שח">ש"ח</option>
+          </select>
+          <button>הוסף הפרשה</button>
+        </form>
+  </div>
+  <div class="save-settings">
+    <button>שמור הגדרות</button>
+  </div>
 </div>
-
-

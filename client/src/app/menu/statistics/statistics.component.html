@@ -1,11 +1,19 @@
 <div class="container">
-  <div class="personalTips">
-    <span>סה"כ טיפים שלי החודש</span>
-    <span>{{myTotalIncome | number : '2.'}}</span>
-    <span style="margin-top: 10px"> ממוצע לשעה החודש</span>
-    <span>{{myTotalPerHourAvrg}}</span>
-    <span style="margin-top: 10px">ממוצע כללי לשעה החודש</span>
-    <span>{{perHourAvrg}}</span>
+  <div class="user-stats">
+    <ul class="user-stats-list">
+      <li>
+        <span>סה"כ טיפים שלי החודש: </span>
+        <span>{{myTotalIncome | number : '2.'}}</span>
+      </li>
+      <li>
+        <span>ממוצע שלי לשעה החודש: </span>
+        <span>{{myTotalPerHourAvrg}}</span>
+      </li>
+      <li>
+        <span>ממוצע כללי לשעה החודש: </span>
+        <span>{{perHourAvrg}}</span>
+      </li>
+    </ul>
   </div>
 
   <div class="chooseDate">
@@ -33,67 +41,68 @@
   </div>
 
   <div class="shadeContainer">
-  <div class="table-container">
-    <div class="loading-shade" *ngIf="isLoadingTips">
-      <mat-spinner ></mat-spinner>
-      <div class="example-rate-limit-reached" *ngIf="errorLoadingTips">
-        משהו השתבש בעט טעינת הטיפים, נסה שוב.
+    <div class="table-container">
+      <div class="loading-shade" *ngIf="isLoadingTips">
+        <mat-spinner></mat-spinner>
+        <div class="example-rate-limit-reached" *ngIf="errorLoadingTips">
+          משהו השתבש בעט טעינת הטיפים, נסה שוב.
+        </div>
       </div>
+
+      <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="תאריך">
+          <mat-header-cell *matHeaderCellDef> תאריך </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.date}} </mat-cell>
+        </ng-container>
+
+
+        <ng-container matColumnDef="שם">
+          <mat-header-cell *matHeaderCellDef [ngClass]="{expandedTable: !isAllTips}"> שם </mat-header-cell>
+          <mat-cell *matCellDef="let element" [ngClass]="{expandedTable: !isAllTips}"> {{element.name}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="משעה">
+          <mat-header-cell *matHeaderCellDef [ngClass]="{expandedTable: !isTableExpanded}"> משעה</mat-header-cell>
+          <mat-cell *matCellDef="let element" [ngClass]="{expandedTable: !isTableExpanded}"> {{element.shiftStartTime}}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="עד שעה">
+          <mat-header-cell *matHeaderCellDef [ngClass]="{expandedTable: !isTableExpanded }"> עד שעה</mat-header-cell>
+          <mat-cell *matCellDef="let element" [ngClass]="{expandedTable: !isTableExpanded}"> {{element.shiftEndTime}}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef='סה"כ שעות'>
+          <mat-header-cell *matHeaderCellDef [ngClass]="{expandedTable: !isTableExpanded}"> סה"כ שעות</mat-header-cell>
+          <mat-cell *matCellDef="let element" [ngClass]="{expandedTable: !isTableExpanded}"> {{element.totalTime}}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="הפרשה למעסיק">
+          <mat-header-cell *matHeaderCellDef [ngClass]="{expandedTable: !isTableExpanded}"> הפרשה למעסיק
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element" [ngClass]="{expandedTable: !isTableExpanded}"> {{element.moneyToEmployer}}
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef='סה"כ לשעה'>
+          <mat-header-cell *matHeaderCellDef> סהכ לשעה </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.tipPerHour}} </mat-cell>
+        </ng-container>
+
+
+        <ng-container matColumnDef='סה"כ טיפים'>
+          <mat-header-cell *matHeaderCellDef> סה"כ טיפים </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.totalTip}} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="deleteTip(row)"></mat-row>
+      </mat-table>
     </div>
-
-    <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
-      <ng-container matColumnDef="תאריך">
-        <mat-header-cell *matHeaderCellDef> תאריך </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.date}} </mat-cell>
-      </ng-container>
-
-
-      <ng-container matColumnDef="שם">
-        <mat-header-cell *matHeaderCellDef [ngClass]="{expandedTable: !isAllTips}"> שם </mat-header-cell>
-        <mat-cell *matCellDef="let element" [ngClass]="{expandedTable: !isAllTips}"> {{element.name}} </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="משעה">
-        <mat-header-cell *matHeaderCellDef [ngClass]="{expandedTable: !isTableExpanded}"> משעה</mat-header-cell>
-        <mat-cell *matCellDef="let element" [ngClass]="{expandedTable: !isTableExpanded}"> {{element.shiftStartTime}}
-        </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="עד שעה">
-        <mat-header-cell *matHeaderCellDef [ngClass]="{expandedTable: !isTableExpanded }"> עד שעה</mat-header-cell>
-        <mat-cell *matCellDef="let element" [ngClass]="{expandedTable: !isTableExpanded}"> {{element.shiftEndTime}}
-        </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef='סה"כ שעות'>
-        <mat-header-cell *matHeaderCellDef [ngClass]="{expandedTable: !isTableExpanded}"> סה"כ שעות</mat-header-cell>
-        <mat-cell *matCellDef="let element" [ngClass]="{expandedTable: !isTableExpanded}"> {{element.totalTime}}
-        </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="הפרשה למעסיק">
-        <mat-header-cell *matHeaderCellDef [ngClass]="{expandedTable: !isTableExpanded}"> הפרשה למעסיק</mat-header-cell>
-        <mat-cell *matCellDef="let element" [ngClass]="{expandedTable: !isTableExpanded}"> {{element.moneyToEmployer}}
-        </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef='סה"כ לשעה'>
-        <mat-header-cell *matHeaderCellDef> סהכ לשעה </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.tipPerHour}} </mat-cell>
-      </ng-container>
-
-
-      <ng-container matColumnDef='סה"כ טיפים'>
-        <mat-header-cell *matHeaderCellDef> סה"כ טיפים </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.totalTip}} </mat-cell>
-      </ng-container>
-
-      <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="deleteTip(row)"></mat-row>
-    </mat-table>
   </div>
-</div>
 
   <div class="tableButtons">
     <button mat-raised-button color="primary" (click)="expandTable()">
