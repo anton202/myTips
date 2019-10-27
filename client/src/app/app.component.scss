@@ -1,40 +1,4 @@
-// * {
-//   margin: 0;
-//   padding: 0;
-//   box-sizing: border-box;
-// }
-
 main{
     height: 90vh
 }
 
-.buttons{
-    margin-top: 15%;
-  }
-  button {
-    display: block;
-    margin: auto;
-    margin-bottom: 60px;
-    height: 100px;
-    width: 350px;
-    font-size: 40px;
-  }
-  
-  
-  
-  @media screen and (min-width: 320px) and (max-width: 480px) {
-  .buttons{
-      margin-top: 40%;
-  }
-    button {
-      display: block;
-      margin: auto;
-      margin-bottom: 60px;
-      height: 70px;
-      width: 250px;
-      font-size: 30px;
-    }
-  
-  
-  }
-  
