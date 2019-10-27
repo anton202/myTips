@@ -16,6 +16,7 @@
     </ul>
   </div>
 
+  <div class="tips">
   <div class="choose-date">
     <form class="date-form" (ngSubmit)="getUserTipsByYearMonth()" [formGroup]="monthYearForm">
       <mat-form-field class="date-form__input" dir="rtl">
@@ -48,7 +49,7 @@
           משהו השתבש בעט טעינת הטיפים, נסה שוב.
         </div>
       </div>
-
+<!-- 
       <mat-table  [dataSource]="dataSource" class="mat-elevation-z8">
 
         <ng-container matColumnDef="תאריך">
@@ -100,7 +101,7 @@
 
         <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="deleteTip(row)"></mat-row>
-      </mat-table>
+      </mat-table> -->
     </div>
   </div>
 
@@ -110,5 +111,7 @@
     <button mat-raised-button color="primary"
       (click)="showUserTipsOrAllWaitersTips()">{{isAllTips?'הצג טיפים שלי':'הצג טיפים של כולם'}}</button>
   </div>
+
+</div>
 
 </div>
